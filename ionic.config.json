@@ -1,0 +1,7 @@
+{
+  "name": "BookTable",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
