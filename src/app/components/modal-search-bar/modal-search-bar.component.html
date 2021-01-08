@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-button (click)="closeModal()">
+              <ion-icon  name="arrow-back"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid class="searchbar-grid">
+    <ion-row class="ion-justify-content-center searchbar">
+      <ion-col size="12" class="center-col searchbar-col">
+        <ion-searchbar 
+        #search
+        ngDefaultControl
+        [(ngModel)]="searchTerm"
+        (ionChange)="setFilteredItems()"
+        placeholder="where do you want to eat today?" 
+        animated 
+        showCancelButton="never">
+      </ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="restaurantsAux">
+
+    <ion-list>
+
+      <ion-item *ngFor="let item of restaurantsAux"> 
+        <ion-avatar slot="end" class="custom-avatar" (click)="viewRestaurant(item)">
+          <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}"/>
+        </ion-avatar>
+        <ion-label (click)="viewRestaurant(item)">
+          {{ item?.name }}
+        </ion-label>
+      </ion-item>
+  
+    </ion-list>
+
+  </ion-grid>
+
+</ion-content>

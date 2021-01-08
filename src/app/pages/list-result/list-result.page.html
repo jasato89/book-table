@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="back-button" slot="start">
+      <ion-back-button defaultHref="/home/tabs/tab2" (click)="back()"></ion-back-button>
+    </ion-buttons>
+    <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid class="searchbar-grid">
+    <ion-row class="ion-justify-content-center searchbar">
+      <ion-col size="12" class="center-col searchbar-col">
+        <ion-searchbar class="searchbar-button"
+         placeholder="Search..." 
+         animated 
+         [(ngModel)]="searchTerm"
+        (ionChange)="setFilteredItems()"
+         showCancelButton="never">
+        </ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="restaurantsAux">
+
+      <ion-card *ngFor="let item of restaurantsAux">
+        <ion-card-header>
+          <app-animated-like></app-animated-like>
+          <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}"/>
+          <ion-card-title class="title-card-featured">{{ item.name }}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          {{ item.description }}
+        </ion-card-content>
+      </ion-card>
+
+  </ion-grid>
+
+</ion-content>

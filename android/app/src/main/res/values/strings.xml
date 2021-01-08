@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">BookTable</string>
+    <string name="title_activity_main">BookTable</string>
+    <string name="package_name">com.lchawkins.booktable</string>
+    <string name="custom_url_scheme">com.lchawkins.booktable</string>
+</resources>

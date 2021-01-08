@@ -1,0 +1,80 @@
+
+ion-toolbar{
+    text-align: center;
+    margin: 0 auto;
+    --background: #1C2129;
+}
+
+ion-title{
+    color: #fff;
+}
+
+ion-content{
+    --background:#fff;
+}
+
+.searchbar-grid{
+    background: linear-gradient(180deg, rgba(0,186,92,1) 0%, rgba(0,136,150,1) 90%);
+}
+
+ion-searchbar {
+    --placeholder-color: #fff;
+    --icon-color: #fff;
+    --background: #00000021;
+}
+
+ion-card-header{
+    padding: 0;
+}
+
+ion-card-title{
+    margin-left: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.searchbar-button::placeholder{
+    font-size: 12px;
+}
+
+.smallLogo{
+    width: 135px;
+    text-align: center;
+    margin: 15px;
+}
+
+.map-container{
+    padding: 0;
+    margin: 0;
+}
+
+ion-label{
+    font-weight: bold;
+    margin: 10px;
+}
+
+.icons-green{
+    color: rgba(0,186,92,1);
+    font-size: 30px;
+}
+
+.title-infowindow{
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-search{
+    --background: rgb(0,186,92);
+    --background: linear-gradient(180deg, rgba(0,186,92,1) 0%, rgba(0,153,153,1) 100%);
+    color:#fff;
+    font-weight: 800; 
+}
+
+.img-restaurants{
+    width: 100%;
+    height: 250px;
+}
+
+agm-map{
+    height: 300px;
+}

@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="back-button" slot="start">
+      <ion-back-button defaultHref="" (click)="back()"></ion-back-button>
+    </ion-buttons>
+    <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="share"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="ShareWhatsapp()"><ion-icon name="share-social-outline" class="fab-green"></ion-icon></ion-fab-button>
+      <ion-fab-button><app-animated-like [id_user]="id_user" [id_rest]="id_rest" [mode]="restaurant"></app-animated-like></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-grid *ngIf="restaurant">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="11">
+        <h1 class="title-restaurant">{{ restaurant.name}}</h1>
+
+        <ion-slides pager>
+          <ion-slide *ngFor="let item of restaurant.images">
+            <div class="slide">
+
+              <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item }}"/>
+              
+            </div>
+          </ion-slide>
+        </ion-slides>
+
+        <p class="description-restaurant">
+          {{restaurant.description}}
+        </p>
+
+        <ion-list class="margin">
+
+          <ion-item>
+            <a (click)="openMenu()" class="link-menu">
+              <ion-icon name="restaurant-outline" class="icons-green" item-start></ion-icon>
+              <ion-label class="btn-title-menu" floating> <i> Show Menu </i></ion-label>
+            </a>
+          </ion-item>
+      
+        </ion-list>
+
+        <ion-button *ngIf="_haveBooking" expand="block" class="btn-reserve">
+          BOOKING
+        </ion-button>
+
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="map" *ngIf="avaibleMap">
+      
+          <agm-map
+          id="agmMap"
+          #agmMap
+          [style.height.px]="height"
+          [latitude]="lat"
+          [longitude]="lng"
+          [zoom]="13">
+      
+          <agm-marker 
+            [latitude]="lat" 
+            [longitude]="lng" 
+            [iconUrl]="{
+              url: './assets/icon/loc_map.svg',
+              scaledSize: {
+                  width: 20,
+                  height: 30
+              }
+            }">
+          </agm-marker>
+      
+          </agm-map>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -1,0 +1,190 @@
+<ion-header>
+  <ion-toolbar>
+    <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+
+        <!-- Scrollable Segment -->
+        <ion-segment mode="ios" [(ngModel)]="segment" (ionChange)="tabChange(segment)">
+          <ion-segment-button value="favorites">
+            <ion-icon name="heart-outline" class="icons-green"></ion-icon>
+            Favorites
+          </ion-segment-button>
+          <ion-segment-button value="wishlist">
+            <ion-icon name="book-outline" class="icons-green"></ion-icon>
+            Wishlist
+          </ion-segment-button>
+        </ion-segment>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div [ngSwitch]="segment">
+
+    <div *ngSwitchCase="'favorites'">
+      <img src="assets/resources/FAVORITES.jpg" *ngIf="favorites"/>
+      <ion-grid *ngIf="favorites">
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12">
+            
+            <ion-list>
+              <ion-item *ngFor="let fav of favorites">
+                <ion-avatar slot="start">
+                  <img src="https://panel.booktable.app/storage/{{ fav.images[0] }}">
+                </ion-avatar>
+                <ion-label>{{ fav.name }}</ion-label>
+                <app-animated-like [id_user]="id_user" [id_rest]="fav.id" slot="end" style="position: absolute;top: 10px;right: 0;"></app-animated-like>
+              </ion-item>
+            </ion-list>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <img src="assets/resources/MORE.jpg"/>
+      <ion-grid class="searchbar-grid">
+        <ion-row class="ion-justify-content-center searchbar">
+          <ion-col size="12" class="center-col searchbar-col">
+            <ion-searchbar 
+            mode="ios"
+            #search
+            ngDefaultControl
+            [(ngModel)]="searchTerm"
+            (ionChange)="setFilteredItems()"
+            placeholder="Do you know more restaurants?" 
+            animated 
+            showCancelButton="never">
+          </ion-searchbar>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid *ngIf="restaurantsAux">
+
+        <ion-list>
+    
+          <ion-item *ngFor="let item of restaurantsAux"> 
+            <ion-avatar slot="end" class="custom-avatar" (click)="viewRestaurant(item)">
+              <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}"/>
+            </ion-avatar>
+            <ion-label (click)="viewRestaurant(item)">
+              {{ item?.name }}
+            </ion-label>
+          </ion-item>
+      
+        </ion-list>
+    
+      </ion-grid>
+      
+    </div>
+    <div *ngSwitchCase="'wishlist'">
+
+      <img src="assets/resources/wishlist.jpg" *ngIf="wishlist"/>
+      <ion-grid *ngIf="wishlist">
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12">
+            
+            <ion-list>
+              <ion-list-header>
+                <ion-label>TOPIC</ion-label>
+                <ion-label>CITY</ion-label>
+                <ion-label>RANGE</ion-label>
+                <ion-label></ion-label>
+              </ion-list-header>
+              <ion-item *ngFor="let fav of wishlist">
+                <ion-label class="data-value">{{ fav.have_topic  }}</ion-label>
+                <ion-label class="data-value">{{ fav.have_city  }}</ion-label>
+                <ion-label class="data-value">{{ fav.have_range  }}</ion-label>
+                <ion-button (click)="deleteWish(fav)">
+                  <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                </ion-button>                
+              </ion-item>
+            </ion-list>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12">
+
+            <ion-item>
+              <ion-icon name="bookmarks-outline" class="icons-green" item-start></ion-icon>
+              <ion-label class="label-wishlist" floating>
+                Topics
+              </ion-label>
+              <ion-select mode="ios" [(ngModel)]="topics" (ionChange)="optionsTopics(topics)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Cancel">
+                <ion-select-option value="casual">Casual</ion-select-option>
+                <ion-select-option value="fining">Fining</ion-select-option>
+                <ion-select-option value="exotic">Exotic</ion-select-option>
+                <ion-select-option value="family">Family</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12">
+
+            <ion-item>
+              <ion-icon name="bookmarks-outline" class="icons-green" item-start></ion-icon>
+              <ion-label class="label-wishlist" floating>
+                City
+              </ion-label>
+              <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customAlertOptions" interface="alert" cancelText="Cancel">
+                <ng-container *ngFor="let item of cities">
+                  <ion-select-option value="{{item.city}}">{{ item.city }}</ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12">
+            
+            <ion-list>
+              <ion-item>
+                <ion-icon name="compass-outline" class="icons-green" item-start></ion-icon>
+                <ion-label class="label-wishlist" floating>
+                  Range
+                </ion-label>
+                <ion-select mode="ios" [(ngModel)]="RadiusGPS" (ionChange)="optionsFn(RadiusGPS)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="500m - 10km" cancelText="Cancel">
+                  <ion-select-option value="500">500m</ion-select-option>
+                  <ion-select-option value="1000">1km</ion-select-option>
+                  <ion-select-option value="5000">5km</ion-select-option>
+                  <ion-select-option value="10000">10km</ion-select-option>
+                </ion-select>
+              </ion-item>
+            
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12">
+            <ion-button expand="block" (click)="addWish()">ADD WISH</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+
+  </div>
+
+</ion-content>

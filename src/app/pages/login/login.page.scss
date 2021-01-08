@@ -1,0 +1,90 @@
+ion-grid{
+    height: 100%;
+}
+ion-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+ion-content{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    --background: url(../../../assets/resources/BG.png) no-repeat center/cover fixed;
+}
+
+.smallLogo{
+    width: 200px;
+}
+
+
+.title-login{
+    color:#fff;
+    text-align: center;
+}
+
+ion-list{
+    --background:#081724;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+
+ion-input{
+    --placeholder-color: #000;
+    --placeholder-opacity: 1;
+    border-radius: 10px;
+    text-indent: 10px;
+    color: black;
+}
+
+ion-item {
+    --highlight-color-valid: transparent;
+    --highlight-color-invalid: transparent;
+    --highlight-color-focused: var(--ion-color-light);
+    --background:#fff;
+    padding: 0px;
+}
+
+ion-item:first-child{
+    border-bottom: 1px solid #000;
+}
+
+.btn-login {
+    --background: rgb(0,186,92);
+    --background: linear-gradient(180deg, rgba(0,186,92,1) 0%, rgba(0,153,153,1) 100%);
+    color:#fff;
+    font-weight: 800; 
+    width: 140px;
+}
+
+.btn-overview{
+    --background:#d3a768;
+    color:#000;
+    font-weight: 800; 
+}
+
+.center-col{
+    text-align: center;
+}
+
+.item-login{
+    border-radius: 10px 10px 10px 10px;
+    margin: 10px;
+    --background:#081724;
+}
+
+
+.btn_eye_icon{
+    background: transparent;
+    ion-icon{
+        font-size: 22px;
+        color:#9f9f9e;
+    }
+}
+
+.btn_eye_icon:focus{
+    outline: none  !important;
+}

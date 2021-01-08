@@ -1,0 +1,35 @@
+
+ion-toolbar{
+    text-align: center;
+    margin: 0 auto;
+    --background: #1C2129;
+}
+
+ion-title{
+    color: #fff;
+}
+
+ion-content{
+    --background:#fff;
+}
+
+ion-icon{
+    --color: #fff;
+}
+
+ion-button{
+    --color:#fff;
+    position: absolute;
+}
+
+ion-avatar{
+    --border-radius:10px;
+    width: 60px;
+    height: 60px;
+}
+
+.smallLogo{
+    width: 135px;
+    text-align: center;
+    margin: 15px;
+}

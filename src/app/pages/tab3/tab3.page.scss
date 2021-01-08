@@ -1,0 +1,42 @@
+
+ion-toolbar{
+    text-align: center;
+    margin: 0 auto;
+    --background: #1C2129;
+}
+
+ion-title{
+    color: #fff;
+}
+
+ion-content{
+    --background:#fff;
+}
+
+ion-avatar{
+    --border-radius:10px;
+    width: 60px;
+    height: 60px;
+}
+
+.smallLogo{
+    width: 135px;
+    text-align: center;
+    margin: 15px;
+}
+
+
+.icons-green{
+    color: rgba(0,186,92,1);
+    font-size: 30px;
+}
+
+.data-value{
+    color: rgba(0,186,92,1);
+    font-style: italic;
+    font-weight: 600;
+}
+
+.label-wishlist{
+    margin: 10px;
+}

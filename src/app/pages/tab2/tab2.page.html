@@ -1,0 +1,203 @@
+<ion-header>
+  <ion-toolbar>
+    <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid class="searchbar-grid">
+    <ion-row class="ion-justify-content-center searchbar">
+      <ion-col size="12" class="center-col searchbar-col">
+        <ion-searchbar mode="ios" class="searchbar-button" placeholder="where do you want to eat today?" animated showCancelButton="never" (click)="openModal()"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+
+        <!-- Scrollable Segment -->
+        <ion-segment [(ngModel)]="segment" mode="ios" (ionChange)="tabChange(segment)">
+          <ion-segment-button value="proximity" (click)="refreshProximity()">
+            <ion-icon name="compass-outline" class="icons-green"></ion-icon>
+            Proximity
+          </ion-segment-button>
+          <ion-segment-button value="filter">
+            <ion-icon name="search-outline" class="icons-green"></ion-icon>
+            Filter
+          </ion-segment-button>
+        </ion-segment>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+        <div [ngSwitch]="segment">
+
+          <div *ngSwitchCase="'proximity'">
+
+            <ion-grid *ngIf="avaibleMap">
+              <ion-row class="ion-justify-content-center">
+                <ion-col size="12">
+                  
+                  <ion-list>
+                    <ion-item>
+                      <ion-icon name="compass-outline" class="icons-green" item-start></ion-icon>
+                      <ion-label floating>
+                        Radar GPS
+                      </ion-label>
+                      <ion-select mode="ios" [(ngModel)]="RadiusGPS" (ionChange)="optionsFn(RadiusGPS)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="500m - 10km" cancelText="Cancel">
+                        <ion-select-option value="500">500m</ion-select-option>
+                        <ion-select-option value="1000">1km</ion-select-option>
+                        <ion-select-option value="5000">5km</ion-select-option>
+                        <ion-select-option value="10000">10km</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          
+            <ion-grid class="map-container">
+          
+               <agm-map
+                id="agmMap"
+                *ngIf="avaibleMap"
+                #agmMap
+                [style.height.px]="300"
+                [latitude]="coordLatitude"
+                [longitude]="coordLongitude"
+                [zoom]="15">
+          
+                  <agm-marker 
+                    [latitude]="coordLatitude" 
+                    [longitude]="coordLongitude" 
+                    [iconUrl]="{
+                      url: './assets/icon/loc_dot.svg',
+                      scaledSize: {
+                          width: 10,
+                          height: 10
+                      }
+                    }"></agm-marker>
+          
+                        <ng-container *ngFor="let m of restaurants; let i = index">
+          
+                          <agm-marker 
+                            (markerClick)="clickedMarker(m.name, i)" 
+                            [latitude]="m.coords[0].lat" 
+                            [longitude]="m.coords[0].lng" 
+                            [iconUrl]="{
+                                url: './assets/icon/loc_map.svg',
+                                scaledSize: {
+                                    width: 20,
+                                    height: 30
+                                }
+                              }" 
+                          *ngIf="m.isShown">
+                  
+                              <agm-info-window>
+                                  <div><img src="https://panel.booktable.app/storage/{{ m.images[0] }}" width="150" height="90" /></div>
+                                  <div class="title-infowindow">{{m.name}}</div>
+                              </agm-info-window>
+                  
+                          </agm-marker>
+                  
+                      </ng-container>
+          
+                  <agm-circle [latitude]="radiusLat" [longitude]="radiusLong" [radius]="radius" [fillColor]="'#00BA5C'"> </agm-circle>
+          
+              </agm-map>
+          
+            </ion-grid>
+            <ion-grid *ngIf="avaibleMap">
+
+              <ng-container *ngFor="let m of restaurants">
+
+              <ion-card *ngIf="m.isShown">
+                <ion-card-header>
+                  <app-animated-like [id_user]="id_user" [id_rest]="m.id" ></app-animated-like>
+                  <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
+                  <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
+                </ion-card-header>
+              
+                <ion-card-content>
+                  {{ m.description_short }}
+                </ion-card-content>
+              </ion-card>
+
+
+              </ng-container>
+
+            </ion-grid>
+
+          </div>
+        
+          <div *ngSwitchCase="'filter'">
+
+            <ion-grid>
+              <ion-row class="ion-justify-content-center">
+                <ion-col size="12">
+          
+                  <ion-list>
+                    <ion-item>
+                      <ion-icon name="restaurant-outline" class="icons-green" item-start></ion-icon>
+                      <ion-label floating>
+                        Number of commensals
+                      </ion-label>
+                      <ion-select mode="ios" [(ngModel)]="commensals" (ionChange)="optionsCommensals(commensals)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Cancel">
+                        <ion-select-option value="any">Any</ion-select-option>
+                        <ion-select-option value="1">1</ion-select-option>
+                        <ion-select-option value="2">2</ion-select-option>
+                        <ion-select-option value="3">3</ion-select-option>
+                        <ion-select-option value="4">4</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+          
+                    <ion-item>
+                      <ion-icon name="bookmarks-outline" class="icons-green" item-start></ion-icon>
+                      <ion-label floating>
+                        Topics
+                      </ion-label>
+                      <ion-select mode="ios" [(ngModel)]="topics" (ionChange)="optionsTopics(topics)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Cancel">
+                        <ion-select-option value="all">All</ion-select-option>
+                        <ion-select-option value="casual">Casual</ion-select-option>
+                        <ion-select-option value="fining">Fining</ion-select-option>
+                        <ion-select-option value="exotic">Exotic</ion-select-option>
+                        <ion-select-option value="family">Family</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+            <ion-grid>
+
+              <ng-container *ngFor="let m of restaurantsFilter">
+
+              <ion-card>
+                <ion-card-header>
+                  <app-animated-like [id_user]="id_user" [id_rest]="m.id"></app-animated-like>
+                  <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
+                  <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
+                </ion-card-header>
+              
+                <ion-card-content>
+                  {{ m.description_short }}
+                </ion-card-content>
+              </ion-card>
+
+              </ng-container>
+
+            </ion-grid>
+           
+          </div>
+
+        </div>
+
+
+</ion-content>

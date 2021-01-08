@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar>
+    <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid *ngIf="restaurants_featured">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" class="center-col">
+
+        <ion-slides pager>
+          <ion-slide *ngFor="let item of restaurants_featured">
+            <div class="slide">
+
+              <ion-card>
+                <ion-card-header>
+                  <app-animated-like [id_user]="id_user" [id_rest]="item.id"></app-animated-like>
+                  <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}" (click)="viewRestaurant(item)"/>
+                  <ion-card-title class="title-card-featured" (click)="viewRestaurant(item)">{{ item.name }}</ion-card-title>
+                </ion-card-header>
+              
+                <ion-card-content>
+                  {{ item.description }}
+                </ion-card-content>
+              </ion-card>
+              
+            </div>
+          </ion-slide>
+        </ion-slides>
+
+      </ion-col>
+    </ion-row>
+    <h1 class="title-page">TOPICS</h1>
+    <ion-row class="row-topics">
+      <ion-col size="4">
+
+        <ion-card class="card-topic" (click)="viewTopicCasual()">
+          <ion-card-header>
+            <img class="img-topic" src="assets/resources/topic_1.jpg"/>
+            <p class="title-topic">Casual</p>
+          </ion-card-header>
+        </ion-card>
+
+      </ion-col>
+      <ion-col size="4">
+        
+        <ion-card class="card-topic" (click)="viewTopics(exotic)">
+          <ion-card-header>
+            <img class="img-topic" src="assets/resources/topic_2.jpg"/>
+            <p class="title-topic">Exotic</p>
+          </ion-card-header>
+        </ion-card>
+
+      </ion-col>
+      <ion-col size="4">
+
+        <ion-card class="card-topic">
+          <ion-card-header>
+            <img class="img-topic" src="assets/resources/topic_3.jpg"/>
+            <p class="title-topic">Buffet</p>
+          </ion-card-header>
+        </ion-card>
+
+      </ion-col>
+
+      <ion-col size="4">
+
+        <ion-card class="card-topic">
+          <ion-card-header>
+            <img class="img-topic" src="assets/resources/topic_1.jpg"/>
+            <p class="title-topic">Fining</p>
+          </ion-card-header>
+        </ion-card>
+
+      </ion-col>
+      <ion-col size="4">
+        
+        <ion-card class="card-topic">
+          <ion-card-header>
+            <img class="img-topic" src="assets/resources/topic_2.jpg"/>
+            <p class="title-topic">Japan</p>
+          </ion-card-header>
+        </ion-card>
+
+      </ion-col>
+      <ion-col size="4">
+
+        <ion-card class="card-topic">
+          <ion-card-header>
+            <img class="img-topic" src="assets/resources/topic_3.jpg"/>
+            <p class="title-topic">Family</p>
+          </ion-card-header>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

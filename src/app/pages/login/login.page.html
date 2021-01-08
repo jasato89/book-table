@@ -1,0 +1,25 @@
+
+<ion-content>
+  <ion-grid>
+      <ion-row class="ion-justify-content-center">
+          <ion-col size="10" class="center-col">
+              <div class="center">
+                  <img src="assets/resources/logo.svg" class="smallLogo"/>
+                  <h1 class="title-login"></h1>
+              </div>
+              <ion-list lines="none" class="item-login">
+                  <ion-item>
+                      <ion-input class="input-field-login" placeholder="Email" autocomplete="off" type="email" name="email" [(ngModel)]="postData.email"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                      <ion-input class="input-field-login" placeholder="Password" autocomplete="off" [type]="showPassword ? 'text' : 'password'" clearOnEdit="false" name="password" [(ngModel)]="postData.password"></ion-input>
+                      <button class="btn_eye_icon" (click)="onPasswordToggle()" ion-button clear item-end icon-only>
+                          <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+                        </button>
+                  </ion-item>
+              </ion-list>
+              <ion-button class="btn-login" share="round" (click)="loginAction()">LOGIN</ion-button>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>
