@@ -143,6 +143,10 @@ export class Tab3Page {
     this.router.navigate(['home/tabs/tabs2/restaurant-details'], navigationExtras);
   }
 
+  profile(){
+    this.router.navigate(['home/tabs/user-profile']);
+  }
+
   getWishesByUser(){
     this.authService.getWishesByUser(this.postData).subscribe(
       (res: any) => {

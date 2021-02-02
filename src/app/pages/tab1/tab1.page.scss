@@ -14,9 +14,9 @@ ion-content{
 }
 
 .smallLogo{
-    width: 135px;
+    width: 150px;
     text-align: center;
-    margin: 15px;
+    margin: 10px;
 }
 
 .title-page{
@@ -58,6 +58,17 @@ ion-card-header{
     height: 32px;
 }
 
+.icons-green{
+    color: #00ba5c;
+    width: 16px;
+    display: inline-flex;
+    height: 15px;
+}
+
+.text-commensals{
+    color: #00ba5c;
+}
+
 .icons-intc{
     list-style: none;
     margin: 10px;
@@ -91,4 +102,33 @@ ion-card-header{
 
 .title-topic{
     margin: 5px;
+}
+
+.custom-icons-card{
+    --inner-border-width: 0px 0px 0px 0px;
+    --inner-padding-end: 0px;
+}
+
+hr {
+    background: black !important;
+}
+
+.icons-card{
+    padding-top: 10px;
+}
+
+.profile-button{
+    position: absolute;
+    color: #fff;
+    right: 10px;
+}
+
+.profile-icon{
+    font-size: 24px;
+}
+
+.claim-text{
+    margin: 4px;
+    color: black;
+    text-align: center;
 }

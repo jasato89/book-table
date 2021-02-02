@@ -7,6 +7,7 @@ import { Capacitor } from "@capacitor/core";
 })
 export class LocationService {
     constructor() { }
+    
     async askToTurnOnGPS(): Promise<boolean> {
         return await new Promise((resolve, reject) => {
             LocationAccuracy.canRequest().then((canRequest: boolean) => {

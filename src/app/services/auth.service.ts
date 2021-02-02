@@ -18,9 +18,23 @@ providedIn: 'root'
     return this.httpService.auth('login', postData);
   }
 
+  register(postData: any): Observable<any> {
+    return this.httpService.auth('register', postData);
+  }
+
   getUser(): Observable<any>{
     let token = window.localStorage.getItem('access_token');
     return this.httpService.get('user', token);
+  }
+
+  update(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('update', data, token);
+  }
+
+  registerTokenDevice(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('registerTokenDevice', data, token);
   }
 
   getAllRestaurantsFeatures(): Observable<any>{
@@ -36,6 +50,11 @@ providedIn: 'root'
   getCitysFromRestaurants(): Observable<any>{
     let token = window.localStorage.getItem('access_token');
     return this.httpService.get('getCitysFromRestaurants', token);
+  }
+
+  getLastRestaurants(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('getLastRestaurants', data, token);
   }
 
   getBookings(data: any): Observable<any>{
@@ -92,14 +111,62 @@ providedIn: 'root'
     let token = window.localStorage.getItem('access_token');
     return this.httpService.post('getLastsBookings', data, token);
   }
-  
-  /******/ 
-  getPartner(data: any): Observable<any>{
+
+  getBookingsForBusinessUser(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');
-    return this.httpService.post('getPartner', data, token);
+    return this.httpService.post('getBookingsForBusinessUser', data, token);
   }
 
-  /******/ 
+  getMyRestaurants(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('getMyRestaurants', data, token);
+  }
+
+  getBookingsByFavs(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('getBookingsByFavs', data, token);
+  }
+
+  getBookingsAll(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('getBookingsAll', data, token);
+  }
+
+  getBookingsByRestaurant(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('getBookingsByRestaurant', data, token);
+  }
+
+  createBookingPetition(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('createBookingPetition', data, token);
+  }
+
+  getBookingPetitions(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('getBookingPetitions', data, token);
+  }
+
+  acceptPetition(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('acceptPetition', data, token);
+  }
+
+  cancelPetition(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('cancelPetition', data, token);
+  }
+  
+  hasArrived(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('hasArrived', data, token);
+  }
+
+  createBooking(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('createBooking', data, token);
+  }
+  
 
   logout() {
       localStorage.clear();
@@ -110,6 +177,7 @@ providedIn: 'root'
       window.localStorage.removeItem("role");
       window.localStorage.removeItem("name");
       window.localStorage.removeItem("last_name");
+      window.localStorage.removeItem("email");
 
       this.navCtrl.navigateRoot('/login', { animated: true, animationDirection: 'forward' });
   }

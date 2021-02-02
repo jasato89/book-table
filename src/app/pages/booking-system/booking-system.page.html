@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="11">
+        <h2>My active bookings</h2>
+        <hr>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Id</ion-label>
+            <ion-label>Commensals</ion-label>
+            <ion-label>Time</ion-label>
+            <ion-label>Pending</ion-label>
+          </ion-list-header>
+          <ng-container *ngFor="let item of myActiveBookings">
+            <ion-item *ngIf="item.pending == 'Yes'" (click)="modifyBooking(item)" class="item-booking-inactive">
+                <ion-label> {{item.id}} </ion-label>
+                <ion-label> {{item.commensals}} </ion-label>
+                <ion-label> {{item.time_trame}} </ion-label>
+                <ion-label> {{item.pending}} </ion-label>
+            </ion-item>
+            <ion-item *ngIf="item.pending == 'No'" (click)="modifyBooking(item)" class="item-booking-active">
+              <ion-label> {{item.id}} </ion-label>
+              <ion-label> {{item.commensals}} </ion-label>
+              <ion-label> {{item.time_trame}} </ion-label>
+              <ion-label> {{item.pending}} </ion-label>
+          </ion-item>
+          </ng-container>
+        </ion-list>
+
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="11">
+        <ion-button expand="block" (click)="createBooking()">CREATE BOOKING</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="11">
+        <h2>My bookings petitions</h2>
+        <hr>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="ion-margin table">
+    <ion-row>
+      <ion-col>Id</ion-col>
+      <ion-col>Commensals</ion-col>
+      <ion-col>User</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of myActivePetitions" (click)="viewPetition(item)">
+      <ion-col> {{item.id_booking}} </ion-col>
+      <ion-col> {{item.commensals}} </ion-col>
+      <ion-col> {{item.user_name}} </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

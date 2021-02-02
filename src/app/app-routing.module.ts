@@ -30,6 +30,26 @@ const routes: Routes = [
   {
     path: 'tab4',
     loadChildren: () => import('./pages/tab4/tab4.module').then( m => m.Tab4PageModule)
+  },
+  {
+    path: 'booking-details',
+    loadChildren: () => import('./pages/booking-details/booking-details.module').then( m => m.BookingDetailsPageModule)
+  },
+  {
+    path: 'booking-create',
+    loadChildren: () => import('./pages/booking-create/booking-create.module').then( m => m.BookingCreatePageModule)
+  },
+  {
+    path: 'user-profile',
+    loadChildren: () => import('./pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+  },
+  {
+    path: 'booking-system',
+    loadChildren: () => import('./pages/booking-system/booking-system.module').then( m => m.BookingSystemPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   }
   
 ];

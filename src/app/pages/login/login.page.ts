@@ -41,6 +41,13 @@ export class LoginPage implements OnInit {
     );
   }
 
+  registerAction(){
+    this.router.navigateByUrl('/register');
+  }
+
+  businessAction(){
+    
+  }
 
   public optionsFn(): void { //here item is an object 
     console.log(this.postData);
@@ -60,7 +67,9 @@ export class LoginPage implements OnInit {
     if (this.validateInputs()) {
       const loading = await this.loadingController.create({
         message: 'Loading...',
+        mode: 'ios'
       });
+      await loading.present();
       this.authService.login(this.postData).subscribe(
         (res: any) => {
           if (res) {
@@ -71,6 +80,7 @@ export class LoginPage implements OnInit {
           window.localStorage.setItem('id_user', res.id_user);
           window.localStorage.setItem('name', res.name_user);
           window.localStorage.setItem('last_name', res.last_name);
+          window.localStorage.setItem('email', res.email);
           window.localStorage.setItem('login', "1");
           window.localStorage.setItem('role', res.role);
           this.router.navigateByUrl('/home/tabs/tab1');
@@ -86,7 +96,7 @@ export class LoginPage implements OnInit {
         }
       );
     } else {
-      this.toastService.presentToast('Porfavor rellena los campos.');
+      this.toastService.presentToast('Please fill the fields');
     }
   }
 

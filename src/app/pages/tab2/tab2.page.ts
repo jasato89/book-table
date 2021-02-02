@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Capacitor, Plugins } from "@capacitor/core";
-import { ModalController, LoadingController, NavController } from '@ionic/angular';
+import { ModalController, LoadingController, NavController, Platform } from '@ionic/angular';
 import { ModalSearchBarComponent } from '../../components/modal-search-bar/modal-search-bar.component';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
@@ -34,13 +34,18 @@ export class Tab2Page {
 
   public restaurants: any;
   public restaurantsFilter: any;
+  public cities: any;
   public commensals: any;
   public topics: any;
+  public city: any;
   public segment: any;
 
   public postData = {
     topic: '',
-    commensals: ''
+    commensals: '',
+    city: '',
+    favorites: false,
+    id_user: ''
   };
 
   public id_user: any;
@@ -56,6 +61,7 @@ export class Tab2Page {
     private router: Router,
     private locationService: LocationService,
     private navCtrl: NavController,
+    private platform: Platform
   ) {}
 
   ngOnInit() {
@@ -64,6 +70,7 @@ export class Tab2Page {
 
   ionViewWillEnter() {
     this.getRestaurants();
+    this.getCities();
   }
 
   ionViewDidEnter(){
@@ -91,6 +98,14 @@ export class Tab2Page {
   }
 
   async getMyLocation() {
+    if (this.platform.is('ios')){
+      this.setCurrentLocation();
+    }else{
+      this.requestPermissionAndroid();
+    }
+  }
+
+  async requestPermissionAndroid(){
     const hasPermission = await this.locationService.checkGPSPermission();
     if (hasPermission) {
       if (Capacitor.isNative) {
@@ -169,7 +184,6 @@ export class Tab2Page {
           element.restaurant_menu = JSON.parse(element.restaurant_menu);
           element.restaurant_menu = element.restaurant_menu[0].download_link;
         });
-        console.log(this.restaurants);
         this.showHideMarkers();
       },
       (error: any) => {
@@ -191,12 +205,14 @@ export class Tab2Page {
 
   optionsCommensals(commensals){
     this.commensals = commensals;
-    this.searchAction();
   }
 
   optionsTopics(topics){
     this.topics = topics;
-    this.searchAction();
+  }
+
+  optionsCity(city){
+    this.city = city;
   }
 
   tabChange(segment){
@@ -214,12 +230,9 @@ export class Tab2Page {
   }
 
   validateInputs() {
-    let topics = this.topics;
     let commensals = this.commensals;
     return (
-      this.topics &&
       this.commensals &&
-      topics.length > 0 &&
       commensals.length > 0
     );
   }
@@ -231,6 +244,10 @@ export class Tab2Page {
         }
       };
       this.router.navigate(['home/tabs/tabs2/restaurant-details'], navigationExtras);
+  }
+
+  profile(){
+    this.router.navigate(['home/tabs/user-profile']);
   }
 
   getDistanceBetween(lat1, long1, lat2, long2){
@@ -249,31 +266,53 @@ export class Tab2Page {
     }
   }
 
-  async searchAction(){
-   
-    const loading = await this.loadingController.create({
-      message: 'Loading...',
-      mode: 'ios',
-    });
-    await loading.present();
-    this.postData.commensals = this.commensals;
-    this.postData.topic = this.topics;
-
-    this.authService.getBookings(this.postData).subscribe(
+  getCities(){
+    this.authService.getCitysFromRestaurants().subscribe(
       (res: any) => {
-        var maxLength = 140;
-        loading.dismiss();
-        this.restaurantsFilter = res;
-        this.restaurantsFilter.forEach(element => {
-          element.images = JSON.parse(element.images);
-          element.description_short = element.description.substring(0, maxLength) + '...';
-        });
+        this.cities = res;
       },
       (error: any) => {
-        loading.dismiss();
-        console.log(error);
+        this.toastService.presentToast('Problema en la red.');
       }
     );
+  }
+
+  async searchAction(){
+
+    if(this.validateInputs()){
+   
+      const loading = await this.loadingController.create({
+        message: 'Loading...',
+        mode: 'ios',
+      });
+      await loading.present();
+      this.postData.commensals = this.commensals;
+      this.postData.topic = this.topics;
+      this.postData.city = this.city;
+      this.postData.id_user = window.localStorage.getItem('id_user');
+
+      this.authService.getBookings(this.postData).subscribe(
+        (res: any) => {
+          var maxLength = 140;
+          this.restaurantsFilter = res;
+          if(this.restaurantsFilter){
+            this.restaurantsFilter.forEach(element => {
+              element.images = JSON.parse(element.images);
+              element.description_short = element.description.substring(0, maxLength) + '...';
+            });
+          }
+       
+          loading.dismiss();
+        },
+        (error: any) => {
+          loading.dismiss();
+          this.restaurantsFilter = null;
+        }
+      );
+
+    }else{
+      this.toastService.presentToast('fill the fields.');
+    }
     
   }
 

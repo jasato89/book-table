@@ -4,19 +4,16 @@
       <ion-back-button defaultHref="" (click)="back()"></ion-back-button>
     </ion-buttons>
     <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+    <ion-buttons class="profile-button" slot="end">
+      <ion-icon class="profile-icon" (click)="profile()" name="person-circle-outline"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="share"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
       <ion-fab-button (click)="ShareWhatsapp()"><ion-icon name="share-social-outline" class="fab-green"></ion-icon></ion-fab-button>
-      <ion-fab-button><app-animated-like [id_user]="id_user" [id_rest]="id_rest" [mode]="restaurant"></app-animated-like></ion-fab-button>
-    </ion-fab-list>
   </ion-fab>
 
   <ion-grid *ngIf="restaurant">
@@ -26,6 +23,7 @@
 
         <ion-slides pager>
           <ion-slide *ngFor="let item of restaurant.images">
+            <app-animated-like [id_user]="id_user" [id_rest]="id_rest" [mode]="restaurant" class="icon-like"></app-animated-like>
             <div class="slide">
 
               <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item }}"/>
@@ -38,6 +36,33 @@
           {{restaurant.description}}
         </p>
 
+        <p class="description-restaurant">
+          {{restaurant.address}}
+        </p>
+
+        <ion-item class="item-icon">
+          <ng-container *ngIf="_haveBooking">
+            <span style="font-size: 18px;"> <strong> {{_haveBooking}} </strong></span>
+            <ion-icon src="assets/icon/commensals.svg" class="icons-item"></ion-icon>
+          </ng-container>
+
+          <ng-container *ngIf="_haveBooking">
+            ·
+          </ng-container>
+          <ion-icon src="assets/icon/1_euro.svg" class="icons-item" *ngIf="restaurant.economy > 0"></ion-icon>
+          <ion-icon src="assets/icon/1_euro.svg" class="icons-item" *ngIf="restaurant.economy > 1"></ion-icon>
+          <ion-icon src="assets/icon/1_euro.svg" class="icons-item" *ngIf="restaurant.economy > 2"></ion-icon>
+          <ion-icon src="assets/icon/1_euro.svg" class="icons-item" *ngIf="restaurant.economy > 3"></ion-icon>
+          <ng-container *ngIf="restaurant.michelin_starts > 0">
+            ·
+          </ng-container>
+          <ion-icon src="assets/icon/1_star.svg" class="icons-item" *ngIf="restaurant.michelin_starts > 0"></ion-icon>
+          <ion-icon src="assets/icon/1_star.svg" class="icons-item" *ngIf="restaurant.michelin_starts > 1"></ion-icon>
+          <ion-icon src="assets/icon/1_star.svg" class="icons-item" *ngIf="restaurant.michelin_starts > 2"></ion-icon>
+          <ion-icon src="assets/icon/1_star.svg" class="icons-item" *ngIf="restaurant.michelin_starts > 3"></ion-icon>
+
+        </ion-item>
+
         <ion-list class="margin">
 
           <ion-item>
@@ -49,12 +74,16 @@
       
         </ion-list>
 
-        <ion-button *ngIf="_haveBooking" expand="block" class="btn-reserve">
+
+        <ion-button *ngIf="_haveBooking" expand="block" class="btn-reserve" (click)="createListBooking()">
           BOOKING
         </ion-button>
 
       </ion-col>
+  
     </ion-row>
+
+
     <ion-row>
       <ion-col>
         <div class="map" *ngIf="avaibleMap">

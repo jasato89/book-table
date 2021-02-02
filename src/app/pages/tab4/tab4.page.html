@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
-    <ion-buttons class="logout-button" slot="end">
-      <ion-icon class="logout-icon" (click)="logout()" name="log-out-outline"></ion-icon>
+    <ion-buttons class="profile-button" slot="end">
+      <ion-icon class="profile-icon" (click)="profile()" name="person-circle-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -11,121 +11,78 @@
   <ion-content [fullscreen]="true">
     <div *ngIf='isUser'>
 
-    <ion-grid>
-      <ion-row class="ion-justify-content-center">
-        <ion-col size="12">
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12">
 
-          <ion-list>
-            <ion-item>
-              <ion-icon name="person-circle-outline" class="icons-green" item-start></ion-icon>
-              <ion-label class="label-wishlist" floating>
-                {{ name }} {{last_name}}
-              </ion-label>
-              <ion-label>
-                View & Edit Profile
+            <!-- Scrollable Segment -->
+            <ion-segment [(ngModel)]="segment" mode="ios">
+              <ion-segment-button value="active">
+                <ion-icon name="restaurant-outline" class="icons-green"></ion-icon>
+                Active Bookings
+              </ion-segment-button>
+              <ion-segment-button value="last">
+                <ion-icon name="bookmarks-outline" class="icons-green"></ion-icon>
+                Last Bookings
+              </ion-segment-button>
+            </ion-segment>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <div [ngSwitch]="segment">
+
+        <div *ngSwitchCase="'active'">
+
+          <ion-grid *ngIf='!haveData'>
+            <ion-row class="ion-justify-content-center">
+              <ion-col size="12">
+                <h4 class="title-page"> You dont have active bookings</h4>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          <ion-list *ngIf='haveData'>
+        
+            <ion-item *ngFor="let item of activeRests"> 
+              <ion-avatar slot="end" class="custom-avatar" (click)="viewRestaurant(item)">
+                <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}"/>
+              </ion-avatar>
+              <ion-label (click)="viewRestaurant(item)">
+                {{ item?.name }} - {{item?.time_trame}}
               </ion-label>
             </ion-item>
+        
           </ion-list>
 
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+        </div>
+        <div *ngSwitchCase="'last'">
 
-    <ion-grid>
-      <ion-row class="ion-justify-content-center">
-        <ion-col size="12">
+          <ion-grid *ngIf='!haveLastsRecords'>
+            <ion-row class="ion-justify-content-center">
+              <ion-col size="12">
+                <h4 class="title-page"> You dont have bookings</h4>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
 
-          <!-- Scrollable Segment -->
-          <ion-segment [(ngModel)]="segment" mode="ios">
-            <ion-segment-button value="active">
-              <ion-icon name="restaurant-outline" class="icons-green"></ion-icon>
-              Active Bookings
-            </ion-segment-button>
-            <ion-segment-button value="last">
-              <ion-icon name="bookmarks-outline" class="icons-green"></ion-icon>
-              Last Bookings
-            </ion-segment-button>
-          </ion-segment>
-
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <div [ngSwitch]="segment">
-
-      <div *ngSwitchCase="'active'">
-
-        <ion-grid *ngIf='!haveData'>
-          <ion-row class="ion-justify-content-center">
-            <ion-col size="12">
-              <h4 class="title-page"> You dont have active bookings</h4>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+          <ion-list *ngIf='haveLastsRecords'>
         
-        <ion-list *ngIf='haveData'>
-      
-          <ion-item *ngFor="let item of activeRests"> 
-            <ion-avatar slot="end" class="custom-avatar" (click)="viewRestaurant(item)">
-              <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}"/>
-            </ion-avatar>
-            <ion-label (click)="viewRestaurant(item)">
-              {{ item?.name }} - {{item?.time_trame}}
-            </ion-label>
-          </ion-item>
-      
-        </ion-list>
+            <ion-item *ngFor="let item of lastBookings"> 
+              <ion-avatar slot="end" class="custom-avatar">
+                <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}"/>
+              </ion-avatar>
+              <ion-label>
+                {{ item?.name }}
+              </ion-label>
+            </ion-item>
+        
+          </ion-list>
 
-      </div>
-      <div *ngSwitchCase="'last'">
-
-        <ion-grid *ngIf='!haveLastsRecords'>
-          <ion-row class="ion-justify-content-center">
-            <ion-col size="12">
-              <h4 class="title-page"> You dont have bookings</h4>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-
-        <ion-list *ngIf='haveLastsRecords'>
-      
-          <ion-item *ngFor="let item of lastBookings"> 
-            <ion-avatar slot="end" class="custom-avatar" (click)="viewRestaurant(item)">
-              <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}"/>
-            </ion-avatar>
-            <ion-label (click)="viewRestaurant(item)">
-              {{ item?.name }}
-            </ion-label>
-          </ion-item>
-      
-        </ion-list>
-
+        </div>
       </div>
 
     </div>
-
-  </div>
-  <div *ngIf='isBusiness'>
-
-    <ion-grid>
-      <ion-row class="ion-justify-content-center">
-        <ion-col size="12">
-
-          <ion-list>
-            <ion-item>
-              <ion-icon name="person-circle-outline" class="icons-green" item-start></ion-icon>
-              <ion-label class="label-wishlist" floating>
-                {{ name }} {{last_name}}
-              </ion-label>
-              <ion-label>
-                View & Edit Profile
-              </ion-label>
-            </ion-item>
-          </ion-list>
-
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-  </div>
+  
   </ion-content>

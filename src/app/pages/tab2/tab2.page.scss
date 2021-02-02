@@ -38,9 +38,9 @@ ion-card-title{
 }
 
 .smallLogo{
-    width: 135px;
+    width: 150px;
     text-align: center;
-    margin: 15px;
+    margin: 10px;
 }
 
 .map-container{
@@ -77,4 +77,32 @@ ion-label{
 
 agm-map{
     height: 300px;
+}
+
+.custom-icons-card{
+    --padding-start: 0px;
+}
+
+.profile-button{
+    position: absolute;
+    color: #fff;
+    right: 10px;
+}
+
+.profile-icon{
+    font-size: 24px;
+}
+
+.icons-card{
+    padding-top: 10px;
+}
+
+.icons-green-item{
+    color: rgba(0,186,92,1);
+    font-size: 16px;
+}
+
+.claim-text{
+    margin: 4px;
+    color: #fff;
 }

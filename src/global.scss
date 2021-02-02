@@ -33,3 +33,9 @@
     --ion-font-family:'Lato';
     font-family: var(--ion-font-family) !important;
 }
+
+
+ion-tab-button.tab-selected {
+    --background: rgb(0 0 0 / 10%) !important;
+    --color-selected: var(--ion-color-light);
+  }

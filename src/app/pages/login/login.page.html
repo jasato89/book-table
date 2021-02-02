@@ -1,11 +1,10 @@
 
-<ion-content>
+<ion-content fullscreen class="ion-padding background-page">
   <ion-grid>
       <ion-row class="ion-justify-content-center">
           <ion-col size="10" class="center-col">
               <div class="center">
                   <img src="assets/resources/logo.svg" class="smallLogo"/>
-                  <h1 class="title-login"></h1>
               </div>
               <ion-list lines="none" class="item-login">
                   <ion-item>
@@ -18,7 +17,9 @@
                         </button>
                   </ion-item>
               </ion-list>
-              <ion-button class="btn-login" share="round" (click)="loginAction()">LOGIN</ion-button>
+              <ion-button class="btn-login" expand="block" (click)="loginAction()">Log In</ion-button>
+              <ion-button class="btn-sign" expand="block" (click)="registerAction()">Sign Up</ion-button>
+              <p class="btn-business" onclick="window.open('https://booktable.app/business/', '_system', 'location=yes'); return false;">Business Account</p>
           </ion-col>
       </ion-row>
   </ion-grid>

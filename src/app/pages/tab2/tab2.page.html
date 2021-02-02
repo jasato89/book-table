@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+    <ion-buttons class="profile-button" slot="end">
+      <ion-icon class="profile-icon" (click)="profile()" name="person-circle-outline"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -124,7 +127,15 @@
                 </ion-card-header>
               
                 <ion-card-content>
-                  {{ m.description_short }}
+                  {{ m.city }}
+                    <br>
+                    <div class="icons-card">
+                      <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 0"></ion-icon>
+                      <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 1"></ion-icon>
+                      <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 2"></ion-icon>
+                      <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 3"></ion-icon>
+                    </div>
+    
                 </ion-card-content>
               </ion-card>
 
@@ -142,6 +153,7 @@
                 <ion-col size="12">
           
                   <ion-list>
+
                     <ion-item>
                       <ion-icon name="restaurant-outline" class="icons-green" item-start></ion-icon>
                       <ion-label floating>
@@ -155,7 +167,19 @@
                         <ion-select-option value="4">4</ion-select-option>
                       </ion-select>
                     </ion-item>
-          
+
+                    <ion-item>
+                      <ion-icon name="earth-outline" class="icons-green" item-start></ion-icon>
+                      <ion-label class="label-wishlist" floating>
+                        City
+                      </ion-label>
+                      <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customAlertOptions" interface="alert" cancelText="Cancel">
+                        <ng-container *ngFor="let item of cities">
+                          <ion-select-option value="{{item.city}}">{{ item.city }}</ion-select-option>
+                        </ng-container>
+                      </ion-select>
+                    </ion-item>
+
                     <ion-item>
                       <ion-icon name="bookmarks-outline" class="icons-green" item-start></ion-icon>
                       <ion-label floating>
@@ -169,8 +193,15 @@
                         <ion-select-option value="family">Family</ion-select-option>
                       </ion-select>
                     </ion-item>
+
+                    <ion-item>
+                      <ion-icon name="heart-outline" class="icons-green" item-start></ion-icon>
+                      <ion-label floating>Show only my favorites?</ion-label>
+                      <ion-checkbox slot="end" [(ngModel)]="postData.favorites" mode="ios" checked="false"></ion-checkbox>
+                    </ion-item>
                   
                   </ion-list>
+                  <ion-button expand="block" (click)="searchAction()">SEARCH</ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -187,7 +218,20 @@
                 </ion-card-header>
               
                 <ion-card-content>
-                  {{ m.description_short }}
+                  {{ m.city }}
+                    <br>
+                    <div class="icons-card">
+                      <span style="font-size: 18px;"> <strong> {{m.commensals}} </strong></span>
+                      <ion-icon src="assets/icon/commensals.svg" class="icons-green-item"></ion-icon>
+                      <ng-container *ngIf="m.michelin_starts > 0">
+                        ·
+                      </ng-container>
+                      <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 0"></ion-icon>
+                      <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 1"></ion-icon>
+                      <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 2"></ion-icon>
+                      <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 3"></ion-icon>
+                    </div>
+    
                 </ion-card-content>
               </ion-card>
 

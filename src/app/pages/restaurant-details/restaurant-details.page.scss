@@ -94,3 +94,26 @@ ion-item{
         width: 100%;
     }
 }
+
+.item-icon{
+    --padding-start: 0px;
+    --inner-padding-start: 0px;
+    --inner-padding-end: 0px; 
+    --inner-border-width: 0px 0px 0px 0px;
+    --min-height: 20px;
+    padding-bottom: 20px;
+}
+
+.icons-item{
+    font-size: 19px;
+}
+
+.profile-button{
+    position: absolute;
+    color: #fff;
+    right: 10px;
+}
+
+.profile-icon{
+    font-size: 24px;
+}

@@ -20,9 +20,9 @@ ion-avatar{
 }
 
 .smallLogo{
-    width: 135px;
+    width: 150px;
     text-align: center;
-    margin: 15px;
+    margin: 10px;
 }
 
 
@@ -39,4 +39,19 @@ ion-avatar{
 
 .label-wishlist{
     margin: 10px;
+}
+
+.profile-button{
+    position: absolute;
+    color: #fff;
+    right: 10px;
+}
+
+.profile-icon{
+    font-size: 24px;
+}
+
+.claim-text{
+    margin: 4px;
+    color: #fff;
 }

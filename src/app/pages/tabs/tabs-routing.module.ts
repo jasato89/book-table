@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
       },
       {
+        path: 'user-profile',
+        loadChildren: () => import('../user-profile/user-profile.module').then(m => m.UserProfilePageModule)
+      },
+      {
         path: 'tabs1/restaurants-topics',
         loadChildren: () => import('../restaurants-topics/restaurants-topics.module').then(m => m.RestaurantsTopicsPageModule)
       },
@@ -34,6 +38,18 @@ const routes: Routes = [
       {
         path: 'tab4',
         loadChildren: () => import('../tab4/tab4.module').then(m => m.Tab4PageModule)
+      },
+      {
+        path: 'booking-system',
+        loadChildren: () => import('../booking-system/booking-system.module').then(m => m.BookingSystemPageModule)
+      },
+      {
+        path: 'booking-system/booking-details',
+        loadChildren: () => import('../booking-details/booking-details.module').then(m => m.BookingDetailsPageModule)
+      },
+      {
+        path: 'booking-system/booking-create',
+        loadChildren: () => import('../booking-create/booking-create.module').then(m => m.BookingCreatePageModule)
       },
       {
         path: '',

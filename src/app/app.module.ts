@@ -14,12 +14,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AgmCoreModule } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
+import { Sim } from '@ionic-native/sim/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,7 +46,8 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     FileTransfer,
     File,
     FileOpener,
-    SocialSharing
+    SocialSharing,
+    Sim
   ],
   bootstrap: [AppComponent]
 })
