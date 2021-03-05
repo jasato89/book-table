@@ -63,7 +63,7 @@ export class ModalSearchBarComponent implements OnInit, AfterViewInit {
         this.restaurantsAux = this.restaurants;
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }

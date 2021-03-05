@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="back-button" slot="start">
+      <ion-back-button defaultHref="" text="Retour"></ion-back-button>
+    </ion-buttons>
+    <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
+    <ion-buttons class="profile-button" slot="end">
+      <ion-icon class="profile-icon" (click)="profile()" name="person-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-grid *ngIf="listBookings"> 
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <h2>Réservation - {{restaurant.name}}</h2>
+        <hr>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ restaurant.images[0] }}"/>
+      </ion-col>
+      <ion-col size="10">
+
+        <ion-item *ngIf="table">
+          <ion-label position="stacked">Table</ion-label>
+          <ion-input [(ngModel)]="table" readonly> </ion-input>
+        </ion-item>
+        <ion-button class="btn-reserve" expand="block" (click)="createListBooking()">Choisir la table</ion-button>
+
+      </ion-col>
+      <ion-col size="10">
+
+        <ion-item *ngIf="commensals">
+          <ion-label position="stacked">Couverts</ion-label>
+          <ion-input [(ngModel)]="commensals" readonly> </ion-input>
+        </ion-item>
+  
+
+      </ion-col>
+      <ion-col size="10" *ngIf="bookingSelect && commensals">
+        
+        <ng-container *ngIf="bookingSelect.turns == 1">
+          <ion-item>
+            <ion-label position="floating">Heure d'arrivée</ion-label>
+            <ion-datetime [(ngModel)]="time" displayFormat="HH:mm" pickerFormat="HH:mm" minuteValues="0,15,30,45" hourValues="12,13,14" placeholder="Choisir" cancelText="Annuler" doneText="Ok"></ion-datetime>
+          </ion-item>
+        </ng-container>
+
+        <ng-container *ngIf="bookingSelect.turns == 2">
+          <ion-item>
+            <ion-label position="floating">Heure d'arrivée</ion-label>
+            <ion-datetime mode="ios" [(ngModel)]="time" displayFormat="HH:mm" pickerFormat="HH:mm" minuteValues="0,15,30,45" hourValues="17,18,19,20,21,22,23" placeholder="Choisir" cancelText="Annuler" doneText="Ok"></ion-datetime>
+          </ion-item>
+        </ng-container>
+
+      </ion-col>
+      <ion-col size="10">
+        <ion-button *ngIf="time" expand="block" (click)="createBooking()" style="--background: #00ba5c;color:white;">RÉSERVER</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

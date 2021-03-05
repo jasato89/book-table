@@ -146,7 +146,7 @@ export class Tab2Page {
 
   async setCurrentLocation(){
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
       mode: 'ios',
     });
     await loading.present();
@@ -187,7 +187,7 @@ export class Tab2Page {
         this.showHideMarkers();
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }
@@ -272,7 +272,7 @@ export class Tab2Page {
         this.cities = res;
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }
@@ -282,7 +282,7 @@ export class Tab2Page {
     if(this.validateInputs()){
    
       const loading = await this.loadingController.create({
-        message: 'Loading...',
+        message: 'Chargement...',
         mode: 'ios',
       });
       await loading.present();
@@ -311,7 +311,7 @@ export class Tab2Page {
       );
 
     }else{
-      this.toastService.presentToast('fill the fields.');
+      this.toastService.presentToast('Remplissez les champs.');
     }
     
   }

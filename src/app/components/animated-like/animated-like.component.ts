@@ -59,7 +59,7 @@ export class AnimatedLikeComponent implements OnInit {
         }
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }
@@ -72,13 +72,13 @@ export class AnimatedLikeComponent implements OnInit {
     this.authService.setLikeRestaurant(this.postData).subscribe(
       (res: any) => {
         if (res){
-          this.toastService.presentToast('Added to favorites!');
+          this.toastService.presentToast('Ajouté aux favoris');
         }else{
-          this.toastService.presentToast('Removed from your likes. ☹️');
+          this.toastService.presentToast('Retiré de vos goûts. ☹️');
         }
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }

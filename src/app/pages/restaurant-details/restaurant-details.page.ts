@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Platform, LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
@@ -43,6 +43,8 @@ export class RestaurantDetailsPage implements OnInit {
     id: '',
     id_user: '',
     commensals: '',
+    turns: '',
+    time: ''
   }
 
   constructor(
@@ -105,7 +107,6 @@ export class RestaurantDetailsPage implements OnInit {
     this.restaurant = null;
     this.lng = null;
     this.lat = null;
-    this.location.back();
   }
 
   profile(){
@@ -114,7 +115,7 @@ export class RestaurantDetailsPage implements OnInit {
 
   async haveBooking(){
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
       mode: 'ios',
     });
     await loading.present();
@@ -134,10 +135,19 @@ export class RestaurantDetailsPage implements OnInit {
         loading.dismiss();
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
         loading.dismiss();
       }
     );
+  }
+
+  goToBooking(){
+    let navigationExtras: NavigationExtras = {
+      state: {
+        item: this.restaurant
+      }
+    };
+    this.router.navigate(['home/tabs/tabs2/restaurant-details/booking'], navigationExtras);
   }
 
   async getBookingsByRestaurant(){
@@ -157,14 +167,13 @@ export class RestaurantDetailsPage implements OnInit {
     this.listBookings.forEach(element => {
       var object = {
         type: 'radio',
-        label: 'Table for '+element.commensals+' Persons',
+        label: 'Table for '+element.commensals+' Persons - '+element.turns,
         value: element
       }
       arrayInputs.push(object);
     });
 
     this.showPrompt(arrayInputs);
-
   }
 
   showPrompt(arrayInputs) {
@@ -198,6 +207,7 @@ export class RestaurantDetailsPage implements OnInit {
       res.present();
     });
   }
+
 
   showAlertNotDivisible(dataBooking){
     this.alertController.create({
@@ -268,7 +278,7 @@ export class RestaurantDetailsPage implements OnInit {
     this.postCreateBooking.id_user = this.id_user;
     this.postCreateBooking.commensals = commensals;
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
       mode: 'ios',
     });
     await loading.present();

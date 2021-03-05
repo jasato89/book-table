@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { LoadingController, AlertController  } from '@ionic/angular';
+import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
+
 
 
 @Component({
@@ -23,7 +25,8 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private loadingController: LoadingController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private safariViewController: SafariViewController
   ) {}
 
   public showPassword: boolean = false;
@@ -46,7 +49,30 @@ export class LoginPage implements OnInit {
   }
 
   businessAction(){
-    
+    this.safariViewController.isAvailable().then((available: boolean) => {
+      if (available) {
+
+        this.safariViewController.show({
+          url: 'https://booktable.app/business/',
+          hidden: false,
+          animated: false,
+          transition: 'curl',
+          enterReaderModeIfAvailable: true,
+          tintColor: '#00ba5c'
+        })
+        .subscribe((result: any) => {
+            if(result.event === 'opened') console.log('Opened');
+            else if(result.event === 'loaded') console.log('Loaded');
+            else if(result.event === 'closed') console.log('Closed');
+          },
+          (error: any) => console.error(error)
+        );
+
+      } else {
+        // use fallback browser, example InAppBrowser
+      }
+    }
+  );
   }
 
   public optionsFn(): void { //here item is an object 
@@ -55,8 +81,8 @@ export class LoginPage implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Atención',
-      message: 'Incorrect user or password',
+      header: 'Attetion',
+      message: "Nom d'utilisateur ou mot de passe incorrect",
       buttons: ['OK']
     });
 
@@ -66,7 +92,7 @@ export class LoginPage implements OnInit {
   async loginAction() {
     if (this.validateInputs()) {
       const loading = await this.loadingController.create({
-        message: 'Loading...',
+        message: 'Chargement...',
         mode: 'ios'
       });
       await loading.present();
@@ -96,7 +122,7 @@ export class LoginPage implements OnInit {
         }
       );
     } else {
-      this.toastService.presentToast('Please fill the fields');
+      this.toastService.presentToast('Remplissez les champs');
     }
   }
 

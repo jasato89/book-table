@@ -46,7 +46,7 @@ export class UserProfilePage implements OnInit {
   async updateProfile(){
     if(this.validateInputs()){
       const loading = await this.loadingController.create({
-        message: 'Loading...',
+        message: 'Chargement...',
         mode: 'ios',
       });
       await loading.present();
@@ -63,13 +63,13 @@ export class UserProfilePage implements OnInit {
         },
         (error: any) => {
           if(error.error.errors.email[0]){
-            this.toastService.presentToast(error.error.errors.email[0]);
+            this.toastService.presentToast("Cette adresse emaill est dèjá utilisée");
           }
           loading.dismiss();
         }
       )
     }else{
-      this.toastService.presentToast('Please fill the fields');
+      this.toastService.presentToast('Remplissez les champs');
     }
   }
 

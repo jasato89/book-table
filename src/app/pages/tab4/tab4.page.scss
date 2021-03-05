@@ -50,3 +50,15 @@ ion-list-header ion-label{
     margin: 4px;
     color: #fff;
 }
+
+.status {
+    font-weight: bold;
+}
+
+.status.pending{
+    color:#e49c30;
+}
+
+.status.active{
+    color:rgba(0,186,92,1) ;
+}

@@ -19,11 +19,11 @@
             <ion-segment [(ngModel)]="segment" mode="ios">
               <ion-segment-button value="active">
                 <ion-icon name="restaurant-outline" class="icons-green"></ion-icon>
-                Active Bookings
+                Demande de réservation
               </ion-segment-button>
               <ion-segment-button value="last">
                 <ion-icon name="bookmarks-outline" class="icons-green"></ion-icon>
-                Last Bookings
+                Mes réservations
               </ion-segment-button>
             </ion-segment>
 
@@ -38,7 +38,7 @@
           <ion-grid *ngIf='!haveData'>
             <ion-row class="ion-justify-content-center">
               <ion-col size="12">
-                <h4 class="title-page"> You dont have active bookings</h4>
+                <h4 class="title-page">Aucune réservation en cours</h4>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -49,9 +49,20 @@
               <ion-avatar slot="end" class="custom-avatar" (click)="viewRestaurant(item)">
                 <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}"/>
               </ion-avatar>
-              <ion-label (click)="viewRestaurant(item)">
-                {{ item?.name }} - {{item?.time_trame}}
-              </ion-label>
+              <ng-container *ngIf="item.pending_booking == 1">
+                <ion-label (click)="viewRestaurant(item)" class="ion-text-wrap pending">
+                  {{ item?.name }} - {{item?.time_trame}}
+                  <h4 class="status pending">En attente</h4>
+                </ion-label>
+              </ng-container>
+
+              <ng-container *ngIf="item.pending_booking == 0">
+                <ion-label (click)="viewRestaurant(item)" class="ion-text-wrap active">
+                  {{ item?.name }} - {{item?.time_trame}}
+                  <h4 class="status active">Réservée</h4>
+                </ion-label>
+              </ng-container>
+
             </ion-item>
         
           </ion-list>
@@ -62,7 +73,7 @@
           <ion-grid *ngIf='!haveLastsRecords'>
             <ion-row class="ion-justify-content-center">
               <ion-col size="12">
-                <h4 class="title-page"> You dont have bookings</h4>
+                <h4 class="title-page">Vous n'avez pas de réservations</h4>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -73,8 +84,8 @@
               <ion-avatar slot="end" class="custom-avatar">
                 <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}"/>
               </ion-avatar>
-              <ion-label>
-                {{ item?.name }}
+              <ion-label class="ion-text-wrap active">
+                {{ item?.name }} - {{item?.time_trame}}
               </ion-label>
             </ion-item>
         

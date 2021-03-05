@@ -17,11 +17,11 @@
         <ion-segment mode="ios" [(ngModel)]="segment" (ionChange)="tabChange(segment)">
           <ion-segment-button value="favorites">
             <ion-icon name="heart-outline" class="icons-green"></ion-icon>
-            Favorites
+            Mes favoris
           </ion-segment-button>
           <ion-segment-button value="wishlist">
             <ion-icon name="book-outline" class="icons-green"></ion-icon>
-            Wishlist
+            Mes envies
           </ion-segment-button>
         </ion-segment>
 
@@ -42,7 +42,7 @@
                 <ion-avatar slot="start">
                   <img src="https://panel.booktable.app/storage/{{ fav.images[0] }}">
                 </ion-avatar>
-                <ion-label>{{ fav.name }}</ion-label>
+                <ion-label (click)="viewRestaurant(fav)">{{ fav.name }}</ion-label>
                 <app-animated-like [id_user]="id_user" [id_rest]="fav.id" slot="end" style="position: absolute;top: 10px;right: 0;"></app-animated-like>
               </ion-item>
             </ion-list>
@@ -50,7 +50,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <img src="assets/resources/MORE.jpg"/>
+      <img src="assets/resources/wishlist.jpg"/>
       <ion-grid class="searchbar-grid">
         <ion-row class="ion-justify-content-center searchbar">
           <ion-col size="12" class="center-col searchbar-col">
@@ -60,7 +60,7 @@
             ngDefaultControl
             [(ngModel)]="searchTerm"
             (ionChange)="setFilteredItems()"
-            placeholder="Do you know more restaurants?" 
+            placeholder="Ajoute tes restos favoris" 
             animated 
             showCancelButton="never">
           </ion-searchbar>
@@ -95,9 +95,9 @@
             
             <ion-list>
               <ion-list-header>
-                <ion-label>TOPIC</ion-label>
-                <ion-label>CITY</ion-label>
-                <ion-label>RANGE</ion-label>
+                <ion-label class="ion-text-wrap">Type de cuisine</ion-label>
+                <ion-label class="ion-text-wrap">Ville</ion-label>
+                <ion-label class="ion-text-wrap">Rayon</ion-label>
                 <ion-label></ion-label>
               </ion-list-header>
               <ion-item *ngFor="let fav of wishlist">
@@ -121,13 +121,18 @@
             <ion-item>
               <ion-icon name="bookmarks-outline" class="icons-green" item-start></ion-icon>
               <ion-label class="label-wishlist" floating>
-                Topics
+                Type de cuisine
               </ion-label>
-              <ion-select mode="ios" [(ngModel)]="topics" (ionChange)="optionsTopics(topics)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Cancel">
-                <ion-select-option value="casual">Casual</ion-select-option>
-                <ion-select-option value="fining">Fining</ion-select-option>
-                <ion-select-option value="exotic">Exotic</ion-select-option>
-                <ion-select-option value="family">Family</ion-select-option>
+              <ion-select mode="ios" [(ngModel)]="topics" (ionChange)="optionsTopics(topics)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Annuler">
+                <ion-select-option value="belge">Belge</ion-select-option>
+                <ion-select-option value="française">Française</ion-select-option>
+                <ion-select-option value="gastronomique">Gastronomique</ion-select-option>
+                <ion-select-option value="italienne">Italienne</ion-select-option>
+                <ion-select-option value="asiatique">Asiatique</ion-select-option>
+                <ion-select-option value="terroir">Terroir</ion-select-option>
+                <ion-select-option value="brasserie">Brasserie</ion-select-option>
+                <ion-select-option value="fusion">Fusion</ion-select-option>
+                <ion-select-option value="exotique">Exotique</ion-select-option>
               </ion-select>
             </ion-item>
 
@@ -142,9 +147,9 @@
             <ion-item>
               <ion-icon name="bookmarks-outline" class="icons-green" item-start></ion-icon>
               <ion-label class="label-wishlist" floating>
-                City
+                Ville
               </ion-label>
-              <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customAlertOptions" interface="alert" cancelText="Cancel">
+              <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customAlertOptions" interface="alert" cancelText="Annuler">
                 <ng-container *ngFor="let item of cities">
                   <ion-select-option value="{{item.city}}">{{ item.city }}</ion-select-option>
                 </ng-container>
@@ -163,13 +168,14 @@
               <ion-item>
                 <ion-icon name="compass-outline" class="icons-green" item-start></ion-icon>
                 <ion-label class="label-wishlist" floating>
-                  Range
+                  Rayon
                 </ion-label>
-                <ion-select mode="ios" [(ngModel)]="RadiusGPS" (ionChange)="optionsFn(RadiusGPS)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="500m - 10km" cancelText="Cancel">
+                <ion-select mode="ios" [(ngModel)]="RadiusGPS" (ionChange)="optionsFn(RadiusGPS)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="500m - 20km" cancelText="Annuler">
                   <ion-select-option value="500">500m</ion-select-option>
                   <ion-select-option value="1000">1km</ion-select-option>
                   <ion-select-option value="5000">5km</ion-select-option>
                   <ion-select-option value="10000">10km</ion-select-option>
+                  <ion-select-option value="10000">20km</ion-select-option>
                 </ion-select>
               </ion-item>
             
@@ -181,7 +187,7 @@
       <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col size="12">
-            <ion-button expand="block" (click)="addWish()">ADD WISH</ion-button>
+            <ion-button expand="block" (click)="addWish()">Ajouter envie</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>

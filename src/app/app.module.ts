@@ -24,6 +24,10 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 import { Sim } from '@ionic-native/sim/ngx';
 
+import { Badge } from '@ionic-native/badge/ngx';
+
+import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -47,7 +51,9 @@ import { Sim } from '@ionic-native/sim/ngx';
     File,
     FileOpener,
     SocialSharing,
-    Sim
+    Sim,
+    Badge,
+    SafariViewController
   ],
   bootstrap: [AppComponent]
 })

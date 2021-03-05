@@ -56,7 +56,7 @@ export class RegisterPage implements OnInit {
         this.toastService.presentToast('Passwords dont match');
       }
     }else{
-      this.toastService.presentToast('fill the passwords fields');
+      this.toastService.presentToast('Remplissez les champs');
     }
   }
 
@@ -64,7 +64,7 @@ export class RegisterPage implements OnInit {
     if(this.postData.name && this.postData.last_name && this.postData.telephone){
       return true;
     }else{
-      this.toastService.presentToast('fill the fields!');
+      this.toastService.presentToast('Remplissez les champs!');
     }
   }
 
@@ -82,7 +82,7 @@ export class RegisterPage implements OnInit {
       if(this.validateEmail()){
         if(this.validatePassword()){
           const loading = await this.loadingController.create({
-            message: 'Loading...',
+            message: 'Chargement...',
             mode: 'ios'
           });
           await loading.present();
@@ -92,9 +92,15 @@ export class RegisterPage implements OnInit {
               this.presentAlert();
             },
             (error: any) => {
-              loading.dismiss();
-              this.toastService.presentToast(error.error.errors.consent[0]);
               console.log(error.errors);
+              loading.dismiss();
+              if(error.error.errors.email[0]){
+                this.toastService.presentToast(error.error.errors.email[0]);
+              }
+              if(error.error.errors.consent[0]){
+                this.toastService.presentToast(error.error.errors.consent[0]);
+              }
+
             }
           )
         }

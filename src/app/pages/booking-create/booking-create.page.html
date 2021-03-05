@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons class="back-button" slot="start">
-      <ion-back-button defaultHref="" (click)="back()"></ion-back-button>
+    <ion-buttons class="back-button" slot="start" >
+      <ion-back-button defaultHref="/home/tabs/booking-system" text="Retour"></ion-back-button>
     </ion-buttons>
     <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
   </ion-toolbar>
@@ -9,10 +9,10 @@
 
 <ion-content>
 
-  <ion-grid>
+  <ion-grid *ngIf="myRest"> 
     <ion-row class="ion-justify-content-center">
       <ion-col size="10">
-        <h2>Create Booking</h2>
+        <h2>Ajouter une table</h2>
         <hr>
       </ion-col>
     </ion-row>
@@ -20,36 +20,34 @@
       <ion-col size="12">
 
         <ion-item>
-          <ion-label position="floating">
-            Restaurant
-          </ion-label>
-          <ion-select mode="ios" [(ngModel)]="postData.id_rest" [interfaceOptions]="customAlertOptions" interface="alert" cancelText="Cancel">
-            <ng-container *ngFor="let item of myRest">
-              <ion-select-option value="{{item.id}}">{{ item.name }}</ion-select-option>
+          <ion-label position="stacked">Restaurant</ion-label>
+          <ion-input mode="ios" readonly>{{ myRest.name }}</ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Service</ion-label>
+          <ion-select okText="Ok" cancelText="Annuler" [(ngModel)]="postData.turn">
+            <ng-container *ngFor="let item of arrayTurns">
+              <ion-select-option value="{{item.turn}}">{{ item.turn_text }}</ion-select-option>
             </ng-container>
           </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Time & Date</ion-label>
-          <ion-datetime [(ngModel)]="postData.time" displayFormat="D/MM/YYYY H:mm" mode="ios"></ion-datetime>
+          <ion-label position="floating">Couverts</ion-label>
+          <ion-input [(ngModel)]="postData.commensals" type="number" required> </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Commensals</ion-label>
-          <ion-input [(ngModel)]="postData.commensals"> </ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>The table is divisible?</ion-label>
-          <ion-checkbox slot="end" [(ngModel)]="postData.divisible" checked="false"></ion-checkbox>
+          <ion-label class="ion-text-wrap">Vendre UNIQUEMENT la table entière</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="postData.divisible"></ion-checkbox>
         </ion-item>
 
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="11">
-        <ion-button expand="block" (click)="createBooking()">CREATE</ion-button>
+        <ion-button expand="block" (click)="createBooking()">Ajouter</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

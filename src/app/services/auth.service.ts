@@ -147,6 +147,11 @@ providedIn: 'root'
     return this.httpService.post('getBookingPetitions', data, token);
   }
 
+  getLastBookingsUserBusiness(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('getLastBookingsUserBusiness', data, token);
+  }
+
   acceptPetition(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');
     return this.httpService.post('acceptPetition', data, token);
@@ -165,6 +170,11 @@ providedIn: 'root'
   createBooking(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');
     return this.httpService.post('createBooking', data, token);
+  }
+
+  deleteBooking(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('deleteBooking', data, token);
   }
   
 

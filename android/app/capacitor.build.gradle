@@ -12,9 +12,11 @@ dependencies {
 
     implementation "com.android.support:support-v4:27.+"
     implementation "com.google.android.gms:play-services-location:16.+"
+    implementation "androidx.browser:browser:1.3.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
 }
-
+apply from: "../../node_modules/cordova-plugin-badge/src/android/badge.gradle"
+apply from: "../../node_modules/cordova-plugin-safariviewcontroller/build/android/SafariViewController-java18.gradle"
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()

@@ -62,7 +62,7 @@ export class Tab1Page implements OnInit {
 
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }
@@ -111,7 +111,7 @@ export class Tab1Page implements OnInit {
         });
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }
@@ -130,7 +130,7 @@ export class Tab1Page implements OnInit {
         console.log(this.bookingsFavsList);
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }
@@ -146,14 +146,14 @@ export class Tab1Page implements OnInit {
         });
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }
 
   async getLastRestaurants(){
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
       mode: 'ios',
     });
     await loading.present();
@@ -168,7 +168,7 @@ export class Tab1Page implements OnInit {
         });
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
         loading.dismiss();
       }
     );

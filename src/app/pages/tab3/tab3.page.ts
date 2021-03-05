@@ -62,7 +62,7 @@ export class Tab3Page {
 
   async getFavoritesByUser(){
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
       mode: 'ios',
     });
     await loading.present();
@@ -89,7 +89,7 @@ export class Tab3Page {
         
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     )
   }
@@ -98,8 +98,8 @@ export class Tab3Page {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Ups!',
-      subHeader: 'Looks like you dont have anything added to favorites yet!',
-      message: 'Try first adding a restaurant to favorites!',
+      subHeader: "On dirait que vous n'avez encore rien ajouté aux favoris",
+      message: "Essayez d'abord d'ajouter un restaurant aux favoris",
       buttons: ['OK']
     });
 
@@ -116,7 +116,7 @@ export class Tab3Page {
         this.restaurantsAux = this.restaurants;
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }
@@ -153,13 +153,40 @@ export class Tab3Page {
         this.wishlist = res;
         if(this.wishlist.length == 0){
           this.wishlist = null;
+        }else{
+          this.wishlist.forEach(element => {
+            element.have_range = this.setRange(element.have_range);
+          });
         }
         console.log(this.wishlist);
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
+  }
+
+  setRange(range){
+    var result;
+    switch(range){
+      case "500":
+        result = "500m";
+        break;
+      case "1000":
+        result = "1km";
+        break;
+      case "5000":
+        result = "5km";
+        break;
+      case "10000":
+        result = "10km";
+        break;
+      case "20000":
+        result = "20km";
+        break;
+    }
+
+    return result;
   }
 
   getCities(){
@@ -168,7 +195,7 @@ export class Tab3Page {
         this.cities = res;
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }
@@ -176,7 +203,7 @@ export class Tab3Page {
   async addWish(){
     if(this.validateInputs()){
       const loading = await this.loadingController.create({
-        message: 'Loading...',
+        message: 'Chargement...',
         mode: 'ios',
       });
       await loading.present();
@@ -186,17 +213,17 @@ export class Tab3Page {
       this.postWish.range = this.RadiusGPS;
       this.authService.storetWishByUser(this.postWish).subscribe(
         (res: any) => {
-          this.toastService.presentToast('Wish added!');
+          this.toastService.presentToast('Envie ajoutée');
           this.getFavoritesByUser();
           loading.dismiss();
         },
         (error: any) => {
-          this.toastService.presentToast('Problema en la red.');
+          this.toastService.presentToast('Problème de réseau.');
           loading.dismiss();
         }
       );
     }else{
-      this.toastService.presentToast('fill the fields!');
+      this.toastService.presentToast('Remplissez les champs');
     }
   }
 
@@ -209,7 +236,7 @@ export class Tab3Page {
   async deleteWish(fav){
     console.log(fav);
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
       mode: 'ios',
     });
     await loading.present();
@@ -223,7 +250,7 @@ export class Tab3Page {
         loading.dismiss();
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
         loading.dismiss();
       }
     );

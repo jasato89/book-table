@@ -9,6 +9,7 @@ import {
   PushNotificationToken,
   PushNotificationActionPerformed,
 } from '@capacitor/core';
+import { Badge } from '@ionic-native/badge/ngx';
 
 const { PushNotifications } = Plugins;
 
@@ -39,7 +40,8 @@ export class TabsPage {
     private navCtrl: NavController,
     private router: Router,
     private authService: AuthService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private badge: Badge,
   ) {}
 
   ngOnInit() {
@@ -83,6 +85,7 @@ export class TabsPage {
       'pushNotificationReceived',
       (notification: PushNotification) => {
         console.log('Push received: ' + JSON.stringify(notification));
+        this.badge.increase(1);
         this.createNotification(notification);
       },
     );
@@ -99,7 +102,7 @@ export class TabsPage {
     this.role = window.localStorage.getItem('role');
     this.isUser = false;
     this.isBusiness = false;
-
+    this.badge.clear();
     switch(this.role){
       case "2":
         this.isUser = true;
@@ -128,7 +131,6 @@ export class TabsPage {
   }
 
   createNotification(notification){
-
     this.alertController.create({
       mode: 'ios',
       header: 'BookTable',

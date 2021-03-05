@@ -43,7 +43,8 @@ export class RestaurantsTopicsPage implements OnInit {
 
   async getListTopic(topic){
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
+      mode: 'ios'
     });
     await loading.present();
     this.postTopic.topic = topic;
@@ -59,7 +60,7 @@ export class RestaurantsTopicsPage implements OnInit {
       },
       (error: any) => {
         loading.dismiss();
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     );
   }

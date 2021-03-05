@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons class="back-button" slot="start">
-      <ion-back-button defaultHref="" (click)="back()"></ion-back-button>
+      <ion-back-button defaultHref="/home/tabs/tab1" (click)="back()" text="Retour"></ion-back-button>
     </ion-buttons>
     <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
     <ion-buttons class="profile-button" slot="end">
@@ -68,15 +68,15 @@
           <ion-item>
             <a (click)="openMenu()" class="link-menu">
               <ion-icon name="restaurant-outline" class="icons-green" item-start></ion-icon>
-              <ion-label class="btn-title-menu" floating> <i> Show Menu </i></ion-label>
+              <ion-label class="btn-title-menu" floating> <i> Voir le menu </i></ion-label>
             </a>
           </ion-item>
       
         </ion-list>
 
 
-        <ion-button *ngIf="_haveBooking" expand="block" class="btn-reserve" (click)="createListBooking()">
-          BOOKING
+        <ion-button *ngIf="_haveBooking" expand="block" class="btn-reserve" (click)="goToBooking()">
+          Réserver
         </ion-button>
 
       </ion-col>

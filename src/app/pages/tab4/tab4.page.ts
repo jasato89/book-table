@@ -5,6 +5,8 @@ import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import * as moment from 'moment';
+import { Platform } from '@ionic/angular';
 
 import { Plugins } from '@capacitor/core';
 const { Share } = Plugins;
@@ -43,7 +45,8 @@ export class Tab4Page implements OnInit {
     private toastService: ToastService,
     private alertController: AlertController,
     private router: Router,
-    private socialSharing: SocialSharing
+    private socialSharing: SocialSharing,
+    private platform: Platform,
   ) { }
 
   ngOnInit() {
@@ -78,7 +81,7 @@ export class Tab4Page implements OnInit {
   }
 
 async ShareFacebook(item ){
-    var text = "I have a booking in "+item.name+" restaurant thanks to BookTable!";
+    var text = "J'ai une réservation au restaurant "+item.name+" restaurant le "+item.time_trame+" thanks to BookTable!";
     var logo = "https://booktable.app/wp-content/uploads/2020/12/LOGO-02.svg";
     var website = "https://booktable.app/";
     
@@ -86,7 +89,7 @@ async ShareFacebook(item ){
       title: "BookTable - Booking",
       text: text,
       url: website,
-      dialogTitle: 'Share'
+      dialogTitle: 'Partager'
     });
 
   }
@@ -103,17 +106,17 @@ async ShareFacebook(item ){
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       mode: 'ios',
-      header: 'Info!',
-      subHeader: 'the date of your booking: '+item.time_trame,
-      message: 'Try to arrive on time!',
+      header: 'Info',
+      subHeader: 'La date de votre réservation est le '+item.time_trame,
+      message: "Soyez à l'heure et bon appétit !",
       buttons: [
         {
-          text: 'Okay!',
+          text: 'Ok',
           handler: (data: any) => {
           }
         },
         {
-          text: 'Share',
+          text: 'Partager',
           handler: (data: any) => {
             this.ShareFacebook(item);
           }
@@ -127,7 +130,7 @@ async ShareFacebook(item ){
 
   async getBooking(){
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
       mode: 'ios',
     });
     await loading.present();
@@ -137,33 +140,55 @@ async ShareFacebook(item ){
         this.activeRests = res;
         this.activeRests.forEach(element => {
           element.images = JSON.parse(element.images);
+          var date = this.convertDateForIos(element.time_trame);
+          element.time_trame = date;
         });
         if(this.activeRests.length == 0){
           this.haveData = false;
         }else{
           this.haveData = true;
         }
+        console.log(this.activeRests);
         this.getLastsBookings();
+
         this.segment = 'active';
         loading.dismiss();
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
         loading.dismiss();
       }
     );
-
   }
+
+  convertDateForIos(date) {
+    var arr = date.split(/[. :]/);
+    console.log(arr);
+    date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4]);
+
+    var dateStr =
+          ("00" + date.getDate()).slice(-2) + "/" +
+          ("00" + (date.getMonth() + 1)).slice(-2) + "/" +
+          date.getFullYear() + " " +
+          ("00" + date.getHours()).slice(-2) + ":" +
+          ("00" + date.getMinutes()).slice(-2);
+
+    return dateStr;
+  }
+
 
   async getLastsBookings(){
 
     this.authService.getsBookingsByUser(this.postData).subscribe(
       (res: any) => {
-
         this.lastBookings = res;
         this.lastBookings.forEach(element => {
           element.images = JSON.parse(element.images);
+          //var datestring = moment(element.time_trame).format('DD-MM-YYYY HH:mm');
+          var date = this.convertDateForIos(element.time_trame);
+          element.time_trame = date;
         });
+        
         if(this.lastBookings.length == 0){
           this.haveLastsRecords = false;
         }else{
@@ -171,9 +196,11 @@ async ShareFacebook(item ){
         }
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau.');
       }
     )
   }
+
+  
 
 }

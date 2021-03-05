@@ -2,6 +2,10 @@
 <widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <access origin="*" />
   
+  <feature name="Badge">
+    <param name="ios-package" value="APPBadge"/>
+  </feature>
+
   <feature name="File">
     <param name="ios-package" value="CDVFile"/>
     <param name="onload" value="true"/>
@@ -21,6 +25,10 @@
 
   <feature name="RequestLocationAccuracy">
     <param name="ios-package" value="RequestLocationAccuracy"/>
+  </feature>
+
+  <feature name="SafariViewController">
+    <param name="ios-package" value="SafariViewController"/>
   </feature>
 
   <feature name="Sim">

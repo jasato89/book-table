@@ -12,7 +12,7 @@
   <ion-grid class="searchbar-grid">
     <ion-row class="ion-justify-content-center searchbar">
       <ion-col size="12" class="center-col searchbar-col">
-        <ion-searchbar mode="ios" class="searchbar-button" placeholder="where do you want to eat today?" animated showCancelButton="never" (click)="openModal()"></ion-searchbar>
+        <ion-searchbar mode="ios" class="searchbar-button" placeholder="Nom du restaurant" animated showCancelButton="never" (click)="openModal()"></ion-searchbar>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -25,11 +25,11 @@
         <ion-segment [(ngModel)]="segment" mode="ios" (ionChange)="tabChange(segment)">
           <ion-segment-button value="proximity" (click)="refreshProximity()">
             <ion-icon name="compass-outline" class="icons-green"></ion-icon>
-            Proximity
+            A proximité
           </ion-segment-button>
           <ion-segment-button value="filter">
             <ion-icon name="search-outline" class="icons-green"></ion-icon>
-            Filter
+            Filtre
           </ion-segment-button>
         </ion-segment>
 
@@ -49,13 +49,14 @@
                     <ion-item>
                       <ion-icon name="compass-outline" class="icons-green" item-start></ion-icon>
                       <ion-label floating>
-                        Radar GPS
+                        Dans un rayon de
                       </ion-label>
-                      <ion-select mode="ios" [(ngModel)]="RadiusGPS" (ionChange)="optionsFn(RadiusGPS)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="500m - 10km" cancelText="Cancel">
+                      <ion-select mode="ios" [(ngModel)]="RadiusGPS" (ionChange)="optionsFn(RadiusGPS)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="500m - 20km" cancelText="Annuler">
                         <ion-select-option value="500">500m</ion-select-option>
                         <ion-select-option value="1000">1km</ion-select-option>
                         <ion-select-option value="5000">5km</ion-select-option>
                         <ion-select-option value="10000">10km</ion-select-option>
+                        <ion-select-option value="20000">20km</ion-select-option>
                       </ion-select>
                     </ion-item>
                   
@@ -157,23 +158,24 @@
                     <ion-item>
                       <ion-icon name="restaurant-outline" class="icons-green" item-start></ion-icon>
                       <ion-label floating>
-                        Number of commensals
+                        Nombre de couverts
                       </ion-label>
-                      <ion-select mode="ios" [(ngModel)]="commensals" (ionChange)="optionsCommensals(commensals)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Cancel">
-                        <ion-select-option value="any">Any</ion-select-option>
+                      <ion-select mode="ios" [(ngModel)]="commensals" (ionChange)="optionsCommensals(commensals)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Annuler">
+                        <ion-select-option value="any">Peu importe</ion-select-option>
                         <ion-select-option value="1">1</ion-select-option>
                         <ion-select-option value="2">2</ion-select-option>
                         <ion-select-option value="3">3</ion-select-option>
                         <ion-select-option value="4">4</ion-select-option>
+                        <ion-select-option value="5">5+</ion-select-option>
                       </ion-select>
                     </ion-item>
 
                     <ion-item>
                       <ion-icon name="earth-outline" class="icons-green" item-start></ion-icon>
                       <ion-label class="label-wishlist" floating>
-                        City
+                        Ville
                       </ion-label>
-                      <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customAlertOptions" interface="alert" cancelText="Cancel">
+                      <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customAlertOptions" interface="alert" cancelText="Annuler">
                         <ng-container *ngFor="let item of cities">
                           <ion-select-option value="{{item.city}}">{{ item.city }}</ion-select-option>
                         </ng-container>
@@ -183,25 +185,30 @@
                     <ion-item>
                       <ion-icon name="bookmarks-outline" class="icons-green" item-start></ion-icon>
                       <ion-label floating>
-                        Topics
+                        Type de cuisine
                       </ion-label>
-                      <ion-select mode="ios" [(ngModel)]="topics" (ionChange)="optionsTopics(topics)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Cancel">
-                        <ion-select-option value="all">All</ion-select-option>
-                        <ion-select-option value="casual">Casual</ion-select-option>
-                        <ion-select-option value="fining">Fining</ion-select-option>
-                        <ion-select-option value="exotic">Exotic</ion-select-option>
-                        <ion-select-option value="family">Family</ion-select-option>
+                      <ion-select mode="ios" [(ngModel)]="topics" (ionChange)="optionsTopics(topics)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Annuler">
+                        <ion-select-option value="all">Tous</ion-select-option>
+                        <ion-select-option value="belge">Belge</ion-select-option>
+                        <ion-select-option value="française">Française</ion-select-option>
+                        <ion-select-option value="gastronomique">Gastronomique</ion-select-option>
+                        <ion-select-option value="italienne">Italienne</ion-select-option>
+                        <ion-select-option value="asiatique">Asiatique</ion-select-option>
+                        <ion-select-option value="terroir">Terroir</ion-select-option>
+                        <ion-select-option value="brasserie">Brasserie</ion-select-option>
+                        <ion-select-option value="fusion">Fusion</ion-select-option>
+                        <ion-select-option value="exotique">Exotique</ion-select-option>
                       </ion-select>
                     </ion-item>
 
                     <ion-item>
                       <ion-icon name="heart-outline" class="icons-green" item-start></ion-icon>
-                      <ion-label floating>Show only my favorites?</ion-label>
+                      <ion-label floating class="ion-text-wrap">Montrer uniquement mes favoris?</ion-label>
                       <ion-checkbox slot="end" [(ngModel)]="postData.favorites" mode="ios" checked="false"></ion-checkbox>
                     </ion-item>
                   
                   </ion-list>
-                  <ion-button expand="block" (click)="searchAction()">SEARCH</ion-button>
+                  <ion-button expand="block" (click)="searchAction()">Recherche</ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>

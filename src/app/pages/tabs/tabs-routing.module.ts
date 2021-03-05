@@ -32,6 +32,10 @@ const routes: Routes = [
         loadChildren: () => import('../restaurant-details/restaurant-details.module').then(m => m.RestaurantDetailsPageModule)
       },
       {
+        path: 'tabs2/restaurant-details/booking',
+        loadChildren: () => import('../restaurant-booking/restaurant-booking.module').then(m => m.RestaurantBookingPageModule)
+      },
+      {
         path: 'tab3',
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },

@@ -39,3 +39,12 @@ ion-tab-button.tab-selected {
     --background: rgb(0 0 0 / 10%) !important;
     --color-selected: var(--ion-color-light);
   }
+
+.item-background-color{
+    --ion-item-background:transparent !important;
+    --background: transparent !important;
+}
+
+.sc-ion-alert-ios{
+    color: black;
+}

@@ -25,8 +25,8 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Time</ion-label>
-          <ion-input value="{{ booking.time_trame }}" readonly> </ion-input>
+          <ion-label position="floating">Turns</ion-label>
+          <ion-input value="{{ booking.turns }}" readonly> </ion-input>
         </ion-item>
 
         <ion-item>
@@ -36,7 +36,7 @@
 
         <ion-item>
           <ion-label position="floating">Pending</ion-label>
-          <ion-input value="{{ booking.pending }}" readonly> </ion-input>
+          <ion-input value="{{ booking.pending_text }}" readonly> </ion-input>
         </ion-item>
 
         <ng-container *ngIf="booking.id_user">
@@ -51,6 +51,11 @@
     <ion-row class="ion-justify-content-center" *ngIf="hasArrived">
       <ion-col size="11">
         <ion-button expand="block" (click)="_hasArrived()">HAS ARRIVED</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center" *ngIf="hasPending">
+      <ion-col size="11">
+        <ion-button expand="block" (click)="deleteBooking()">DELETE</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

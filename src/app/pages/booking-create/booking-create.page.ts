@@ -18,12 +18,24 @@ export class BookingCreatePage implements OnInit {
 
   public postData = {
     id_rest: "",
-    time: "",
     commensals: "",
-    divisible: false,
+    divisible: true,
+    turn: ''
   }
 
   public myRest: any;
+
+  public arrayTurns: any[] = new Array();  
+
+  public turnNight = {
+    turn_text: 'Soir',
+    turn: 2
+  }
+
+  public turnMidday = {
+    turn_text: 'Midi',
+    turn: 1
+  }
 
   constructor(
     private location: Location,
@@ -33,12 +45,14 @@ export class BookingCreatePage implements OnInit {
     private route: ActivatedRoute,
     private loadingController: LoadingController,
   ) {
-    
+    this.postId.id_user = window.localStorage.getItem('id_user');
+    this.getMyRestaurants();
   }
 
   ionViewWillEnter() {
     this.postId.id_user = window.localStorage.getItem('id_user');
     this.getMyRestaurants();
+    this.setTurns();
   }
 
   ngOnInit() {
@@ -46,13 +60,27 @@ export class BookingCreatePage implements OnInit {
 
   back(){
     this.location.back();
+    this.myRest = null;
+  }
+
+  setTurns(){
+    var now = new Date();
+    var nowTime = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2);
+    var limit = "17:00";
+
+    if(nowTime >= limit){
+      this.arrayTurns.push(this.turnNight)
+    }else{
+      this.arrayTurns.push(this.turnMidday);
+      this.arrayTurns.push(this.turnNight)
+    }
+
   }
 
   async createBooking(){
     if(this.validateInputs()){
-      console.log(this.postData);
       const loading = await this.loadingController.create({
-        message: 'Loading...',
+        message: 'Chargement...',
         mode: 'ios',
       });
       await loading.present();
@@ -66,13 +94,14 @@ export class BookingCreatePage implements OnInit {
         }
       );
     }else{
-      this.toastService.presentToast('fill the fields!');
+      this.toastService.presentToast('Remplissez les champs');
     }
 
   }
 
   validateInputs(){
-    if (this.postData.id_rest && this.postData.time && this.postData.commensals){
+    console.log(this.postData);
+    if (this.postData.id_rest && this.postData.turn && this.postData.commensals){
       return true;
     }
   }
@@ -80,18 +109,19 @@ export class BookingCreatePage implements OnInit {
 
   async getMyRestaurants(){
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
       mode: 'ios',
     });
     await loading.present();
     this.authService.getMyRestaurants(this.postId).subscribe(
       (res: any) => {
         this.myRest = res;
+        this.postData.id_rest = this.myRest.id;
         console.log(this.myRest);
         loading.dismiss();
       },
       (error: any) => {
-        this.toastService.presentToast('Problema en la red.');
+        this.toastService.presentToast('Problème de réseau');
         loading.dismiss();
       }
     )

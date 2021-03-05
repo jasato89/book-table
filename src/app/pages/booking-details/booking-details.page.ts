@@ -19,6 +19,7 @@ export class BookingDetailsPage implements OnInit {
   public booking: any;
 
   public hasArrived: boolean;
+  public hasPending: boolean;
 
   constructor(
     private location: Location,
@@ -34,8 +35,10 @@ export class BookingDetailsPage implements OnInit {
           this.booking = this.router.getCurrentNavigation().extras.state.item;
           if(this.booking.user_name){
             this.hasArrived = true;
+            this.hasPending = false;
           }else{
             this.hasArrived = false;
+            this.hasPending = true;
           }
         }
       });
@@ -52,7 +55,7 @@ export class BookingDetailsPage implements OnInit {
 
   async _hasArrived(){
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Chargement...',
       mode: 'ios',
     });
     await loading.present();
@@ -61,7 +64,7 @@ export class BookingDetailsPage implements OnInit {
       (res: any) => {
         loading.dismiss();
         console.log(res);
-        this.showAlert();
+        this.showAlertFinish();
       },
       (error: any) => {
         loading.dismiss();
@@ -69,12 +72,50 @@ export class BookingDetailsPage implements OnInit {
     )
   }
 
-  showAlert(){
+  async deleteBooking(){
+    const loading = await this.loadingController.create({
+      message: 'Chargement...',
+      mode: 'ios',
+    });
+    await loading.present();
+    this.postData.id_booking = this.booking.id;
+    this.authService.deleteBooking(this.postData).subscribe(
+      (res: any) => {
+        loading.dismiss();
+        console.log(res);
+        this.showAlertDelete();
+      },
+      (error: any) => {
+        loading.dismiss();
+      }
+    )
+  }
+
+  showAlertFinish(){
     this.alertController.create({
       mode: 'ios',
       header: 'BookTable',
       subHeader: 'Booking Finished',
       message: 'You have marked the reservation as finished.',
+      buttons: [
+        {
+          text: 'Done!',
+          handler: (data: any) => {
+            this.location.back();
+          }
+        }
+      ]
+    }).then(res => {
+      res.present();
+    });
+  }
+
+  showAlertDelete(){
+    this.alertController.create({
+      mode: 'ios',
+      header: 'BookTable',
+      subHeader: 'Booking Deleted',
+      message: 'Your Booking has been deleted.',
       buttons: [
         {
           text: 'Done!',
