@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons class="back-button" slot="start">
-      <ion-back-button defaultHref="" (click)="back()"></ion-back-button>
+      <ion-back-button defaultHref="" (click)="back()" text="Retour"></ion-back-button>
     </ion-buttons>
     <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
   </ion-toolbar>
@@ -25,23 +25,23 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Turns</ion-label>
+          <ion-label position="floating">Service</ion-label>
           <ion-input value="{{ booking.turns }}" readonly> </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Commensals</ion-label>
+          <ion-label position="floating">Couverts</ion-label>
           <ion-input value="{{ booking.commensals }}" readonly> </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Pending</ion-label>
+          <ion-label position="floating">Statut</ion-label>
           <ion-input value="{{ booking.pending_text }}" readonly> </ion-input>
         </ion-item>
 
         <ng-container *ngIf="booking.id_user">
         <ion-item>
-          <ion-label position="floating">Associated User</ion-label>
+          <ion-label position="floating">Client</ion-label>
           <ion-input value="{{ booking.user_name }}" readonly> </ion-input>
         </ion-item>
       </ng-container>
@@ -50,12 +50,12 @@
     </ion-row>
     <ion-row class="ion-justify-content-center" *ngIf="hasArrived">
       <ion-col size="11">
-        <ion-button expand="block" (click)="_hasArrived()">HAS ARRIVED</ion-button>
+        <ion-button expand="block" (click)="_hasArrived()">EST ARRIVÉ</ion-button>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center" *ngIf="hasPending">
       <ion-col size="11">
-        <ion-button expand="block" (click)="deleteBooking()">DELETE</ion-button>
+        <ion-button expand="block" (click)="deleteBooking()">SUPPRIMER</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

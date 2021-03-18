@@ -74,7 +74,7 @@ export class AnimatedLikeComponent implements OnInit {
         if (res){
           this.toastService.presentToast('Ajouté aux favoris');
         }else{
-          this.toastService.presentToast('Retiré de vos goûts. ☹️');
+          this.toastService.presentToast('Retiré de vos envies. ☹️');
         }
       },
       (error: any) => {

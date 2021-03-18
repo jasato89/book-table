@@ -97,7 +97,7 @@ export class Tab3Page {
   async emptyList() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Ups!',
+      header: 'Oups!',
       subHeader: "On dirait que vous n'avez encore rien ajouté aux favoris",
       message: "Essayez d'abord d'ajouter un restaurant aux favoris",
       buttons: ['OK']

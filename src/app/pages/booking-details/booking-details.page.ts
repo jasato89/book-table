@@ -95,8 +95,8 @@ export class BookingDetailsPage implements OnInit {
     this.alertController.create({
       mode: 'ios',
       header: 'BookTable',
-      subHeader: 'Booking Finished',
-      message: 'You have marked the reservation as finished.',
+      subHeader: 'Booking terminée',
+      message: 'Vous avez indiqué vette réservation comme terminée.',
       buttons: [
         {
           text: 'Done!',
@@ -114,11 +114,11 @@ export class BookingDetailsPage implements OnInit {
     this.alertController.create({
       mode: 'ios',
       header: 'BookTable',
-      subHeader: 'Booking Deleted',
-      message: 'Your Booking has been deleted.',
+      subHeader: 'Réservation annulée',
+      message: 'Votre table disponible a été annulée.',
       buttons: [
         {
-          text: 'Done!',
+          text: 'Ok',
           handler: (data: any) => {
             this.location.back();
           }

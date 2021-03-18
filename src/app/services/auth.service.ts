@@ -32,6 +32,11 @@ providedIn: 'root'
     return this.httpService.post('update', data, token);
   }
 
+  resetPassword(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('forget-password', data, token);
+  }
+
   registerTokenDevice(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');
     return this.httpService.post('registerTokenDevice', data, token);

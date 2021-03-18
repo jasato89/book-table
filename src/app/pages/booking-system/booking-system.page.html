@@ -65,8 +65,8 @@
           <ion-item *ngFor="let item of myActivePetitions" (click)="viewPetition(item)">
             <ion-label> 
               <h3><span class="bold-text">ID TABLE:</span> {{item.id_booking}} - <span class="bold-text">Couverts:</span> {{item.commensals}}</h3>
-              <h3><span class="bold-text">Time:</span> {{item.time_trame}}</h3>
-              <h4><span class="bold-text">Username:</span> {{item.user.name}} {{item.user.last_name}}</h4>
+              <h3><span class="bold-text">Heure:</span> {{item.time_trame}}</h3>
+              <h4><span class="bold-text">Client:</span> {{item.user.name}} {{item.user.last_name}}</h4>
               <h4><span class="bold-text">Téléphone:</span> {{item.user.phone_number}}</h4>
             </ion-label>
             <ion-icon name="restaurant-outline" slot="end"></ion-icon>

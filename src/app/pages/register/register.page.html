@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons class="back-button" slot="start">
-      <ion-back-button defaultHref="/login" ></ion-back-button>
+      <ion-back-button defaultHref="/login" text="Retour"></ion-back-button>
     </ion-buttons>
     <img class="smallLogo" src="assets/resources/logo_letters.svg"/>
   </ion-toolbar>
@@ -13,7 +13,7 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10">
-        <h2>Sign Up</h2>
+        <h2>S'inscrire</h2>
         <hr>
       </ion-col>
     </ion-row>
@@ -21,37 +21,37 @@
       <ion-col size="12">
 
         <ion-item>
-          <ion-label position="floating">Name</ion-label>
+          <ion-label position="floating">Nom</ion-label>
           <ion-input [(ngModel)]="postData.name" autocapitalize="true" type="text" required> </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Last Name</ion-label>
+          <ion-label position="floating">Nom et prénom</ion-label>
           <ion-input [(ngModel)]="postData.last_name" autocapitalize="true" type="text" required> </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Telephone</ion-label>
+          <ion-label position="floating">Téléphone</ion-label>
           <ion-input [(ngModel)]="postData.telephone" type="tel" required> </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Email</ion-label>
+          <ion-label position="floating">E-mail</ion-label>
           <ion-input [(ngModel)]="postData.email" type="email" autocomplete="email" email="true" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})" required> </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Password</ion-label>
+          <ion-label position="floating">Mot de passe</ion-label>
           <ion-input [(ngModel)]="postData.password" type="password" required> </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-label position="floating">Confirmer le mot de passe</ion-label>
           <ion-input [(ngModel)]="postData.password_confirmation" type="password" required> </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label class="ion-text-wrap">I agree to the Terms & Conditions and Privacy Policy</ion-label>
+          <ion-label class="ion-text-wrap">J'accepte les conditions générales et la politique de confidentialité.</ion-label>
           <ion-checkbox slot="start" [(ngModel)]="postData.consent" mode="ios" checked="false"></ion-checkbox>
         </ion-item>
 
@@ -59,7 +59,7 @@
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="11">
-        <ion-button expand="block" (click)="createSignUp()">Sign Up!</ion-button>
+        <ion-button expand="block" (click)="createSignUp()">S'inscrire</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

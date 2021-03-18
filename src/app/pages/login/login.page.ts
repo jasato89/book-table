@@ -47,6 +47,9 @@ export class LoginPage implements OnInit {
   registerAction(){
     this.router.navigateByUrl('/register');
   }
+  resetpasswordAction(){
+    this.router.navigateByUrl('/resetpassword');
+  }
 
   businessAction(){
     this.safariViewController.isAvailable().then((available: boolean) => {
@@ -81,7 +84,7 @@ export class LoginPage implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Attetion',
+      header: 'Attention',
       message: "Nom d'utilisateur ou mot de passe incorrect",
       buttons: ['OK']
     });

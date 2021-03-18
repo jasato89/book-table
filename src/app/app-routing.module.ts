@@ -54,6 +54,10 @@ const routes: Routes = [
   {
     path: 'restaurant-booking',
     loadChildren: () => import('./pages/restaurant-booking/restaurant-booking.module').then( m => m.RestaurantBookingPageModule)
+  },
+  {
+    path: 'resetpassword',
+    loadChildren: () => import('./pages/resetpassword/resetpassword.module').then( m => m.ResetpasswordPageModule)
   }
   
 ];

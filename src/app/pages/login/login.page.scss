@@ -62,8 +62,18 @@ ion-item:first-child{
     border:1px solid #019b80;
     border-radius: 12px;
     letter-spacing: 2px;
+    margin-bottom: 15px;
 
 }
+
+.btn-resetpassword{
+    --background: transparent;
+    color: #fff;
+    font-weight: 400;
+    border:1px solid #019b80;
+    border-radius: 12px;
+}
+
 
 .btn-business{
     color: #e0e0e0;

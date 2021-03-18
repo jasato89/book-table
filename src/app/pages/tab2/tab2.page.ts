@@ -300,6 +300,8 @@ export class Tab2Page {
               element.images = JSON.parse(element.images);
               element.description_short = element.description.substring(0, maxLength) + '...';
             });
+          }else{
+            this.toastService.presentToast("Il n'y a aucum restaurant correspondant à vos critères ");
           }
        
           loading.dismiss();
