@@ -42,9 +42,9 @@ providedIn: 'root'
     return this.httpService.post('registerTokenDevice', data, token);
   }
 
-  getAllRestaurantsFeatures(): Observable<any>{
+  getAllRestaurantsFeatures(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');
-    return this.httpService.get('getAllRestaurantsFeatures', token);
+    return this.httpService.post('getAllRestaurantsFeatures', data, token);
   }
 
   getAllRestaurants(): Observable<any>{
@@ -182,6 +182,10 @@ providedIn: 'root'
     return this.httpService.post('deleteBooking', data, token);
   }
   
+  hasPaymentMethod(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('hasPaymentMethod', data, token);
+  }
 
   logout() {
       localStorage.clear();

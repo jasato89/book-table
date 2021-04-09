@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ModalController, LoadingController, AlertController } from '@ionic/angular';
-import { ModalSearchBarComponent } from '../../components/modal-search-bar/modal-search-bar.component';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -73,7 +72,6 @@ export class Tab3Page {
           element.images = JSON.parse(element.images);
         });
         this.segment = window.localStorage.getItem('tab3-save')
-        console.log(this.segment);
         if(this.segment == null){
           this.segment = 'favorites';
         }
@@ -124,7 +122,6 @@ export class Tab3Page {
 
   setFilteredItems() {
     this.restaurantsAux = this.filterItems(this.searchTerm);
-    console.log(this.restaurantsAux);
   }
 
 
@@ -158,7 +155,6 @@ export class Tab3Page {
             element.have_range = this.setRange(element.have_range);
           });
         }
-        console.log(this.wishlist);
       },
       (error: any) => {
         this.toastService.presentToast('Problème de réseau.');
@@ -234,7 +230,6 @@ export class Tab3Page {
   }
 
   async deleteWish(fav){
-    console.log(fav);
     const loading = await this.loadingController.create({
       message: 'Chargement...',
       mode: 'ios',
@@ -245,7 +240,6 @@ export class Tab3Page {
 
     this.authService.deleteWishByUser(this.postWishDelete).subscribe(
       (res: any) => {
-        console.log(res);
         this.getFavoritesByUser();
         loading.dismiss();
       },

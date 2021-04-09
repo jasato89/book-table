@@ -5,6 +5,7 @@ import { ToastService } from './../../services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Platform, LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
 import { Sim } from '@ionic-native/sim/ngx';
+import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +33,8 @@ export class RegisterPage implements OnInit {
     private alertController: AlertController,
     private loadingController: LoadingController,
     private sim: Sim,
-    private platform: Platform
+    private platform: Platform,
+    private safariViewController: SafariViewController,
   ) {
     
     if(!this.platform.is('mobileweb')){
@@ -106,6 +108,33 @@ export class RegisterPage implements OnInit {
         }
       }
     }
+  }
+
+  viewPolicy(){
+    this.safariViewController.isAvailable().then((available: boolean) => {
+      if (available) {
+
+        this.safariViewController.show({
+          url: 'https://panel.booktable.app/storage/CGU_Booktable.pdf',
+          hidden: false,
+          animated: false,
+          transition: 'curl',
+          enterReaderModeIfAvailable: true,
+          tintColor: '#00ba5c'
+        })
+        .subscribe((result: any) => {
+            if(result.event === 'opened') console.log('Opened');
+            else if(result.event === 'loaded') console.log('Loaded');
+            else if(result.event === 'closed') console.log('Closed');
+          },
+          (error: any) => console.error(error)
+        );
+
+      } else {
+        // use fallback browser, example InAppBrowser
+      }
+    }
+  );
   }
 
  async presentAlert(){

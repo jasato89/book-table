@@ -1,12 +1,8 @@
-import { AbstractType, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController, LoadingController, AlertController } from '@ionic/angular';
-import { ModalSearchBarComponent } from '../../components/modal-search-bar/modal-search-bar.component';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import * as moment from 'moment';
-import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 import { Plugins } from '@capacitor/core';
 const { Share } = Plugins;
@@ -45,8 +41,6 @@ export class Tab4Page implements OnInit {
     private toastService: ToastService,
     private alertController: AlertController,
     private router: Router,
-    private socialSharing: SocialSharing,
-    private platform: Platform,
   ) { }
 
   ngOnInit() {
@@ -70,7 +64,6 @@ export class Tab4Page implements OnInit {
         this.getBooking();
         break;
       case "3":
-
         break;
       default:
         this.isUser = true;
@@ -80,9 +73,8 @@ export class Tab4Page implements OnInit {
 
   }
 
-async ShareFacebook(item ){
+async ShareFacebook(item){
     var text = "J'ai une réservation au restaurant "+item.name+" restaurant le "+item.time_trame+" thanks to BookTable!";
-    var logo = "https://booktable.app/wp-content/uploads/2020/12/LOGO-02.svg";
     var website = "https://booktable.app/";
     
     let shareRet = await Share.share({
@@ -148,7 +140,6 @@ async ShareFacebook(item ){
         }else{
           this.haveData = true;
         }
-        console.log(this.activeRests);
         this.getLastsBookings();
 
         this.segment = 'active';
@@ -163,7 +154,6 @@ async ShareFacebook(item ){
 
   convertDateForIos(date) {
     var arr = date.split(/[. :]/);
-    console.log(arr);
     date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4]);
 
     var dateStr =
@@ -184,7 +174,6 @@ async ShareFacebook(item ){
         this.lastBookings = res;
         this.lastBookings.forEach(element => {
           element.images = JSON.parse(element.images);
-          //var datestring = moment(element.time_trame).format('DD-MM-YYYY HH:mm');
           var date = this.convertDateForIos(element.time_trame);
           element.time_trame = date;
         });

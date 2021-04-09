@@ -122,7 +122,7 @@
 
               <ion-card *ngIf="m.isShown">
                 <ion-card-header>
-                  <app-animated-like [id_user]="id_user" [id_rest]="m.id" ></app-animated-like>
+                  <app-animated-like [like]="m.like" [id_user]="id_user" [id_rest]="m.id" ></app-animated-like>
                   <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
                   <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
                 </ion-card-header>
@@ -219,7 +219,7 @@
 
               <ion-card>
                 <ion-card-header>
-                  <app-animated-like [id_user]="id_user" [id_rest]="m.id"></app-animated-like>
+                  <app-animated-like [like]="m.like" [id_user]="id_user" [id_rest]="m.id"></app-animated-like>
                   <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
                   <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
                 </ion-card-header>

@@ -24,14 +24,13 @@ export class BookingSystemPage implements OnInit {
   public myActiveBookings: any;
   public myActivePetitions: any;
   public myLastBookings: any;
+  public havePaymentMethod: any;
   
   public haveActiveBookings: boolean;
   public haveActivePetitions: boolean;
   public haveLastBookings: boolean;
 
   constructor(
-    private modalController: ModalController,
-    private loadingController: LoadingController,
     private authService: AuthService,
     private toastService: ToastService,
     private alertController: AlertController,
@@ -42,6 +41,7 @@ export class BookingSystemPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.hasPaymentMethod();
     this.getBookingsForBusinessUser();
     this.getBookingPetitions();
     this.getLastBookingsUserBusiness();
@@ -72,6 +72,16 @@ export class BookingSystemPage implements OnInit {
           ("00" + date.getMinutes()).slice(-2);
 
     return dateStr;
+  }
+
+  async hasPaymentMethod(){
+    this.postData.id_user = window.localStorage.getItem('id_user');
+    this.authService.hasPaymentMethod(this.postData).subscribe(
+      (res: any) =>{
+        console.log(res);
+        this.havePaymentMethod = res;
+      }
+    )
   }
 
   async getBookingPetitions(){
@@ -131,11 +141,14 @@ export class BookingSystemPage implements OnInit {
     this.authService.getLastBookingsUserBusiness(this.postData).subscribe(
       (res: any) => {
         this.myLastBookings = res;
-        if(this.myLastBookings.length == 0){
-          this.haveLastBookings = false;
-        }else{
-          this.haveLastBookings = true;
+        if(this.myLastBookings){
+          if(this.myLastBookings.length == 0){
+            this.haveLastBookings = false;
+          }else{
+            this.haveLastBookings = true;
+          }
         }
+        
       },
       (error: any) => {
         this.toastService.presentToast('Problème de réseau.');

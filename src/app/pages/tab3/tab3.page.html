@@ -43,7 +43,7 @@
                   <img src="https://panel.booktable.app/storage/{{ fav.images[0] }}">
                 </ion-avatar>
                 <ion-label (click)="viewRestaurant(fav)">{{ fav.name }}</ion-label>
-                <app-animated-like [id_user]="id_user" [id_rest]="fav.id" slot="end" style="position: absolute;top: 10px;right: 0;"></app-animated-like>
+                <app-animated-like [like]="fav.like" [id_rest]="fav.id" slot="end" style="position: absolute;top: 10px;right: 0;"></app-animated-like>
               </ion-item>
             </ion-list>
 

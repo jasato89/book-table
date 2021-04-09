@@ -22,7 +22,7 @@
 
               <ion-card>
                 <ion-card-header>
-                  <app-animated-like [id_user]="id_user" [id_rest]="item.id"></app-animated-like>
+                  <app-animated-like [like]="item.like" [id_rest]="item.id"></app-animated-like>
                   <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item.images[0] }}" (click)="viewRestaurant(item)"/>
                   <ion-card-title class="title-card-featured" (click)="viewRestaurant(item)">{{ item.name }}</ion-card-title>
                 </ion-card-header>
@@ -52,7 +52,7 @@
 
           <ion-card>
             <ion-card-header>
-              <app-animated-like [id_user]="id_user" [id_rest]="m.restaurant.id"></app-animated-like>
+              <app-animated-like [like]="m.restaurant.like" [id_rest]="m.restaurant.id"></app-animated-like>
               <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.restaurant.images[0] }}" (click)="viewRestaurant(m)"/>
               <ion-card-title class="title-card-featured">{{ m.restaurant.name }}</ion-card-title>
             </ion-card-header>
@@ -85,7 +85,7 @@
 
           <ion-card>
             <ion-card-header>
-              <app-animated-like [id_user]="id_user" [id_rest]="m.id"></app-animated-like>
+              <app-animated-like [like]="m.like" [id_rest]="m.id"></app-animated-like>
               <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
               <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
             </ion-card-header>
@@ -123,7 +123,7 @@
 
           <ion-card>
             <ion-card-header>
-              <app-animated-like [id_user]="id_user" [id_rest]="m.id"></app-animated-like>
+              <app-animated-like [like]="m.like" [id_rest]="m.id"></app-animated-like>
               <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
               <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
             </ion-card-header>

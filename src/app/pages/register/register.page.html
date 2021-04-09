@@ -51,7 +51,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label class="ion-text-wrap">J'accepte les conditions générales et la politique de confidentialité.</ion-label>
+          <ion-label class="ion-text-wrap"><a href="#" (click)="viewPolicy()">J'accepte les conditions générales et la politique de confidentialité.</a></ion-label>
           <ion-checkbox slot="start" [(ngModel)]="postData.consent" mode="ios" checked="false"></ion-checkbox>
         </ion-item>
 

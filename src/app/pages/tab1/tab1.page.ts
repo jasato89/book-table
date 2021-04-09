@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
-import { ActionSheetController, Platform, LoadingController, AlertController } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
+import { ActionSheetController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 
 @Component({
@@ -14,7 +13,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 export class Tab1Page implements OnInit {
 
   public restaurants_featured: any;
-
+  private like: any;
   public id_user: any;
 
   public postData = {
@@ -46,25 +45,10 @@ export class Tab1Page implements OnInit {
   }
 
   ionViewWillEnter() {
-    //this.getLikes();
     this.getRestaurantsFeatured();
     this.getBookingsByFavs();
     this.getBookingsAll();
     this.getLastRestaurants();
-    //console.log('ionViewWillEnter FIRST');
-  }
- 
-  getLikes(){
-    this.id_user = window.localStorage.getItem('id_user');
-    this.postData.id_user = this.id_user;
-    this.authService.getLikes(this.postData).subscribe(
-      (res: any) => {
-
-      },
-      (error: any) => {
-        this.toastService.presentToast('Problème de réseau.');
-      }
-    );
   }
 
   viewTopicCasual(){
@@ -76,21 +60,15 @@ export class Tab1Page implements OnInit {
     this.router.navigate(['home/tabs/tabs1/restaurants-topics'], navigationExtras);
   }
 
-  viewTopicExotic(){
-
-  }
-
-  viewTopicBuffet(){
-
-  }
 
   viewRestaurant(m){
-
     if(m.restaurant){
       m = m.restaurant;
     }
-
+    console.log(m);
+    
     let navigationExtras: NavigationExtras = {
+      replaceUrl: true,
       state: {
         item: m
       }
@@ -99,11 +77,14 @@ export class Tab1Page implements OnInit {
   }
 
   profile(){
-    this.router.navigate(['home/tabs/user-profile']);
+    this.router.navigate(['home/tabs/user-profile'],{ replaceUrl: true });
   }
 
   getRestaurantsFeatured(){
-    this.authService.getAllRestaurantsFeatures().subscribe(
+    this.id_user = window.localStorage.getItem('id_user');
+    this.postData.id_user = this.id_user;
+
+    this.authService.getAllRestaurantsFeatures(this.postData).subscribe(
       (res: any) => {
         this.restaurants_featured = res;
         this.restaurants_featured.forEach(element => {
@@ -119,15 +100,13 @@ export class Tab1Page implements OnInit {
   getBookingsByFavs(){
     this.id_user = window.localStorage.getItem('id_user');
     this.postData.id_user = this.id_user;
+
     this.authService.getBookingsByFavs(this.postData).subscribe(
       (res: any) => {
-
         this.bookingsFavsList = res;
         this.bookingsFavsList.forEach(element => {
           element.restaurant.images = JSON.parse(element.restaurant.images);
         });
-
-        console.log(this.bookingsFavsList);
       },
       (error: any) => {
         this.toastService.presentToast('Problème de réseau.');
@@ -138,6 +117,7 @@ export class Tab1Page implements OnInit {
   getBookingsAll(){
     this.id_user = window.localStorage.getItem('id_user');
     this.postData.id_user = this.id_user;
+
     this.authService.getBookingsAll(this.postData).subscribe(
       (res: any) => {
         this.bookingAll = res;
@@ -156,9 +136,11 @@ export class Tab1Page implements OnInit {
       message: 'Chargement...',
       mode: 'ios',
     });
+
     await loading.present();
     this.id_user = window.localStorage.getItem('id_user');
     this.postData.id_user = this.id_user;
+
     this.authService.getLastRestaurants(this.postData).subscribe(
       (res: any) => {
         this.lastRestaurants = res;

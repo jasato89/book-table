@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Capacitor, Plugins } from "@capacitor/core";
+import { Capacitor } from "@capacitor/core";
 import { ModalController, LoadingController, NavController, Platform } from '@ionic/angular';
 import { ModalSearchBarComponent } from '../../components/modal-search-bar/modal-search-bar.component';
 import { AuthService } from './../../services/auth.service';
@@ -26,7 +26,6 @@ export class Tab2Page {
   public height: 300;
   public avaibleMap: boolean;
 
-  // Radius
   public radius = 500;
   public radiusLat = 0;
   public radiusLong = 0;
@@ -90,7 +89,7 @@ export class Tab2Page {
   }
 
   segmentChanged(ev: any) {
-    //console.log('Segment changed', ev);
+
   }
 
   drawMap() {
@@ -123,9 +122,6 @@ export class Tab2Page {
         }
         else { this.postGPSPermission(true); }
       }
-      else {
-        console.log('Error getting location');
-      }
     }
   }
 
@@ -140,7 +136,7 @@ export class Tab2Page {
     try {
       this.setCurrentLocation();
     }
-    catch (err) { console.log('err', err) }
+    catch (err) {}
   }
 
 
@@ -163,12 +159,11 @@ export class Tab2Page {
       loading.dismiss();
    }).catch((error) => {
       loading.dismiss();
-      console.log('Error getting location', error);
    });
   }
 
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+
   }
 
   async getRestaurants(){
@@ -182,7 +177,9 @@ export class Tab2Page {
           element.isShown = false;
           element.description_short = element.description.substring(0, maxLength) + '...';
           element.restaurant_menu = JSON.parse(element.restaurant_menu);
-          element.restaurant_menu = element.restaurant_menu[0].download_link;
+          if(element.restaurant_menu[0]){
+            element.restaurant_menu = element.restaurant_menu[0].download_link;
+          }
         });
         this.showHideMarkers();
       },
@@ -255,11 +252,6 @@ export class Tab2Page {
     var to = new google.maps.LatLng(lat2,long2);
 
     if(google.maps.geometry.spherical.computeDistanceBetween(from,to) <= this.radius){    
-      console.log('Radius',this.radius);
-      
-      console.log('Distance Between',google.maps.geometry.spherical.computeDistanceBetween(
-        from,to
-      ));
       return true;
     }else{
       return false;

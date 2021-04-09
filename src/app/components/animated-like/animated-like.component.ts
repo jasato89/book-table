@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
@@ -23,7 +23,7 @@ import { ToastService } from './../../services/toast.service';
     ])
   ]
 })
-export class AnimatedLikeComponent implements OnInit {
+export class AnimatedLikeComponent implements OnInit, OnDestroy {
 
   public likeState: string;
   public iconName: string;
@@ -33,21 +33,44 @@ export class AnimatedLikeComponent implements OnInit {
     id_rest: ''
   };
 
-  @Input() id_user: string;
-  @Input() id_rest: string;
-  @Input() mode: string;
 
-  constructor(private authService: AuthService, private toastService: ToastService) { }
+  @Input() id_rest: any;
+  @Input() like: any;
+
+  constructor(
+    private authService: AuthService, 
+    private toastService: ToastService,
+  ) { }
 
   ngOnInit() {
     this.getState();
   }
 
+  ionViewDidLeave() {
+  }
+
+  ngOnDestroy(){
+    this.postData = null;
+    this.likeState = null;
+    this.iconName = null;
+  }
+
   getState(){
+    if(this.like){
+      this.likeState = 'liked';
+      this.iconName = "assets/icon/heart_green.svg";
+    }else{
+      this.likeState = 'unliked';
+      this.iconName = "assets/icon/heart_empty.svg";
+    }
+  }
+
+  async getStatePetition(){
     this.postData = {
       id_rest: this.id_rest,
-      id_user: this.id_user
+      id_user: window.localStorage.getItem('id_user'),
     }
+
     this.authService.getOneLike(this.postData).subscribe(
       (res: any) => {
         if(res){
@@ -67,7 +90,7 @@ export class AnimatedLikeComponent implements OnInit {
   setLike(){
     this.postData = {
       id_rest: this.id_rest,
-      id_user: this.id_user
+      id_user: window.localStorage.getItem('id_user'),
     }
     this.authService.setLikeRestaurant(this.postData).subscribe(
       (res: any) => {
@@ -88,6 +111,7 @@ export class AnimatedLikeComponent implements OnInit {
     if(this.likeState == 'unliked'){
       this.likeState = 'liked';
       this.iconName = "assets/icon/heart_green.svg";
+
     } else {
       this.likeState = 'unliked';
       this.iconName = "assets/icon/heart_empty.svg";

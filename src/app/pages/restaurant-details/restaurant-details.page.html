@@ -23,7 +23,7 @@
 
         <ion-slides pager>
           <ion-slide *ngFor="let item of restaurant.images">
-            <app-animated-like [id_user]="id_user" [id_rest]="id_rest" [mode]="restaurant" class="icon-like"></app-animated-like>
+            <ng-template #likeContainer></ng-template>
             <div class="slide">
 
               <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ item }}"/>

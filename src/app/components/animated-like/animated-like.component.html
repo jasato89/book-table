@@ -1,1 +1,1 @@
-<ion-icon class="heart-like" (click)="toggleLikeState()" tappable [@heart]="likeState" size="large" [src]="iconName"></ion-icon>
+<ion-icon *ngIf="likeState" class="heart-like" (click)="toggleLikeState()" tappable [@heart]="likeState" size="large" [src]="iconName"></ion-icon>

@@ -28,6 +28,8 @@ import { Badge } from '@ionic-native/badge/ngx';
 
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 
+import { AnimatedLikeComponent } from '../app/components/animated-like/animated-like.component';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -53,7 +55,8 @@ import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
     SocialSharing,
     Sim,
     Badge,
-    SafariViewController
+    SafariViewController,
+    AnimatedLikeComponent
   ],
   bootstrap: [AppComponent]
 })

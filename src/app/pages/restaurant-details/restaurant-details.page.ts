@@ -1,16 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Platform, LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
+import { Component, OnInit, ComponentFactory, ComponentRef, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file/ngx';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { Location } from "@angular/common";
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { AgmMap } from '@agm/core';
-
-
+import { AnimatedLikeComponent } from '../../components/animated-like/animated-like.component';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -20,6 +15,9 @@ import { AgmMap } from '@agm/core';
 export class RestaurantDetailsPage implements OnInit {
 
   @ViewChild('agmMap') agmMap : AgmMap;
+  @ViewChild("likeContainer", { read: ViewContainerRef }) container;
+  componentRef: ComponentRef<AnimatedLikeComponent>;
+
 
   public restaurant: any;
   public lng: any;
@@ -50,24 +48,19 @@ export class RestaurantDetailsPage implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private transfer: FileTransfer,
-    private platform: Platform,
-    private file: File,
-    private fileOpener: FileOpener,
     private socialSharing: SocialSharing,
-    private location: Location,
     private authService: AuthService,
     private toastService: ToastService,
     private loadingController: LoadingController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private resolver: ComponentFactoryResolver
   ) { 
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.id_user = window.localStorage.getItem('id_user');
-        this.restaurant = this.router.getCurrentNavigation().extras.state.item;
-        //console.log(this.restaurant);
-        //console.log(this.restaurant.restaurant_menu.length);
+        const state = this.router.getCurrentNavigation().extras.state;
+        this.restaurant = state.item;
         if(this.restaurant.restaurant_menu){
           this.restaurant.restaurant_menu = JSON.parse(this.restaurant.restaurant_menu);
           this.haveMenu = true;
@@ -80,11 +73,34 @@ export class RestaurantDetailsPage implements OnInit {
     });
   }
 
+  createComponent() {
+    this.container.clear();
+    const factory: ComponentFactory<AnimatedLikeComponent> = this.resolver.resolveComponentFactory(AnimatedLikeComponent);
 
-  //REINICIAR MAPA CUANDO ENTRA Y SALE DE UN RESTAURANTE Y ENTRA A OTRO.
+    this.componentRef = this.container.createComponent(factory);
+    this.componentRef.instance.id_rest = this.restaurant.id;
+    this.componentRef.instance.getStatePetition();
+
+  }
+  
+  ngOnDestroy() {
+    this.componentRef.destroy();    
+  }
+
+  ionViewWillEnter(){
+    this.createComponent();
+  }
+
+  ionViewWillLeave(){
+    this.componentRef.destroy();    
+  }
+
+  ionViewDidLeave(){
+    this.componentRef.destroy();    
+  }
 
   ngOnInit() {
-
+  
   }
 
   openMenu(){
@@ -93,7 +109,6 @@ export class RestaurantDetailsPage implements OnInit {
 
   ShareWhatsapp(){
     var img = "https://panel.booktable.app/storage/"+this.restaurant.images[0];
-    console.log(url);
     if(this.haveMenu){
       var url = "https://panel.booktable.app/storage/"+this.restaurant.restaurant_menu[0].download_link;
       this.socialSharing.shareViaWhatsApp(this.restaurant.name, img, url);
@@ -120,10 +135,10 @@ export class RestaurantDetailsPage implements OnInit {
     });
     await loading.present();
     this.postData.id_rest = this.restaurant.id;
+
     this.authService.haveBooking(this.postData).subscribe(
       (res: any) => {
         this._haveBooking = res;
-        console.log(this._haveBooking);
         if(this._haveBooking.length == 0){
           this._haveBooking = null;
         }
@@ -153,7 +168,6 @@ export class RestaurantDetailsPage implements OnInit {
   async getBookingsByRestaurant(){
     this.authService.getBookingsByRestaurant(this.postData).subscribe(
       (res: any) => {
-        console.log(res);
         this.listBookings = res;
       },
       (error: any) => {
@@ -177,7 +191,6 @@ export class RestaurantDetailsPage implements OnInit {
   }
 
   showPrompt(arrayInputs) {
-
     this.alertController.create({
       mode: 'ios',
       header: 'Restaurant booking',
@@ -188,13 +201,11 @@ export class RestaurantDetailsPage implements OnInit {
         {
           text: 'Cancel',
           handler: (data: any) => {
-            console.log('Canceled', data);
           }
         },
         {
           text: 'Done!',
           handler: (data: any) => {
-            console.log('Selected Information', data);
             if(data.divisible_table == 1){
               this.showAlertDivisible(data);
             }else{
@@ -225,7 +236,6 @@ export class RestaurantDetailsPage implements OnInit {
         {
           text: 'Alright!',
           handler: (data: any) => {
-            //CREAR PETICION
             this.createBooking(dataBooking.id, dataBooking.commensals);
           }
         }
@@ -262,9 +272,7 @@ export class RestaurantDetailsPage implements OnInit {
         {
           text: 'Alright!',
           handler: (data: any) => {
-            //CREAR PETICION
             this.createBooking(dataBooking.id, data);
-            console.log(data);
           }
         }
       ]
@@ -285,7 +293,6 @@ export class RestaurantDetailsPage implements OnInit {
     this.authService.createBookingPetition(this.postCreateBooking).subscribe(
       (res: any) => {
         loading.dismiss();
-        console.log(res);
         this.haveBooking();
         this.showAlert();
       },
