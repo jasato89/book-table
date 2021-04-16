@@ -5,7 +5,7 @@ import { ToastService } from './../../services/toast.service';
 import { LoadingController, AlertController  } from '@ionic/angular';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
 
 
 @Component({
@@ -34,7 +34,8 @@ export class LoginPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private safariViewController: SafariViewController,
-    private fb: Facebook
+    private fb: Facebook,
+    private signInWithApple: SignInWithApple,
   ) {}
 
   public showPassword: boolean = false;
@@ -51,6 +52,24 @@ export class LoginPage implements OnInit {
       password.length > 0
     );
   }
+
+ loginWithApple(){
+  this.signInWithApple.signin({
+    requestedScopes: [
+      ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+      ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+    ]
+  })
+  .then((res: AppleSignInResponse) => {
+    // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
+    alert('Send token to apple for verification: ' + res.identityToken);
+    console.log(res);
+  })
+  .catch((error: AppleSignInErrorResponse) => {
+    alert(error.code + ' ' + error.localizedDescription);
+    console.error(error);
+  });
+ }
 
  loginWithFacebook(){
     this.fb.login(['public_profile', 'email'])

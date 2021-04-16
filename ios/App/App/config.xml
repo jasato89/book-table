@@ -36,6 +36,11 @@
     <param name="ios-package" value="SafariViewController"/>
   </feature>
 
+  <feature name="SignInWithApple">
+    <param name="ios-package" value="SignInWithApple"/>
+    <param name="onload" value="true"/>
+  </feature>
+
   <feature name="Sim">
     <param name="ios-package" value="Sim"/>
   </feature>
