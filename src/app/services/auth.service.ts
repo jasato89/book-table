@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpService } from './http.service';
 import { NavController } from '@ionic/angular';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 @Injectable({
 providedIn: 'root'
@@ -11,11 +12,16 @@ providedIn: 'root'
 
   constructor(
     private httpService: HttpService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private fb: Facebook
   ) {}
 
   login(postData: any): Observable<any> {
     return this.httpService.auth('login', postData);
+  }
+
+  loginFacebook(postData: any): Observable<any> {
+    return this.httpService.auth('login-facebook', postData);
   }
 
   register(postData: any): Observable<any> {
@@ -188,6 +194,7 @@ providedIn: 'root'
   }
 
   logout() {
+
       localStorage.clear();
       window.localStorage.clear();
       window.localStorage.removeItem("access_token");
@@ -197,6 +204,12 @@ providedIn: 'root'
       window.localStorage.removeItem("name");
       window.localStorage.removeItem("last_name");
       window.localStorage.removeItem("email");
+
+      this.fb.logout().then(res => {
+        console.log(res);
+      }, err => {
+        console.log(err);
+      });
 
       this.navCtrl.navigateRoot('/login', { animated: true, animationDirection: 'forward' });
   }

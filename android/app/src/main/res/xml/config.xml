@@ -10,6 +10,11 @@
     <param name="android-package" value="de.appplant.cordova.plugin.badge.Badge"/>
   </feature>
 
+  <feature name="FacebookConnectPlugin">
+    <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin"/>
+    <param name="onload" value="true"/>
+  </feature>
+
   <feature name="File">
     <param name="android-package" value="org.apache.cordova.file.FileUtils"/>
     <param name="onload" value="true"/>
@@ -45,4 +50,6 @@
   </feature>
 
   
+  <preference name="FACEBOOK_APP_ID" value="1737409156441794" />
+  <preference name="FACEBOOK_APP_NAME" value="BkTableapp" />
 </widget>

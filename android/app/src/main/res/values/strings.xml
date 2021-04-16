@@ -4,4 +4,8 @@
     <string name="title_activity_main">BookTable</string>
     <string name="package_name">com.lchawkins.booktable</string>
     <string name="custom_url_scheme">com.lchawkins.booktable</string>
+    <string name="fb_app_id">1737409156441794</string>
+    <string name="fb_app_name">BkTableapp</string>
+    <bool name="fb_auto_log_app_events_enabled">true</bool>
+    <bool name="fb_advertiser_id_collection_enabled">false</bool>
 </resources>

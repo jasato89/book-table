@@ -4,6 +4,7 @@ import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { LoadingController, AlertController  } from '@ionic/angular';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 
 
@@ -20,13 +21,20 @@ export class LoginPage implements OnInit {
     password: ''
   };
 
+  postDataFacebook = {
+    name: '',
+    last_name: '',
+    email: ''
+  }
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private toastService: ToastService,
     private loadingController: LoadingController,
     private alertController: AlertController,
-    private safariViewController: SafariViewController
+    private safariViewController: SafariViewController,
+    private fb: Facebook
   ) {}
 
   public showPassword: boolean = false;
@@ -42,6 +50,48 @@ export class LoginPage implements OnInit {
       email.length > 0 &&
       password.length > 0
     );
+  }
+
+ loginWithFacebook(){
+    this.fb.login(['public_profile', 'email'])
+    .then(
+      (res: FacebookLoginResponse) => {
+        if(res.status == "connected"){
+          let token = res.authResponse.accessToken;
+          this.fb.api("me/?fields=id,email,first_name,last_name&access_token=" + token, [])
+          .then(
+            async (profile) => {
+              console.log(profile);
+              this.postDataFacebook.email = profile.email;
+              this.postDataFacebook.name = profile.first_name;
+              this.postDataFacebook.last_name = profile.last_name;
+              const loading = await this.loadingController.create({
+                message: 'Chargement...',
+                mode: 'ios'
+              });
+              await loading.present();
+              this.authService.loginFacebook(this.postDataFacebook).subscribe(
+                (res: any) =>{
+                  if (res) {
+                    window.localStorage.setItem('access_token', res.access_token);
+                    window.localStorage.setItem('id_user', res.id_user);
+                    window.localStorage.setItem('name', res.name_user);
+                    window.localStorage.setItem('last_name', res.last_name);
+                    window.localStorage.setItem('email', res.email);
+                    window.localStorage.setItem('login', "1");
+                    window.localStorage.setItem('role', res.role);
+                    this.router.navigateByUrl('/home/tabs/tab1');
+                  }
+                  loading.dismiss();
+                }
+              )
+            }
+          ).catch(e => console.log('Error logging into Facebook', e));
+        }else{
+          console.log("not connected")
+        }
+      })
+    .catch(e => console.log('Error logging into Facebook', e));
   }
 
   registerAction(){
