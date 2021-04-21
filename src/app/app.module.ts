@@ -32,6 +32,10 @@ import { AnimatedLikeComponent } from '../app/components/animated-like/animated-
 
 import { Facebook } from '@ionic-native/facebook/ngx';
 
+import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
+
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -59,7 +63,9 @@ import { Facebook } from '@ionic-native/facebook/ngx';
     Badge,
     SafariViewController,
     AnimatedLikeComponent,
-    Facebook
+    Facebook,
+    SignInWithApple,
+    InAppBrowser
   ],
   bootstrap: [AppComponent]
 })

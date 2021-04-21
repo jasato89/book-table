@@ -24,6 +24,10 @@ providedIn: 'root'
     return this.httpService.auth('login-facebook', postData);
   }
 
+  loginApple(postData: any): Observable<any> {
+    return this.httpService.auth('login-apple', postData);
+  }
+
   register(postData: any): Observable<any> {
     return this.httpService.auth('register', postData);
   }

@@ -46,9 +46,8 @@
     </ion-row>
 
     <ion-row class="ion-justify-content-center" *ngIf="bookingsFavsList">
-      <ion-col size="12">
-
-        <ng-container *ngFor="let m of bookingsFavsList">
+      <ng-container *ngFor="let m of bookingsFavsList">
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6">
 
           <ion-card>
             <ion-card-header>
@@ -74,41 +73,42 @@
 
             </ion-card-content>
           </ion-card>
-        </ng-container>
-      </ion-col>
+        </ion-col>
+      </ng-container>
     </ion-row>
 
     <ion-row class="ion-justify-content-center" *ngIf="bookingAll">
-      <ion-col size="12">
 
-        <ng-container *ngFor="let m of bookingAll">
+      <ng-container *ngFor="let m of bookingAll">
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6">
 
-          <ion-card>
-            <ion-card-header>
-              <app-animated-like [like]="m.like" [id_rest]="m.id"></app-animated-like>
-              <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
-              <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
-            </ion-card-header>
+            <ion-card>
+              <ion-card-header>
+                <app-animated-like [like]="m.like" [id_rest]="m.id"></app-animated-like>
+                <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
+                <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
+              </ion-card-header>
+            
+              <ion-card-content>
+                {{ m.city }}
+                  <br>
+                  <div class="icons-card">
+                    <span class="text-commensals" style="font-size: 18px;"> <strong> {{m.commensals}} </strong></span>
+                    <ion-icon src="assets/icon/commensals.svg" class="icons-green"></ion-icon>
+                    <ng-container *ngIf="m.michelin_starts > 0">
+                      ·
+                    </ng-container>
+                    <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 0"></ion-icon>
+                    <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 1"></ion-icon>
+                    <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 2"></ion-icon>
+                    <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 3"></ion-icon>
+                  </div>
+
+              </ion-card-content>
+            </ion-card>
           
-            <ion-card-content>
-              {{ m.city }}
-                <br>
-                <div class="icons-card">
-                  <span class="text-commensals" style="font-size: 18px;"> <strong> {{m.commensals}} </strong></span>
-                  <ion-icon src="assets/icon/commensals.svg" class="icons-green"></ion-icon>
-                  <ng-container *ngIf="m.michelin_starts > 0">
-                    ·
-                  </ng-container>
-                  <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 0"></ion-icon>
-                  <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 1"></ion-icon>
-                  <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 2"></ion-icon>
-                  <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 3"></ion-icon>
-                </div>
-
-            </ion-card-content>
-          </ion-card>
-        </ng-container>
-      </ion-col>
+        </ion-col>
+      </ng-container>
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10">
@@ -117,31 +117,31 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center" *ngIf="lastRestaurants">
-      <ion-col size="12">
-
-        <ng-container *ngFor="let m of lastRestaurants">
-
-          <ion-card>
-            <ion-card-header>
-              <app-animated-like [like]="m.like" [id_rest]="m.id"></app-animated-like>
-              <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
-              <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
-            </ion-card-header>
+      
+      <ng-container *ngFor="let m of lastRestaurants">
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6">
           
-            <ion-card-content>
-              {{ m.city }}
-                <br>
-                <div class="icons-card">
-                  <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 0"></ion-icon>
-                  <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 1"></ion-icon>
-                  <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 2"></ion-icon>
-                  <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 3"></ion-icon>
-                </div>
+            <ion-card>
+              <ion-card-header>
+                <app-animated-like [like]="m.like" [id_rest]="m.id"></app-animated-like>
+                <img class="img-restaurants" src="https://panel.booktable.app/storage/{{ m.images[0] }}" (click)="viewRestaurant(m)"/>
+                <ion-card-title class="title-card-featured">{{ m.name }}</ion-card-title>
+              </ion-card-header>
+            
+              <ion-card-content>
+                {{ m.city }}
+                  <br>
+                  <div class="icons-card">
+                    <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 0"></ion-icon>
+                    <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 1"></ion-icon>
+                    <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 2"></ion-icon>
+                    <ion-icon src="assets/icon/1_star.svg" class="icons-green" *ngIf="m.michelin_starts > 3"></ion-icon>
+                  </div>
 
-            </ion-card-content>
-          </ion-card>
-        </ng-container>
-      </ion-col>
+              </ion-card-content>
+            </ion-card>
+        </ion-col>
+      </ng-container>
     </ion-row>
 
   </ion-grid>

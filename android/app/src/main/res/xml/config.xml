@@ -32,6 +32,10 @@
     <param name="android-package" value="org.apache.cordova.geolocation.Geolocation"/>
   </feature>
 
+  <feature name="InAppBrowser">
+    <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser"/>
+  </feature>
+
   <feature name="RequestLocationAccuracy">
     <param name="android-package" value="cordova.plugin.RequestLocationAccuracy"/>
   </feature>

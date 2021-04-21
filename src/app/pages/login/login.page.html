@@ -18,6 +18,11 @@
                   </ion-item>
               </ion-list>
               <ion-button class="btn-login" expand="block" (click)="loginAction()">Connexion</ion-button>
+              <ng-container *ngIf="isIOS" >
+                <ion-button class="btn-login-apple ion-text-wrap" expand="block" (click)="loginWithApple()" ion-button icon-start>
+                    <ion-icon name="logo-apple" style="margin-right: 5px;"></ion-icon>
+                     Connexion avec Apple</ion-button>
+              </ng-container>
               <ion-button class="btn-login-facebook ion-text-wrap" expand="block" (click)="loginWithFacebook()" ion-button icon-end>Se connecter avec Facebook <ion-icon name="logo-facebook" style="margin-left: 5px;"></ion-icon></ion-button>
               <ion-button class="btn-sign" expand="block" (click)="registerAction()">Créer un compte</ion-button>
               <ion-button class="btn-resetpassword" expand="block" (click)="businessAction()" >Créer un compte Restaurant</ion-button>

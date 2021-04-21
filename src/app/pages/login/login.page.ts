@@ -2,11 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
-import { LoadingController, AlertController  } from '@ionic/angular';
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
-
 
 @Component({
   selector: 'app-login',
@@ -27,6 +26,14 @@ export class LoginPage implements OnInit {
     email: ''
   }
 
+  postDataApple = {
+    name: '',
+    last_name: '',
+    email: ''
+  }
+
+  private isIOS: boolean;
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -36,11 +43,17 @@ export class LoginPage implements OnInit {
     private safariViewController: SafariViewController,
     private fb: Facebook,
     private signInWithApple: SignInWithApple,
+    private platform: Platform,
   ) {}
 
   public showPassword: boolean = false;
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.platform.is('ios')){
+      this.isIOS = true;
+      console.log("ios true");
+    }
+  }
 
   validateInputs() {
     let email = this.postData.email.trim();
@@ -60,16 +73,50 @@ export class LoginPage implements OnInit {
       ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
     ]
   })
-  .then((res: AppleSignInResponse) => {
+  .then( async (res: AppleSignInResponse) => {
     // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
-    alert('Send token to apple for verification: ' + res.identityToken);
-    console.log(res);
+    //console.log('Send token to apple for verification: ' + res.identityToken);
+    //console.log(res);
+
+    this.postDataApple.email = res.email;
+    this.postDataApple.name = res.fullName.givenName;
+    this.postDataApple.last_name = res.fullName.familyName;
+
+    let jsonToken = this.parseJwt(res.identityToken);
+    this.postDataApple.email = jsonToken.email
+    
+    const loading = await this.loadingController.create({
+      message: 'Chargement...',
+      mode: 'ios'
+    });
+    await loading.present();
+    this.authService.loginApple(this.postDataApple).subscribe(
+      (res: any) =>{
+        if (res) {
+          window.localStorage.setItem('access_token', res.access_token);
+          window.localStorage.setItem('id_user', res.id_user);
+          window.localStorage.setItem('name', res.name_user);
+          window.localStorage.setItem('last_name', res.last_name);
+          window.localStorage.setItem('email', res.email);
+          window.localStorage.setItem('login', "1");
+          window.localStorage.setItem('role', res.role);
+          this.router.navigateByUrl('/home/tabs/tab1');
+        }
+        loading.dismiss();
+      }
+    )
   })
   .catch((error: AppleSignInErrorResponse) => {
-    alert(error.code + ' ' + error.localizedDescription);
+    console.log(error.code + ' ' + error.localizedDescription);
     console.error(error);
   });
  }
+
+ private parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace('-', '+').replace('_', '/');
+  return JSON.parse(window.atob(base64));
+};
 
  loginWithFacebook(){
     this.fb.login(['public_profile', 'email'])
@@ -80,7 +127,7 @@ export class LoginPage implements OnInit {
           this.fb.api("me/?fields=id,email,first_name,last_name&access_token=" + token, [])
           .then(
             async (profile) => {
-              console.log(profile);
+              //console.log(profile);
               this.postDataFacebook.email = profile.email;
               this.postDataFacebook.name = profile.first_name;
               this.postDataFacebook.last_name = profile.last_name;
