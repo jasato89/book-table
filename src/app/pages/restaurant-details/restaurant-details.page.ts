@@ -61,7 +61,8 @@ export class RestaurantDetailsPage implements OnInit {
         this.id_user = window.localStorage.getItem('id_user');
         const state = this.router.getCurrentNavigation().extras.state;
         this.restaurant = state.item;
-        if(this.restaurant.restaurant_menu){
+        console.log(this.restaurant.restaurant_menu['length']);
+        if (typeof this.restaurant.restaurant_menu !== 'undefined' && this.restaurant.restaurant_menu  > 0){
           this.restaurant.restaurant_menu = JSON.parse(this.restaurant.restaurant_menu);
           this.haveMenu = true;
         }else{
@@ -110,6 +111,7 @@ export class RestaurantDetailsPage implements OnInit {
   ShareWhatsapp(){
     var img = "https://panel.booktable.app/storage/"+this.restaurant.images[0];
     if(this.haveMenu){
+      console.log(this.haveMenu);
       var url = "https://panel.booktable.app/storage/"+this.restaurant.restaurant_menu[0].download_link;
       this.socialSharing.shareViaWhatsApp(this.restaurant.name, img, url);
     }else{
