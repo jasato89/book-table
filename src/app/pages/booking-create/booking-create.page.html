@@ -35,7 +35,11 @@
 
         <ion-item>
           <ion-label position="floating">Couverts</ion-label>
-          <ion-input [(ngModel)]="postData.commensals" type="number" required> </ion-input>
+          <ion-select okText="Ok" cancelText="Annuler" [(ngModel)]="postData.commensals" required>
+            <ng-container *ngFor="let item of arrayCouverts">
+              <ion-select-option value="{{item}}">{{ item }}</ion-select-option>
+            </ng-container>
+          </ion-select>
         </ion-item>
 
         <ion-item>
