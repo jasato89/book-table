@@ -105,7 +105,9 @@ export class RestaurantDetailsPage implements OnInit {
   }
 
   openMenu(){
-    window.open("https://panel.booktable.app/storage/"+this.restaurant.restaurant_menu[0].download_link, '_system');
+    if(this.haveMenu){
+      window.open("https://panel.booktable.app/storage/"+this.restaurant.restaurant_menu[0].download_link, '_system');
+    }
   }
 
   ShareWhatsapp(){

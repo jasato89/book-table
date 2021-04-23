@@ -47,30 +47,35 @@
           </ng-container>
 
           <ng-container *ngIf="_haveBooking">
-            ·
+            <span class="dot-icons">
+              ·
+            </span>
           </ng-container>
           <ion-icon src="assets/icon/1_euro.svg" class="icons-item" *ngIf="restaurant.economy > 0"></ion-icon>
           <ion-icon src="assets/icon/1_euro.svg" class="icons-item" *ngIf="restaurant.economy > 1"></ion-icon>
           <ion-icon src="assets/icon/1_euro.svg" class="icons-item" *ngIf="restaurant.economy > 2"></ion-icon>
           <ion-icon src="assets/icon/1_euro.svg" class="icons-item" *ngIf="restaurant.economy > 3"></ion-icon>
           <ng-container *ngIf="restaurant.michelin_starts > 0">
-            ·
+            <span class="dot-icons">
+              ·
+            </span>
           </ng-container>
           <ion-icon src="assets/icon/1_star.svg" class="icons-item" *ngIf="restaurant.michelin_starts > 0"></ion-icon>
           <ion-icon src="assets/icon/1_star.svg" class="icons-item" *ngIf="restaurant.michelin_starts > 1"></ion-icon>
           <ion-icon src="assets/icon/1_star.svg" class="icons-item" *ngIf="restaurant.michelin_starts > 2"></ion-icon>
           <ion-icon src="assets/icon/1_star.svg" class="icons-item" *ngIf="restaurant.michelin_starts > 3"></ion-icon>
           <ng-container *ngIf="restaurant.bib_gourmand > 0 && restaurant.economy > 0">
-            ·
+            <span class="dot-icons">
+              ·
+            </span>
           </ng-container>
           <ion-icon src="assets/icon/icon_michelin.svg" class="icons-item" *ngIf="restaurant.bib_gourmand > 0"></ion-icon>
-          <ion-icon src="assets/icon/icon_michelin.svg" class="icons-item" *ngIf="restaurant.bib_gourmand > 1"></ion-icon>
 
         </ion-item>
 
         <ion-list class="margin">
 
-          <ion-item>
+          <ion-item *ngIf="this.haveMenu">
             <a (click)="openMenu()" class="link-menu">
               <ion-icon name="restaurant-outline" class="icons-green" item-start></ion-icon>
               <ion-label class="btn-title-menu" floating> <i> Voir le menu </i></ion-label>

@@ -51,6 +51,13 @@ export class Tab3Page {
     private router: Router
   ) {}
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
 
   ionViewWillEnter() {
     this.postData.id_user = window.localStorage.getItem('id_user');
