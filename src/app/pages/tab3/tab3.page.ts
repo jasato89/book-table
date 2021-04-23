@@ -52,9 +52,8 @@ export class Tab3Page {
   ) {}
 
   doRefresh(event) {
-    console.log('Begin async operation');
     setTimeout(() => {
-      console.log('Async operation has ended');
+      this.getFavoritesByUserForRefresh();
       event.target.complete();
     }, 2000);
   }
@@ -65,6 +64,32 @@ export class Tab3Page {
     this.getFavoritesByUser();
   }
 
+  private async getFavoritesByUserForRefresh(){
+    this.authService.getLikes(this.postData).subscribe(
+      (res: any) => {
+        this.favorites = res;
+        this.favorites.forEach(element => {
+          element.images = JSON.parse(element.images);
+        });
+        this.segment = window.localStorage.getItem('tab3-save')
+        if(this.segment == null){
+          this.segment = 'favorites';
+        }
+
+        this.getRestaurants();
+        this.getWishesByUser();
+        this.getCities();
+        if(this.favorites.length == 0){
+          this.favorites = null;
+          this.emptyList();
+        }
+        
+      },
+      (error: any) => {
+        this.toastService.presentToast('Problème de réseau.');
+      }
+    )
+  }
 
   async getFavoritesByUser(){
     const loading = await this.loadingController.create({

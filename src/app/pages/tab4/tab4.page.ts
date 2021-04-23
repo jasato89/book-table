@@ -47,6 +47,13 @@ export class Tab4Page implements OnInit {
 
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getBookingForRefresh();
+      event.target.complete();
+    }, 2000);
+  }
+
   ionViewWillEnter() {
     this.name = window.localStorage.getItem('name');
     this.last_name = window.localStorage.getItem('last_name');
@@ -119,6 +126,30 @@ async ShareFacebook(item){
     await alert.present();
   }
 
+  private getBookingForRefresh(){
+    this.postData.id_user = window.localStorage.getItem('id_user');
+    this.authService.getBookingActive(this.postData).subscribe(
+      (res: any) => {
+        this.activeRests = res;
+        this.activeRests.forEach(element => {
+          element.images = JSON.parse(element.images);
+          var date = this.convertDateForIos(element.time_trame);
+          element.time_trame = date;
+        });
+        if(this.activeRests.length == 0){
+          this.haveData = false;
+        }else{
+          this.haveData = true;
+        }
+        this.getLastsBookings();
+
+        this.segment = 'active';
+      },
+      (error: any) => {
+        this.toastService.presentToast('Problème de réseau.');
+      }
+    );
+  }
 
   async getBooking(){
     const loading = await this.loadingController.create({
@@ -167,7 +198,7 @@ async ShareFacebook(item){
   }
 
 
-  async getLastsBookings(){
+  private async getLastsBookings(){
 
     this.authService.getsBookingsByUser(this.postData).subscribe(
       (res: any) => {
