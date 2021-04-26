@@ -48,10 +48,7 @@ export class Tab4Page implements OnInit {
   }
 
   doRefresh(event) {
-    setTimeout(() => {
-      this.getBookingForRefresh();
-      event.target.complete();
-    }, 2000);
+    this.getBookingForRefresh(event);
   }
 
   ionViewWillEnter() {
@@ -126,7 +123,7 @@ async ShareFacebook(item){
     await alert.present();
   }
 
-  private getBookingForRefresh(){
+  private getBookingForRefresh(event){
     this.postData.id_user = window.localStorage.getItem('id_user');
     this.authService.getBookingActive(this.postData).subscribe(
       (res: any) => {
@@ -144,9 +141,11 @@ async ShareFacebook(item){
         this.getLastsBookings();
 
         this.segment = 'active';
+        event.target.complete();
       },
       (error: any) => {
         this.toastService.presentToast('Problème de réseau.');
+        event.target.complete();
       }
     );
   }

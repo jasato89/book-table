@@ -52,10 +52,7 @@ export class Tab3Page {
   ) {}
 
   doRefresh(event) {
-    setTimeout(() => {
-      this.getFavoritesByUserForRefresh();
-      event.target.complete();
-    }, 2000);
+    this.getFavoritesByUserForRefresh(event);
   }
 
   ionViewWillEnter() {
@@ -64,7 +61,7 @@ export class Tab3Page {
     this.getFavoritesByUser();
   }
 
-  private async getFavoritesByUserForRefresh(){
+  private async getFavoritesByUserForRefresh(event){
     this.authService.getLikes(this.postData).subscribe(
       (res: any) => {
         this.favorites = res;
@@ -83,10 +80,11 @@ export class Tab3Page {
           this.favorites = null;
           this.emptyList();
         }
-        
+        event.target.complete();
       },
       (error: any) => {
         this.toastService.presentToast('Problème de réseau.');
+        event.target.complete();
       }
     )
   }
