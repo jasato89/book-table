@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Platform, LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
+import { Platform, LoadingController, AlertController, ActionSheetController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-booking-details',
@@ -29,6 +29,7 @@ export class BookingDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private alertController: AlertController,
     private loadingController: LoadingController,
+    private navController: NavController,
     ) { 
       this.route.queryParams.subscribe(params => {
         if (this.router.getCurrentNavigation().extras.state) {
@@ -49,6 +50,7 @@ export class BookingDetailsPage implements OnInit {
 
 
   back(){
+    this.navController.pop();
     this.booking = null;
     this.location.back();
   }

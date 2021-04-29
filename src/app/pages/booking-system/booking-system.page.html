@@ -15,10 +15,12 @@
       <ion-col size="11" *ngIf="havePaymentMethod == 2">
         <h2>Vous devez être abonné à la redevance mensuelle</h2>
         <hr>
+        <ion-button (click)="goToPanel()">Dashboard</ion-button>
       </ion-col>
       <ion-col size="11" *ngIf="havePaymentMethod == 1">
         <h2>Entrez un mode de paiement dans le panneau de contrôle</h2>
         <hr>
+        <ion-button (click)="goToPanel()">Dashboard</ion-button>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">

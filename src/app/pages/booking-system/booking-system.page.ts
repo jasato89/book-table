@@ -1,10 +1,13 @@
 import { AbstractType, Component, OnInit } from '@angular/core';
-import { ModalController, LoadingController, AlertController } from '@ionic/angular';
+import { ModalController, LoadingController, AlertController, Platform } from '@ionic/angular';
 import { ModalSearchBarComponent } from '../../components/modal-search-bar/modal-search-bar.component';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import * as moment from 'moment';
+import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 
 @Component({
   selector: 'app-booking-system',
@@ -34,7 +37,10 @@ export class BookingSystemPage implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private platform: Platform,
+    private safariViewController: SafariViewController,
+    private inAppBrowser: InAppBrowser
   ) { }
 
   ngOnInit() {
@@ -205,6 +211,33 @@ export class BookingSystemPage implements OnInit {
         
       }
     )
+  }
+
+  goToPanel(){
+    this.safariViewController.isAvailable().then((available: boolean) => {
+      if (available) {
+          this.safariViewController.show({
+            url: 'https://panel.booktable.app/admin/',
+            hidden: false,
+            animated: false,
+            transition: 'curl',
+            enterReaderModeIfAvailable: true,
+            tintColor: '#00ba5c'
+          })
+          .subscribe((result: any) => {
+              if(result.event === 'opened') console.log('Opened');
+              else if(result.event === 'loaded') console.log('Loaded');
+              else if(result.event === 'closed') console.log('Closed');
+            },
+            (error: any) => console.error(error)
+          );
+
+        } else {
+          // Opening a URL and returning an InAppBrowserObject
+          const browser = this.inAppBrowser.create('https://panel.booktable.app/admin/', '_system', 'location=yes');
+        }
+      }
+    );
   }
 
 }

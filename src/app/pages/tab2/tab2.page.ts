@@ -44,6 +44,8 @@ export class Tab2Page {
     commensals: '',
     city: '',
     favorites: false,
+    bib_gourmand: false,
+    michelin: false,
     id_user: ''
   };
 
@@ -282,6 +284,8 @@ export class Tab2Page {
       this.postData.topic = this.topics;
       this.postData.city = this.city;
       this.postData.id_user = window.localStorage.getItem('id_user');
+
+      console.log(this.postData);
 
       this.authService.getBookings(this.postData).subscribe(
         (res: any) => {

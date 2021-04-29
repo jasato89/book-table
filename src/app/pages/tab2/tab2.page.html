@@ -206,6 +206,18 @@
                       <ion-label floating class="ion-text-wrap">Montrer uniquement mes favoris?</ion-label>
                       <ion-checkbox slot="end" [(ngModel)]="postData.favorites" mode="ios" checked="false"></ion-checkbox>
                     </ion-item>
+
+                    <ion-item>
+                      <ion-icon src="assets/icon/icon_michelin.svg" class="icons-green" item-start></ion-icon>
+                      <ion-label floating>Bib gourmand</ion-label>
+                      <ion-checkbox slot="end" [(ngModel)]="postData.bib_gourmand" mode="ios" checked="false"></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-icon src="assets/icon/1_star.svg" class="icons-green" item-start></ion-icon>
+                      <ion-label floating>Michelin</ion-label>
+                      <ion-checkbox slot="end" [(ngModel)]="postData.michelin" mode="ios" checked="false"></ion-checkbox>
+                    </ion-item>
                   
                   </ion-list>
                   <ion-button expand="block" (click)="searchAction()">Recherche</ion-button>
