@@ -50,9 +50,8 @@ export class BookingDetailsPage implements OnInit {
 
 
   back(){
-    this.navController.pop();
     this.booking = null;
-    this.location.back();
+    this.router.navigate(['home/tabs/booking-system/']);
   }
 
   async _hasArrived(){

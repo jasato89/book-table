@@ -6,8 +6,8 @@ android {
         applicationId "com.lchawkins.booktable"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "3.8"
+        versionCode 17
+        versionName "3.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
