@@ -100,7 +100,7 @@ export class LoginPage implements OnInit {
           window.localStorage.setItem('email', res.email);
           window.localStorage.setItem('login', "1");
           window.localStorage.setItem('role', res.role);
-          this.router.navigateByUrl('/home/tabs/tab1');
+          this.router.navigateByUrl('/home/tabs/tab1', { replaceUrl: true });
         }
         loading.dismiss();
       }
@@ -146,7 +146,7 @@ export class LoginPage implements OnInit {
                     window.localStorage.setItem('email', res.email);
                     window.localStorage.setItem('login', "1");
                     window.localStorage.setItem('role', res.role);
-                    this.router.navigateByUrl('/home/tabs/tab1');
+                    this.router.navigateByUrl('/home/tabs/tab1', { replaceUrl: true });
                   }
                   loading.dismiss();
                 }
@@ -228,7 +228,7 @@ export class LoginPage implements OnInit {
           window.localStorage.setItem('email', res.email);
           window.localStorage.setItem('login', "1");
           window.localStorage.setItem('role', res.role);
-          this.router.navigateByUrl('/home/tabs/tab1');
+          this.router.navigateByUrl('/home/tabs/tab1', { replaceUrl: true });
           } else {
             loading.dismiss();
             this.presentAlert();
