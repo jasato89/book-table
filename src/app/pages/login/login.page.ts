@@ -168,30 +168,7 @@ export class LoginPage implements OnInit {
   }
 
   businessAction(){
-    this.safariViewController.isAvailable().then((available: boolean) => {
-      if (available) {
-
-        this.safariViewController.show({
-          url: 'https://booktable.app/business/',
-          hidden: false,
-          animated: false,
-          transition: 'curl',
-          enterReaderModeIfAvailable: true,
-          tintColor: '#00ba5c'
-        })
-        .subscribe((result: any) => {
-            if(result.event === 'opened') console.log('Opened');
-            else if(result.event === 'loaded') console.log('Loaded');
-            else if(result.event === 'closed') console.log('Closed');
-          },
-          (error: any) => console.error(error)
-        );
-
-      } else {
-        // use fallback browser, example InAppBrowser
-      }
-    }
-  );
+    this.router.navigateByUrl('/register-business');
   }
 
   public optionsFn(): void { //here item is an object 

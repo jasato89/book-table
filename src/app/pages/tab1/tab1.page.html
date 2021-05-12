@@ -12,7 +12,7 @@
   <p class="claim-text">Si une table se libère, elle est pour toi !</p>
 
   <ion-grid *ngIf="lastRestaurants">
-
+    <!--
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" class="center-col">
 
@@ -38,6 +38,7 @@
 
       </ion-col>
     </ion-row>
+    -->
     <ion-row class="ion-justify-content-center">
       <ion-col size="10">
         <h1 class="title-page">TABLES DISPONIBLES</h1>
@@ -89,6 +90,12 @@
       </ng-container>
     </ion-row>
 
+    <ion-row class="ion-justify-content-center" *ngIf="bookingAll.length <= 0">
+      <ion-col size-xs="10" size-sm="10" size-md="10" size-lg="10">
+        Il n'y a aucune réservation de dernirè en ce moment
+      </ion-col>
+    </ion-row>
+    <!--
     <ion-row class="ion-justify-content-center" *ngIf="bookingsFavsList">
       <ng-container *ngFor="let m of bookingsFavsList">
         <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6">
@@ -130,7 +137,7 @@
         </ion-col>
       </ng-container>
     </ion-row>
-
+    -->
     <ion-row class="ion-justify-content-center">
       <ion-col size="10">
         <h1 class="title-page">NOUVEAUX RESTAURANTS</h1>

@@ -1,0 +1,32 @@
+
+ion-toolbar{
+    text-align: center;
+    margin: 0 auto;
+    --background: #1C2129;
+}
+
+ion-content{
+    --background:#fff;
+}
+
+ion-back-button{
+    color:white;
+}
+
+.back-button{
+    position: absolute;
+}
+
+.smallLogo{
+    width: 150px;
+    text-align: center;
+    margin: 10px;
+}
+
+.policy-text{
+    text-decoration: underline;
+}
+
+hr {
+    background: black !important;
+}

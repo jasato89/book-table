@@ -32,6 +32,10 @@ providedIn: 'root'
     return this.httpService.auth('register', postData);
   }
 
+  registerBusiness(postData: any): Observable<any> {
+    return this.httpService.auth('register-business', postData);
+  }
+
   getUser(): Observable<any>{
     let token = window.localStorage.getItem('access_token');
     return this.httpService.get('user', token);

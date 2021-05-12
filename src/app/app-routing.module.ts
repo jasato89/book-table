@@ -58,6 +58,10 @@ const routes: Routes = [
   {
     path: 'resetpassword',
     loadChildren: () => import('./pages/resetpassword/resetpassword.module').then( m => m.ResetpasswordPageModule)
+  },
+  {
+    path: 'register-business',
+    loadChildren: () => import('./pages/register-business/register-business.module').then( m => m.RegisterBusinessPageModule)
   }
   
 ];
