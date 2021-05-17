@@ -15,6 +15,7 @@ export class Tab1Page implements OnInit {
   public restaurants_featured: any;
   private like: any;
   public id_user: any;
+  public listEmpty: boolean;
 
   public postData = {
     id_user: ''
@@ -121,14 +122,25 @@ export class Tab1Page implements OnInit {
     this.authService.getBookingsAll(this.postData).subscribe(
       (res: any) => {
         this.bookingAll = res;
-        this.bookingAll.forEach(element => {
-          element.images = JSON.parse(element.images);
-        });
+        this.listEmpty = this.checkEmptyList(this.bookingAll);
+        if(this.listEmpty){
+          this.bookingAll.forEach(element => {
+            element.images = JSON.parse(element.images);
+          });
+        }
       },
       (error: any) => {
         this.toastService.presentToast('Problème de réseau.');
       }
     );
+  }
+
+  checkEmptyList(bookings){
+    if(bookings && bookings.length > 0){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   async getLastRestaurants(){
