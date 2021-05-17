@@ -185,7 +185,7 @@ export class RestaurantDetailsPage implements OnInit {
     this.listBookings.forEach(element => {
       var object = {
         type: 'radio',
-        label: 'Table for '+element.commensals+' Persons - '+element.turns,
+        label: 'Table for '+element.commensals+' personnes - '+element.turns,
         value: element
       }
       arrayInputs.push(object);
@@ -197,18 +197,17 @@ export class RestaurantDetailsPage implements OnInit {
   showPrompt(arrayInputs) {
     this.alertController.create({
       mode: 'ios',
-      header: 'Restaurant booking',
-      subHeader: 'Actives booking',
-      message: 'Select the table that best suits your needs',
+      header: 'Réservation',
+      message: 'Nombre de personnes',
       inputs: arrayInputs,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Annuler',
           handler: (data: any) => {
           }
         },
         {
-          text: 'Done!',
+          text: 'Confirmer',
           handler: (data: any) => {
             if(data.divisible_table == 1){
               this.showAlertDivisible(data);
@@ -227,18 +226,18 @@ export class RestaurantDetailsPage implements OnInit {
   showAlertNotDivisible(dataBooking){
     this.alertController.create({
       mode: 'ios',
-      header: 'Restaurant booking',
+      header: 'Réservation',
       subHeader: 'Actives booking',
       message: 'You have chosen a table for '+dataBooking.commensals+' persons. Are you sure you want it?',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Annuler',
           handler: (data: any) => {
             
           }
         },
         {
-          text: 'Alright!',
+          text: 'Confirmer',
           handler: (data: any) => {
             this.createBooking(dataBooking.id, dataBooking.commensals);
           }
@@ -262,19 +261,18 @@ export class RestaurantDetailsPage implements OnInit {
     
     this.alertController.create({
       mode: 'ios',
-      header: 'Restaurant booking',
-      subHeader: 'Actives booking',
-      message: 'how many people go?',
+      header: 'Réservation',
+      message: 'Nombre de personnes',
       inputs: arrayInputs,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Annuler',
           handler: (data: any) => {
             
           }
         },
         {
-          text: 'Alright!',
+          text: 'Confirmer',
           handler: (data: any) => {
             this.createBooking(dataBooking.id, data);
           }

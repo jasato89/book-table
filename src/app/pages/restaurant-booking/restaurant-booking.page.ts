@@ -143,7 +143,7 @@ export class RestaurantBookingPage implements OnInit {
     for (let i = 1; i <= this.bookingSelect.commensals; i++){
       var object = {
         type: 'radio',
-        label: +i+' Persons',
+        label: +i+' personnes',
         value: i
       }
       arrayInputs.push(object);
@@ -151,19 +151,18 @@ export class RestaurantBookingPage implements OnInit {
     
     this.alertController.create({
       mode: 'ios',
-      header: 'Restaurant booking',
-      subHeader: 'Actives booking',
-      message: 'how many people go?',
+      header: 'Réservation',
+      message: 'Nombre de personnes',
       inputs: arrayInputs,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Annuler',
           handler: (data: any) => {
             
           }
         },
         {
-          text: 'Alright!',
+          text: 'Confirmer',
           handler: (data: any) => {
             //CREAR PETICION
             this.commensals = data;
