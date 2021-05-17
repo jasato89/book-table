@@ -118,6 +118,10 @@ ion-item{
 
 .icons-item{
     font-size: 19px;
+    color: #00ba5c;
+    width: 16px;
+    display: inline-flex;
+    height: 15px;
 }
 
 .profile-button{
@@ -128,4 +132,12 @@ ion-item{
 
 .profile-icon{
     font-size: 24px;
+}
+
+.text-commensals, .number-commensals{
+    color: #00ba5c;
+}
+
+.number-commensals{
+    margin: 0 4px;
 }
