@@ -75,7 +75,7 @@
                     <ion-icon *ngIf="m.day_commensals" src="assets/icon/commensals.svg" class="icons-green"></ion-icon>
                     <span *ngIf="m.day_commensals>0" class="text-commensals" style="font-size: 18px;"> <strong> Midi: </strong></span>
                     <span class="text-commensals" style="font-size: 18px;"> <strong> {{m.day_commensals}} </strong></span>
-                    <ng-container *ngIf="m.night_commensals">
+                    <ng-container *ngIf="m.day_commensals">
                       /
                     </ng-container>
                     <ion-icon *ngIf="m.night_commensals" src="assets/icon/commensals.svg" class="icons-green"></ion-icon>
@@ -92,10 +92,13 @@
 
     <ion-row class="ion-justify-content-center" *ngIf="bookingAll.length <= 0">
       <ion-col size-xs="10" size-sm="10" size-md="10" size-lg="10">
-        <img src="assets/icon/icono-reservado.svg">
-        <h2 style="text-align: center;">Il n'y a aucune réservation de dernirè en ce moment</h2>
+        <div style="text-align: center;">
+          <img src="assets/icon/mesa_reservado.svg" width="150" />
+        </div>
+        <h2 style="text-align: center;color:#656565;">Aucune table disponible pour le moment</h2>
       </ion-col>
     </ion-row>
+
     <!--
     <ion-row class="ion-justify-content-center" *ngIf="bookingsFavsList">
       <ng-container *ngFor="let m of bookingsFavsList">
