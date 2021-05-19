@@ -40,8 +40,6 @@ export class Tab1Page implements OnInit {
     private platform: Platform,
   ) {
     platform.resume.subscribe(() => {
-      this.getRestaurantsFeatured();
-      this.getBookingsByFavs();
       this.getBookingsAll();
       this.getLastRestaurants();
     });
@@ -52,9 +50,17 @@ export class Tab1Page implements OnInit {
     
   }
 
+  doRefresh(event) {
+    this.getRestaurantsByUserForRefresh(event);
+  }
+
+  private getRestaurantsByUserForRefresh(event): void{
+      this.getBookingsAll();
+      this.getLastRestaurants();
+      event.target.complete();
+  }
+
   ionViewWillEnter() {
-    this.getRestaurantsFeatured();
-    this.getBookingsByFavs();
     this.getBookingsAll();
     this.getLastRestaurants();
   }
