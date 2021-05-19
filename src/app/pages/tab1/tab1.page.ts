@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
-import { ActionSheetController, LoadingController } from '@ionic/angular';
+import { ActionSheetController, LoadingController, Platform } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 
 @Component({
@@ -37,7 +37,14 @@ export class Tab1Page implements OnInit {
     private route: ActivatedRoute, 
     private router: Router,
     private loadingController: LoadingController,
+    private platform: Platform,
   ) {
+    platform.resume.subscribe(() => {
+      this.getRestaurantsFeatured();
+      this.getBookingsByFavs();
+      this.getBookingsAll();
+      this.getLastRestaurants();
+    });
 
   }
 
@@ -156,6 +163,7 @@ export class Tab1Page implements OnInit {
     this.authService.getLastRestaurants(this.postData).subscribe(
       (res: any) => {
         this.lastRestaurants = res;
+        console.log(this.lastRestaurants);
         this.lastRestaurants.forEach(element => {
           element.images = JSON.parse(element.images);
           loading.dismiss();
