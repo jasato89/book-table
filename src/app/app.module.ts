@@ -36,6 +36,8 @@ import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
+import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -65,7 +67,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     AnimatedLikeComponent,
     Facebook,
     SignInWithApple,
-    InAppBrowser
+    InAppBrowser,
+    GoogleAnalytics,
   ],
   bootstrap: [AppComponent]
 })
