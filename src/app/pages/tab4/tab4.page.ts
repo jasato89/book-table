@@ -3,7 +3,7 @@ import { ModalController, LoadingController, AlertController } from '@ionic/angu
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { Router } from '@angular/router';
-
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { Plugins } from '@capacitor/core';
 const { Share } = Plugins;
 
@@ -41,6 +41,7 @@ export class Tab4Page implements OnInit {
     private toastService: ToastService,
     private alertController: AlertController,
     private router: Router,
+    private firebaseAnalytics: FirebaseAnalytics
   ) { }
 
   ngOnInit() {
@@ -54,6 +55,9 @@ export class Tab4Page implements OnInit {
   ionViewWillEnter() {
     this.name = window.localStorage.getItem('name');
     this.last_name = window.localStorage.getItem('last_name');
+    this.firebaseAnalytics.logEvent('page_view', {page: "Bookings View"})
+      .then((res: any) => console.log(res))
+      .catch((error: any) => console.error(error));
     this.setRole();
   }
   

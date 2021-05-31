@@ -29,6 +29,13 @@
             {
               "client_id": "810488348415-ro19tejbhs2qajqnc2lvk12n2fsfs14g.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "810488348415-4j1a2mtupm4f8heioehbr6fd43fgltjp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lchawkins.booktable"
+              }
             }
           ]
         }

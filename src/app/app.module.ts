@@ -36,7 +36,8 @@ import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
-import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -68,7 +69,7 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
     Facebook,
     SignInWithApple,
     InAppBrowser,
-    GoogleAnalytics,
+    FirebaseAnalytics
   ],
   bootstrap: [AppComponent]
 })

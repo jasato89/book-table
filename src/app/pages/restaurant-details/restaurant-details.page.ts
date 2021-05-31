@@ -6,6 +6,7 @@ import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { AgmMap } from '@agm/core';
 import { AnimatedLikeComponent } from '../../components/animated-like/animated-like.component';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -53,7 +54,8 @@ export class RestaurantDetailsPage implements OnInit {
     private toastService: ToastService,
     private loadingController: LoadingController,
     private alertController: AlertController,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private firebaseAnalytics: FirebaseAnalytics
   ) { 
 
     this.route.queryParams.subscribe(params => {
@@ -68,6 +70,11 @@ export class RestaurantDetailsPage implements OnInit {
         }else{
           this.haveMenu = false;
         }
+
+        this.firebaseAnalytics.logEvent('page_view', {page: "Restaurant View: "+this.restaurant})
+        .then((res: any) => console.log(res))
+        .catch((error: any) => console.error(error));
+
         this.id_rest = this.restaurant.id;
         this.haveBooking();
       }

@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { MapsAPILoader } from '@agm/core';
 import { AgmMap } from '@agm/core';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 
 @Component({
@@ -62,7 +63,8 @@ export class Tab2Page {
     private router: Router,
     private locationService: LocationService,
     private navCtrl: NavController,
-    private platform: Platform
+    private platform: Platform,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   ngOnInit() {
@@ -77,6 +79,9 @@ export class Tab2Page {
   ionViewDidEnter(){
     this.mapsAPILoader.load().then(() => {
       this.getMyLocation();
+      this.firebaseAnalytics.logEvent('page_view', {page: "Search View"})
+      .then((res: any) => console.log(res))
+      .catch((error: any) => console.error(error));
     });
   }
 

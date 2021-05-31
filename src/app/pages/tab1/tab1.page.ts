@@ -3,6 +3,7 @@ import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { ActionSheetController, LoadingController, Platform } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 @Component({
   selector: 'app-tab1',
@@ -38,6 +39,7 @@ export class Tab1Page implements OnInit {
     private router: Router,
     private loadingController: LoadingController,
     private platform: Platform,
+    private firebaseAnalytics: FirebaseAnalytics,
   ) {
     platform.resume.subscribe(() => {
       this.getBookingsAll();
@@ -63,6 +65,10 @@ export class Tab1Page implements OnInit {
   ionViewWillEnter() {
     this.getBookingsAll();
     this.getLastRestaurants();
+    
+    this.firebaseAnalytics.logEvent('page_view', {page: "Restaurants Views"})
+      .then((res: any) => console.log(res))
+      .catch((error: any) => console.error(error));
   }
 
   viewTopicCasual(){

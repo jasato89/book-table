@@ -3,6 +3,7 @@ import { ModalController, LoadingController, AlertController } from '@ionic/angu
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { Router, NavigationExtras } from '@angular/router';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 @Component({
   selector: 'app-tab3',
@@ -48,7 +49,8 @@ export class Tab3Page {
     private authService: AuthService,
     private toastService: ToastService,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private firebaseAnalytics: FirebaseAnalytics
   ) {}
 
   doRefresh(event) {
@@ -59,6 +61,9 @@ export class Tab3Page {
     this.postData.id_user = window.localStorage.getItem('id_user');
     this.id_user = window.localStorage.getItem('id_user');
     this.getFavoritesByUser();
+    this.firebaseAnalytics.logEvent('page_view', {page: "Favourites View"})
+      .then((res: any) => console.log(res))
+      .catch((error: any) => console.error(error));
   }
 
   private async getFavoritesByUserForRefresh(event){

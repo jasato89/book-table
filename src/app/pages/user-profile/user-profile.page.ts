@@ -4,6 +4,7 @@ import { ModalSearchBarComponent } from '../../components/modal-search-bar/modal
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class UserProfilePage implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private firebaseAnalytics: FirebaseAnalytics,
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,9 @@ export class UserProfilePage implements OnInit {
     this.name = window.localStorage.getItem('name');
     this.last_name = window.localStorage.getItem('last_name');
     this.email = window.localStorage.getItem('email');
+    this.firebaseAnalytics.logEvent('page_view', {page: "Profile View"})
+      .then((res: any) => console.log(res))
+      .catch((error: any) => console.error(error));
   }
 
   async updateProfile(){

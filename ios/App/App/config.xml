@@ -24,12 +24,13 @@
     <param name="ios-package" value="CDVFileTransfer"/>
   </feature>
 
-  <feature name="Geolocation">
-    <param name="ios-package" value="CDVLocation"/>
+  <feature name="FirebaseAnalytics">
+    <param name="ios-package" value="FirebaseAnalyticsPlugin"/>
+    <param name="onload" value="$ANALYTICS_COLLECTION_ENABLED"/>
   </feature>
 
-  <feature name="UniversalAnalytics">
-    <param name="ios-package" value="UniversalAnalyticsPlugin"/>
+  <feature name="Geolocation">
+    <param name="ios-package" value="CDVLocation"/>
   </feature>
 
   <feature name="InAppBrowser">
