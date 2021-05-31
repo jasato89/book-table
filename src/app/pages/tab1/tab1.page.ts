@@ -66,9 +66,12 @@ export class Tab1Page implements OnInit {
     this.getBookingsAll();
     this.getLastRestaurants();
     
-    this.firebaseAnalytics.logEvent('page_view', {page: "Restaurants Views"})
+    if(!this.platform.is('mobileweb')){
+      this.firebaseAnalytics.logEvent('page_view', {page: "Restaurants Views"})
       .then((res: any) => console.log(res))
       .catch((error: any) => console.error(error));
+    }
+
   }
 
   viewTopicCasual(){
@@ -85,7 +88,6 @@ export class Tab1Page implements OnInit {
     if(m.restaurant){
       m = m.restaurant;
     }
-    console.log(m);
     
     let navigationExtras: NavigationExtras = {
       replaceUrl: true,
@@ -94,6 +96,19 @@ export class Tab1Page implements OnInit {
       }
     };
     this.router.navigate(['home/tabs/tabs2/restaurant-details'], navigationExtras);
+  }
+
+  goToBooking(m){
+    if(m.restaurant){
+      m = m.restaurant;
+    }
+
+    let navigationExtras: NavigationExtras = {
+      state: {
+        item: m
+      }
+    };
+    this.router.navigate(['home/tabs/tabs2/restaurant-details/booking'], navigationExtras);
   }
 
   profile(){

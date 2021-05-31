@@ -1,5 +1,5 @@
 import { Component, OnInit, ComponentFactory, ComponentRef, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AuthService } from './../../services/auth.service';
@@ -55,7 +55,8 @@ export class RestaurantDetailsPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private resolver: ComponentFactoryResolver,
-    private firebaseAnalytics: FirebaseAnalytics
+    private firebaseAnalytics: FirebaseAnalytics,
+    private platform: Platform
   ) { 
 
     this.route.queryParams.subscribe(params => {
@@ -71,9 +72,11 @@ export class RestaurantDetailsPage implements OnInit {
           this.haveMenu = false;
         }
 
-        this.firebaseAnalytics.logEvent('page_view', {page: "Restaurant View: "+this.restaurant})
-        .then((res: any) => console.log(res))
-        .catch((error: any) => console.error(error));
+        if(!this.platform.is('mobileweb')){
+          this.firebaseAnalytics.logEvent('page_view', {page: "Restaurant View: "+this.restaurant})
+          .then((res: any) => console.log(res))
+          .catch((error: any) => console.error(error));
+        }
 
         this.id_rest = this.restaurant.id;
         this.haveBooking();

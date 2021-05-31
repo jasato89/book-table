@@ -85,6 +85,22 @@
                     <span *ngIf="m.night_commensals>0" class="text-commensals" style="font-size: 18px;"> <strong> Soir: </strong></span>
                     <span class="text-commensals" style="font-size: 18px;"> <strong> {{m.night_commensals}} </strong></span>
                   </div>
+                  <div class="buttons btns-centers">
+
+                    <ion-row>
+                      <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6">
+                        <ion-button expand="block" class="btn-reserve" (click)="goToBooking(m)">
+                          Réserver
+                        </ion-button>
+                      </ion-col>
+                      <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6">
+                        <ion-button expand="block" class="btn-info" (click)="viewRestaurant(m)">
+                          Plus d’infos
+                        </ion-button>
+                      </ion-col>
+                    </ion-row>
+
+                  </div>
 
               </ion-card-content>
             </ion-card>

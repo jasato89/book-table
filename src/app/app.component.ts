@@ -27,9 +27,12 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.firebaseAnalytics.logEvent('page_view', {page: "Login"})
-      .then((res: any) => console.log(res))
-      .catch((error: any) => console.error(error));
+      if(!this.platform.is('mobileweb')){
+        this.firebaseAnalytics.logEvent('page_view', {page: "Login"})
+        .then((res: any) => console.log(res))
+        .catch((error: any) => console.error(error));
+      }
+
 
       let login = window.localStorage.getItem('login');
       console.log("Login: "+login);

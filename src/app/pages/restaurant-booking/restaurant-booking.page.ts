@@ -68,6 +68,16 @@ export class RestaurantBookingPage implements OnInit {
   ngOnInit() {
   }
 
+  back(){
+    let navigationExtras: NavigationExtras = {
+      replaceUrl: true,
+      state: {
+        item: this.restaurant
+      }
+    };
+    this.router.navigate(['home/tabs/tabs2/restaurant-details'], navigationExtras);
+  }
+
   async getBookingsByRestaurant(){
     this.authService.getBookingsByRestaurant(this.postData).subscribe(
       (res: any) => {
