@@ -41,15 +41,17 @@ export class Tab1Page implements OnInit {
     private platform: Platform,
     private firebaseAnalytics: FirebaseAnalytics,
   ) {
-    platform.resume.subscribe(() => {
-      this.getBookingsAll();
-      this.getLastRestaurants();
+    this.platform.resume.subscribe(() => {
+      let token = window.localStorage.getItem('access_token');
+      if(token){
+        this.getBookingsAll();
+        this.getLastRestaurants();
+      }
     });
-
   }
 
   ngOnInit() {
-    
+
   }
 
   doRefresh(event) {
