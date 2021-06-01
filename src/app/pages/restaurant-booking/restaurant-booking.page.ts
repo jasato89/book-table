@@ -89,7 +89,6 @@ export class RestaurantBookingPage implements OnInit {
             element.turn_text = "Soir";
           }
         });
-        console.log(this.listBookings);
       },
       (error: any) => {
 
@@ -128,10 +127,14 @@ export class RestaurantBookingPage implements OnInit {
         {
           text: 'Confirmer',
           handler: (data: any) => {
+            console.log(arrayInputs);
+            if(arrayInputs.length == 1){
+              data = arrayInputs[0].value;
+            }
+            console.log('Selected Information', data);
             this.table = 'Table pour '+data.commensals+' personnes - '+data.turn_text;
             this.bookingSelect = data;
             this.time = null;
-            console.log('Selected Information', data);
             if(data.divisible_table == 1){
               this.divisible = 1;
               this.commensals = 0;

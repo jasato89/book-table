@@ -43,9 +43,12 @@ export class Tab1Page implements OnInit {
   ) {
     this.platform.resume.subscribe(() => {
       let token = window.localStorage.getItem('access_token');
+      let role = window.localStorage.getItem('role');
       if(token){
-        this.getBookingsAll();
-        this.getLastRestaurants();
+        if(role == '2' || role == '1'){
+          this.getBookingsAll();
+          this.getLastRestaurants();
+        }
       }
     });
   }
