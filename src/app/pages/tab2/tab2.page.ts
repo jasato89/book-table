@@ -24,6 +24,7 @@ export class Tab2Page {
 
   public coordLatitude: any;
   public coordLongitude: any;
+  public zoom = 15;
   public height: 300;
   public avaibleMap: boolean;
 
@@ -79,9 +80,13 @@ export class Tab2Page {
   ionViewDidEnter(){
     this.mapsAPILoader.load().then(() => {
       this.getMyLocation();
-      this.firebaseAnalytics.logEvent('page_view', {page: "Search View"})
-      .then((res: any) => console.log(res))
-      .catch((error: any) => console.error(error));
+
+      if(!this.platform.is('mobileweb')){
+        this.firebaseAnalytics.logEvent('page_view', {page: "Search View"})
+        .then((res: any) => console.log(res))
+        .catch((error: any) => console.error(error));
+      }
+      
     });
   }
 
@@ -198,8 +203,17 @@ export class Tab2Page {
 
   optionsFn(radiusGPS){
     this.radius = parseInt(radiusGPS);
+    if(this.radius == 500) this.onZoomChange(15);
+    if(this.radius == 1000) this.onZoomChange(14);
+    if(this.radius == 5000) this.onZoomChange(12);
+    if(this.radius == 10000) this.onZoomChange(11);
+    if(this.radius == 20000) this.onZoomChange(10);
     this.showHideMarkers();
   }
+
+  onZoomChange(newZoomValue) {
+    this.zoom = newZoomValue;
+}
 
   showHideMarkers(){
     this.restaurants.forEach(value => {

@@ -74,7 +74,8 @@
                 [style.height.px]="300"
                 [latitude]="coordLatitude"
                 [longitude]="coordLongitude"
-                [zoom]="15">
+                [zoom]="zoom"
+                (zoomChange)="onZoomChange($event)">
           
                   <agm-marker 
                     [latitude]="coordLatitude" 
