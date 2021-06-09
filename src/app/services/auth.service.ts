@@ -16,6 +16,15 @@ providedIn: 'root'
     private fb: Facebook
   ) {}
 
+  /** Guest API Calls */
+
+  getBookingsAllGuest(data: any): Observable<any>{
+    return this.httpService.guestPost('getBookingsAll', data);
+  }
+
+
+  /** Auth API Calls */
+
   login(postData: any): Observable<any> {
     return this.httpService.auth('login', postData);
   }
@@ -55,6 +64,8 @@ providedIn: 'root'
     let token = window.localStorage.getItem('access_token');
     return this.httpService.post('registerTokenDevice', data, token);
   }
+
+  /** Common API Calls **/
 
   getAllRestaurantsFeatures(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');

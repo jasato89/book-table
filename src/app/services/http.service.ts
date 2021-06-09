@@ -44,4 +44,28 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
       return this.http.get(url, options);
     }
 
+    /** HTTP SERVICE - GUEST **/
+
+    guestGet(serviceName: string){
+      const headers = new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+        'Content-Type':  'application/json'
+      });
+      const options = { headers: headers, withCredintials: true };
+      const url = environment.apiGuest + serviceName;
+  
+      return this.http.get(url, options);
+    }
+
+    guestPost(serviceName: string, data: any) {
+      const headers = new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+        'Content-Type':  'application/json'
+      });
+      const options = { headers: headers, withCredintials: false };
+      const url = environment.apiGuest + serviceName;
+  
+      return this.http.post(url, JSON.stringify(data), options);
+    }
+
   }

@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://panel.booktable.app/api/auth/',
+  apiGuest: 'https://panel.booktable.app/api/guest/',
 };
 
 /*

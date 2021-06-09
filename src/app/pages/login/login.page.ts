@@ -66,6 +66,15 @@ export class LoginPage implements OnInit {
     );
   }
 
+  async guestLogin(){
+    const loading = await this.loadingController.create({
+      message: 'Chargement...',
+      mode: 'ios'
+    });
+
+    this.router.navigate(['/list-restaurants'], { replaceUrl: true });
+  }
+
  loginWithApple(){
   this.signInWithApple.signin({
     requestedScopes: [
