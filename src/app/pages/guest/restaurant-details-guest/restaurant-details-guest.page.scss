@@ -1,0 +1,143 @@
+ion-toolbar{
+    text-align: center;
+    margin: 0 auto;
+    --background: #1C2129;
+}
+
+ion-title{
+    color: #fff;
+}
+
+ion-content{
+    --background:#fff;
+}
+
+ion-back-button{
+    color:white;
+}
+
+ion-card-header{
+    padding: 0;
+}
+
+ion-card-title{
+    margin-left: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+ion-item{
+    --inner-padding-start:10px;
+}
+
+.dot-icons{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.item-background-color{
+    --ion-item-background:transparent !important;
+    --background: transparent !important;
+}
+
+.back-button{
+    position: absolute;
+}
+
+.smallLogo{
+    width: 135px;
+    text-align: center;
+    margin: 15px;
+}
+
+.title-restaurant{
+    text-align: center;
+    font-weight: 600;
+}
+
+.img-restaurants{
+    width: 100%;
+    height: 220px;
+}
+
+.description-restaurant{
+    text-align: justify;
+}
+
+.icons-green{
+    color: rgba(0,186,92,1);
+    font-size: 30px;
+    padding-right: 10px;
+    position: absolute;
+    right: 0;
+}
+
+.fab-green{
+    color: rgba(0,186,92,1);
+    font-size: 25px;
+}
+
+.btn-title-menu{
+    font-size: 20px;
+    color: black;
+}
+
+.link-menu{
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.btn-reserve{
+    margin-top: 20px;
+    --background:black;
+    --color:white;
+}
+
+.margin{
+    margin-bottom: 15px;
+}
+
+.map {
+    width: 100%;
+    height: 0;
+
+    agm-map {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.item-icon{
+    --padding-start: 0px;
+    --inner-padding-start: 0px;
+    --inner-padding-end: 0px; 
+    --inner-border-width: 0px 0px 0px 0px;
+    --min-height: 20px;
+    padding-bottom: 20px;
+}
+
+.icons-item{
+    font-size: 19px;
+    color: #00ba5c;
+    width: 16px;
+    display: inline-flex;
+    height: 15px;
+}
+
+.profile-button{
+    position: absolute;
+    color: #fff;
+    right: 10px;
+}
+
+.profile-icon{
+    font-size: 24px;
+}
+
+.text-commensals, .number-commensals{
+    color: #00ba5c;
+}
+
+.number-commensals{
+    margin: 0 4px;
+}

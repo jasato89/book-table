@@ -101,7 +101,7 @@ export class RestaurantBookingPage implements OnInit {
     this.listBookings.forEach(element => {
       var object = {
         type: 'radio',
-        label: 'Table pour '+element.commensals+' personnes - '+element.turn_text,
+        label: 'Table pour max'+element.commensals+' personnes - '+element.turn_text,
         value: element
       }
       arrayInputs.push(object);
@@ -132,7 +132,7 @@ export class RestaurantBookingPage implements OnInit {
               data = arrayInputs[0].value;
             }
             console.log('Selected Information', data);
-            this.table = 'Table pour '+data.commensals+' personnes - '+data.turn_text;
+            this.table = 'Table pour max'+data.commensals+' personnes - '+data.turn_text;
             this.bookingSelect = data;
             this.time = null;
             if(data.divisible_table == 1){

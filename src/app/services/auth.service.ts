@@ -22,6 +22,10 @@ providedIn: 'root'
     return this.httpService.guestPost('getBookingsAll', data);
   }
 
+  getLastRestaurantsGuest(data: any): Observable<any>{
+    return this.httpService.guestPost('getLastRestaurants', data);
+  }
+
 
   /** Auth API Calls */
 

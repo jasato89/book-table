@@ -74,13 +74,14 @@ export class ListRestaurantsPage implements OnInit {
         item: m
       }
     };
-    this.router.navigate(['home/tabs/tabs2/restaurant-details'], navigationExtras);
+    this.router.navigate(['/restaurant-details-guest'], navigationExtras);
   }
 
 
   getBookingsAll(){
-    this.authService.getBookingsAll(this.postData).subscribe(
+    this.authService.getBookingsAllGuest(this.postData).subscribe(
       (res: any) => {
+        console.log(res);
         this.bookingAll = res;
         this.listEmpty = this.checkEmptyList(this.bookingAll);
         if(this.listEmpty){
@@ -110,10 +111,9 @@ export class ListRestaurantsPage implements OnInit {
     });
 
     await loading.present();
-    this.authService.getLastRestaurants(this.postData).subscribe(
+    this.authService.getLastRestaurantsGuest(this.postData).subscribe(
       (res: any) => {
         this.lastRestaurants = res;
-        console.log(this.lastRestaurants);
         this.lastRestaurants.forEach(element => {
           element.images = JSON.parse(element.images);
           loading.dismiss();

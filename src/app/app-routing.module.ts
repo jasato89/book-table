@@ -66,7 +66,11 @@ const routes: Routes = [
   {
     path: 'list-restaurants',
     loadChildren: () => import('./pages/guest/list-restaurants/list-restaurants.module').then( m => m.ListRestaurantsPageModule)
+  },  {
+    path: 'restaurant-details-guest',
+    loadChildren: () => import('./pages/guest/restaurant-details-guest/restaurant-details-guest.module').then( m => m.RestaurantDetailsGuestPageModule)
   }
+
   
 ];
 @NgModule({
