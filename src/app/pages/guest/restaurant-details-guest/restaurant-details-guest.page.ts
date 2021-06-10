@@ -5,7 +5,6 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AuthService } from './../../../services/auth.service';
 import { ToastService } from './../../../services/toast.service';
 import { AgmMap } from '@agm/core';
-import { AnimatedLikeComponent } from '../../../components/animated-like/animated-like.component';
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 @Component({
@@ -16,8 +15,6 @@ import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 export class RestaurantDetailsGuestPage implements OnInit {
 
   @ViewChild('agmMap') agmMap : AgmMap;
-  @ViewChild("likeContainer", { read: ViewContainerRef }) container;
-  componentRef: ComponentRef<AnimatedLikeComponent>;
 
   public restaurant: any;
   public lng: any;
@@ -27,7 +24,6 @@ export class RestaurantDetailsGuestPage implements OnInit {
     id_rest: ''
   };
 
-  public _haveBooking: any;
   public listBookings: any;
 
   public height: any;
@@ -63,7 +59,6 @@ export class RestaurantDetailsGuestPage implements OnInit {
         this.id_user = window.localStorage.getItem('id_user');
         const state = this.router.getCurrentNavigation().extras.state;
         this.restaurant = state.item;
-        console.log(this.restaurant.restaurant_menu['length']);
         if (typeof this.restaurant.restaurant_menu !== 'undefined' && this.restaurant.restaurant_menu  > 0){
           this.restaurant.restaurant_menu = JSON.parse(this.restaurant.restaurant_menu);
           this.haveMenu = true;
@@ -78,35 +73,12 @@ export class RestaurantDetailsGuestPage implements OnInit {
         }
 
         this.id_rest = this.restaurant.id;
-        this.haveBooking();
+        this.lat = parseFloat(this.restaurant.coords[0].lat);
+        this.lng = parseFloat(this.restaurant.coords[0].lng);
+        this.height = 300;
+        this.avaibleMap = true;
       }
     });
-  }
-
-  createComponent() {
-    this.container.clear();
-    const factory: ComponentFactory<AnimatedLikeComponent> = this.resolver.resolveComponentFactory(AnimatedLikeComponent);
-
-    this.componentRef = this.container.createComponent(factory);
-    this.componentRef.instance.id_rest = this.restaurant.id;
-    this.componentRef.instance.getStatePetition();
-
-  }
-  
-  ngOnDestroy() {
-    this.componentRef.destroy();    
-  }
-
-  ionViewWillEnter(){
-    this.createComponent();
-  }
-
-  ionViewWillLeave(){
-    this.componentRef.destroy();    
-  }
-
-  ionViewDidLeave(){
-    this.componentRef.destroy();    
   }
 
   ngOnInit() {
@@ -139,43 +111,6 @@ export class RestaurantDetailsGuestPage implements OnInit {
 
   profile(){
     this.router.navigate(['home/tabs/user-profile']);
-  }
-
-  async haveBooking(){
-    const loading = await this.loadingController.create({
-      message: 'Chargement...',
-      mode: 'ios',
-    });
-    await loading.present();
-    this.postData.id_rest = this.restaurant.id;
-
-    this.authService.haveBooking(this.postData).subscribe(
-      (res: any) => {
-        this._haveBooking = res;
-        if(this._haveBooking.length == 0){
-          this._haveBooking = null;
-        }
-        this.getBookingsByRestaurant();
-        this.lat = parseFloat(this.restaurant.coords[0].lat);
-        this.lng = parseFloat(this.restaurant.coords[0].lng);
-        this.height = 300;
-        this.avaibleMap = true;
-        loading.dismiss();
-      },
-      (error: any) => {
-        this.toastService.presentToast('Problème de réseau.');
-        loading.dismiss();
-      }
-    );
-  }
-
-  goToBooking(){
-    let navigationExtras: NavigationExtras = {
-      state: {
-        item: this.restaurant
-      }
-    };
-    this.router.navigate(['home/tabs/tabs2/restaurant-details/booking'], navigationExtras);
   }
 
   async getBookingsByRestaurant(){
@@ -304,12 +239,10 @@ export class RestaurantDetailsGuestPage implements OnInit {
     this.authService.createBookingPetition(this.postCreateBooking).subscribe(
       (res: any) => {
         loading.dismiss();
-        this.haveBooking();
         this.showAlert();
       },
       (error: any) => {
         this.toastService.presentToast('Error');
-        this.haveBooking();
         loading.dismiss();
       }
     )

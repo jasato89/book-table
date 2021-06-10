@@ -81,7 +81,6 @@ export class ListRestaurantsPage implements OnInit {
   getBookingsAll(){
     this.authService.getBookingsAllGuest(this.postData).subscribe(
       (res: any) => {
-        console.log(res);
         this.bookingAll = res;
         this.listEmpty = this.checkEmptyList(this.bookingAll);
         if(this.listEmpty){
