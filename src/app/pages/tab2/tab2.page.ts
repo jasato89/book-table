@@ -208,6 +208,7 @@ export class Tab2Page {
     if(this.radius == 5000) this.onZoomChange(12);
     if(this.radius == 10000) this.onZoomChange(11);
     if(this.radius == 20000) this.onZoomChange(10);
+    if(this.radius == 50000) this.onZoomChange(9);
     this.showHideMarkers();
   }
 
