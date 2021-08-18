@@ -29,6 +29,7 @@ export class Tab1Page implements OnInit {
   public listTopic: any;
   public bookingsFavsList: any;
   public bookingAll: any;
+  public bookingTotal: any;
   public lastRestaurants: any;
 
   constructor(
@@ -47,6 +48,7 @@ export class Tab1Page implements OnInit {
       if(token){
         if(role == '2' || role == '1'){
           this.getBookingsAll();
+          this.getBookingsTotal();
           this.getLastRestaurants();
         }
       }
@@ -63,12 +65,14 @@ export class Tab1Page implements OnInit {
 
   private getRestaurantsByUserForRefresh(event): void{
       this.getBookingsAll();
+      this.getBookingsTotal();
       this.getLastRestaurants();
       event.target.complete();
   }
 
   ionViewWillEnter() {
     this.getBookingsAll();
+    this.getBookingsTotal();
     this.getLastRestaurants();
     
     if(!this.platform.is('mobileweb')){
@@ -174,6 +178,26 @@ export class Tab1Page implements OnInit {
     );
   }
 
+  getBookingsTotal(){
+    this.id_user = window.localStorage.getItem('id_user');
+    this.postData.id_user = this.id_user;
+
+    this.authService.getBookingsTotal(this.postData).subscribe(
+      (res: any) => {
+        this.bookingTotal = res;
+        this.listEmpty = this.checkEmptyList(this.bookingTotal);
+        if(this.listEmpty){
+          this.bookingTotal.forEach(element => {
+            element.images = JSON.parse(element.images);
+          });
+        }
+      },
+      (error: any) => {
+        this.toastService.presentToast('Problème de réseau.');
+      }
+    );
+  }
+
   checkEmptyList(bookings){
     if(bookings && bookings.length > 0){
       return true;
@@ -195,7 +219,6 @@ export class Tab1Page implements OnInit {
     this.authService.getLastRestaurants(this.postData).subscribe(
       (res: any) => {
         this.lastRestaurants = res;
-        console.log(this.lastRestaurants);
         this.lastRestaurants.forEach(element => {
           element.images = JSON.parse(element.images);
           loading.dismiss();

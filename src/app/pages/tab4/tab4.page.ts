@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, LoadingController, AlertController } from '@ionic/angular';
+import { ModalController, LoadingController, AlertController, Platform } from '@ionic/angular';
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { Router } from '@angular/router';
@@ -41,6 +41,7 @@ export class Tab4Page implements OnInit {
     private toastService: ToastService,
     private alertController: AlertController,
     private router: Router,
+    private platform: Platform,
     private firebaseAnalytics: FirebaseAnalytics
   ) { }
 
@@ -55,9 +56,11 @@ export class Tab4Page implements OnInit {
   ionViewWillEnter() {
     this.name = window.localStorage.getItem('name');
     this.last_name = window.localStorage.getItem('last_name');
-    this.firebaseAnalytics.logEvent('page_view', {page: "Bookings View"})
+    if(!this.platform.is('mobileweb')){
+      this.firebaseAnalytics.logEvent('page_view', {page: "Bookings View"})
       .then((res: any) => console.log(res))
       .catch((error: any) => console.error(error));
+    }
     this.setRole();
   }
   

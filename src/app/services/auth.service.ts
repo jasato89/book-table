@@ -166,6 +166,11 @@ providedIn: 'root'
     return this.httpService.post('getBookingsAll', data, token);
   }
 
+  getBookingsTotal(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('getBookingsTotal', data, token);
+  }
+
   getBookingsByRestaurant(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');
     return this.httpService.post('getBookingsByRestaurant', data, token);
