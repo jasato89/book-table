@@ -49,6 +49,27 @@ ion-card-header{
     padding-bottom: 10px;
 }
 
+.subtitle-card-featured{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: center;
+}
+
+.icons-podium{
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 25px;
+}
+
+.top-text{
+    display: inline-block;
+    margin-left: 10px;
+    min-height: 100%;
+    font-size: 25px;
+}
+
 .img-restaurants{
     width: 100%;
     height: 100%;
