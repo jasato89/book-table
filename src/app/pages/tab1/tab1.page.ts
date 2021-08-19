@@ -31,6 +31,7 @@ export class Tab1Page implements OnInit {
   public bookingAll: any;
   public bookingTotal: any;
   public lastRestaurants: any;
+  public topRestaurants: any;
 
   constructor(
     private authService: AuthService,
@@ -74,6 +75,7 @@ export class Tab1Page implements OnInit {
     this.getBookingsAll();
     this.getBookingsTotal();
     this.getLastRestaurants();
+    this.getRestaurantsTops();
     
     if(!this.platform.is('mobileweb')){
       this.firebaseAnalytics.logEvent('page_view', {page: "Restaurants Views"})
@@ -220,6 +222,34 @@ export class Tab1Page implements OnInit {
       (res: any) => {
         this.lastRestaurants = res;
         this.lastRestaurants.forEach(element => {
+          element.images = JSON.parse(element.images);
+          loading.dismiss();
+        });
+      },
+      (error: any) => {
+        this.toastService.presentToast('Problème de réseau.');
+        loading.dismiss();
+      }
+    );
+
+  }
+
+  async getRestaurantsTops(){
+    const loading = await this.loadingController.create({
+      message: 'Chargement...',
+      mode: 'ios',
+    });
+
+    await loading.present();
+    this.id_user = window.localStorage.getItem('id_user');
+    this.postData.id_user = this.id_user;
+    console.log("Antes de obtener los restaurantes");
+    console.log(this.topRestaurants);
+    this.authService.getRestaurantsTops().subscribe(
+      (res: any) => {
+        this.topRestaurants = res;
+        console.log(this.topRestaurants);
+        this.topRestaurants.forEach(element => {
           element.images = JSON.parse(element.images);
           loading.dismiss();
         });

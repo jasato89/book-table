@@ -69,7 +69,7 @@ providedIn: 'root'
     return this.httpService.post('registerTokenDevice', data, token);
   }
 
-  /** Common API Calls **/
+  /** Common API Calls GET **/
 
   getAllRestaurantsFeatures(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');
@@ -85,6 +85,13 @@ providedIn: 'root'
     let token = window.localStorage.getItem('access_token');
     return this.httpService.get('getCitysFromRestaurants', token);
   }
+
+  getRestaurantsTops(): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.get('getRestaurantsTops', token);
+  }
+  
+  /** Common API Calls POST **/
 
   getLastRestaurants(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');
