@@ -243,12 +243,9 @@ export class Tab1Page implements OnInit {
     await loading.present();
     this.id_user = window.localStorage.getItem('id_user');
     this.postData.id_user = this.id_user;
-    console.log("Antes de obtener los restaurantes");
-    console.log(this.topRestaurants);
     this.authService.getRestaurantsTops().subscribe(
       (res: any) => {
         this.topRestaurants = res;
-        console.log(this.topRestaurants);
         this.topRestaurants.forEach(element => {
           element.images = JSON.parse(element.images);
           loading.dismiss();

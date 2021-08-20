@@ -84,7 +84,6 @@ export class BookingSystemPage implements OnInit {
     this.postData.id_user = window.localStorage.getItem('id_user');
     this.authService.hasPaymentMethod(this.postData).subscribe(
       (res: any) =>{
-        console.log(res);
         this.havePaymentMethod = res;
       }
     )
@@ -113,9 +112,11 @@ export class BookingSystemPage implements OnInit {
 
   async getBookingsForBusinessUser(){
     this.postData.id_user = window.localStorage.getItem('id_user');
+    console.log("Antes de obtener las reservas.");
     this.authService.getBookingsForBusinessUser(this.postData).subscribe(
       (res: any) => {
         this.myActiveBookings = res;
+        console.log("Antes de recorrer una reserva"); 
         this.myActiveBookings.forEach(element => {
           if(element.pending == 1){
             element.pending_text = "En attente";
@@ -130,6 +131,7 @@ export class BookingSystemPage implements OnInit {
           }
 
         });
+        console.log("Despues de recorrer una reserva"); 
         if(this.myActiveBookings.length == 0){
           this.haveActiveBookings = false;
         }else{
@@ -140,6 +142,8 @@ export class BookingSystemPage implements OnInit {
         this.toastService.presentToast('Problème de réseau.');
       }
     )
+    console.log(this.myActiveBookings);
+    console.log("Despues de obtener las reservas.");
   }
 
   async getLastBookingsUserBusiness(){
