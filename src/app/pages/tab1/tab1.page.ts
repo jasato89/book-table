@@ -76,7 +76,7 @@ export class Tab1Page implements OnInit {
     this.getBookingsTotal();
     this.getLastRestaurants();
     this.getRestaurantsTops();
-    
+
     if(!this.platform.is('mobileweb')){
       this.firebaseAnalytics.logEvent('page_view', {page: "Restaurants Views"})
       .then((res: any) => console.log(res))
