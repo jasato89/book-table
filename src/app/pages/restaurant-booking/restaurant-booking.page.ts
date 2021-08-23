@@ -75,7 +75,7 @@ export class RestaurantBookingPage implements OnInit {
         item: this.restaurant
       }
     };
-    this.router.navigate(['home/tabs/tabs2/restaurant-details'], navigationExtras);
+    this.router.navigate(['home/tabs/tab1'], navigationExtras);
   }
 
   async getBookingsByRestaurant(){
@@ -225,6 +225,20 @@ export class RestaurantBookingPage implements OnInit {
     }).then(res => {
       res.present();
     });
+  }
+
+    viewRestaurant(m){
+    if(m.restaurant){
+      m = m.restaurant;
+    }
+    
+    let navigationExtras: NavigationExtras = {
+      replaceUrl: true,
+      state: {
+        item: m
+      }
+    };
+    this.router.navigate(['home/tabs/tabs2/restaurant-details'], navigationExtras);
   }
 
 }

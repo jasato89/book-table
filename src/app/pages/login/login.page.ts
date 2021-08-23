@@ -206,7 +206,6 @@ export class LoginPage implements OnInit {
           if (res) {
           // Storing the User data.
           loading.dismiss();
-          console.log(res);
           window.localStorage.setItem('access_token', res.access_token);
           window.localStorage.setItem('id_user', res.id_user);
           window.localStorage.setItem('name', res.name_user);

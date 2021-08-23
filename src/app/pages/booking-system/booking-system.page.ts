@@ -113,6 +113,7 @@ export class BookingSystemPage implements OnInit {
   async getBookingsForBusinessUser(){
     this.postData.id_user = window.localStorage.getItem('id_user');
     console.log("Antes de obtener las reservas.");
+    console.log(window.localStorage.getItem('id_user'));
     this.authService.getBookingsForBusinessUser(this.postData).subscribe(
       (res: any) => {
         this.myActiveBookings = res;
