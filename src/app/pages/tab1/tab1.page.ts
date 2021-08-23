@@ -76,13 +76,15 @@ export class Tab1Page implements OnInit {
     this.getBookingsTotal();
     this.getLastRestaurants();
     this.getRestaurantsTops();
+  }
 
+  // Detecta cualquier cambio en la vista y lo registra.
+  ionViewDidEnter(){
     if(!this.platform.is('mobileweb')){
       this.firebaseAnalytics.logEvent('page_view', {page: "Restaurants Views"})
       .then((res: any) => console.log(res))
       .catch((error: any) => console.error(error));
     }
-
   }
 
   viewTopicCasual(){

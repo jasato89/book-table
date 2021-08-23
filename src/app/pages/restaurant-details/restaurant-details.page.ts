@@ -72,11 +72,13 @@ export class RestaurantDetailsPage implements OnInit {
           this.haveMenu = false;
         }
 
-        if(!this.platform.is('mobileweb')){
-          this.firebaseAnalytics.logEvent('page_view', {page: "Restaurant View: "+this.restaurant})
-          .then((res: any) => console.log(res))
-          .catch((error: any) => console.error(error));
-        }
+        // SALTA ERROR "ATENTO DONDE LLAMEMOS A ESTA FUNCION " : FUNCION DESCONOCIDA logEvent().
+
+         if(!this.platform.is('mobileweb')){
+           this.firebaseAnalytics.logEvent('page_view', {page: "Restaurant View: "+this.restaurant})
+           .then((res: any) => console.log(res))
+           .catch((error: any) => console.error(error));
+         }
 
         this.id_rest = this.restaurant.id;
         this.haveBooking();

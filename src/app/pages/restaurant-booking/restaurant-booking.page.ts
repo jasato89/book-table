@@ -98,6 +98,7 @@ export class RestaurantBookingPage implements OnInit {
 
   createListBooking(){
     var arrayInputs = [];
+
     this.listBookings.forEach(element => {
       var object = {
         type: 'radio',
@@ -106,8 +107,17 @@ export class RestaurantBookingPage implements OnInit {
       }
       arrayInputs.push(object);
     });
-
-    this.showPrompt(arrayInputs);
+    // Si tiene mas de una mesa para reservar, mostramos el listado.
+    // Si no, solo mostramos el Pop-up de para cuantos clientes queremos reservar. 
+    if (this.listBookings.length > 1) {
+      this.showPrompt(arrayInputs);
+    } else {
+      // Solo nos quedamos con la unica mesa disponible.
+      this.bookingSelect = arrayInputs[0].value;
+      // Mostramo el Pop-up para reservar.
+      this.showAlertDivisible();
+    }
+    
   }
 
   showPrompt(arrayInputs) {
