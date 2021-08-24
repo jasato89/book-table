@@ -329,7 +329,7 @@ export class Tab2Page {
       );
 
     }else{
-      this.toastService.presentToast('Remplissez les champs.');
+      this.toastService.presentToast('Remplissez les champs: "Nombre de couverts"');
     }
     
   }

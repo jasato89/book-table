@@ -142,7 +142,7 @@ export class RestaurantBookingPage implements OnInit {
               data = arrayInputs[0].value;
             }
             console.log('Selected Information', data);
-            this.table = 'Table pour max'+data.commensals+' personnes - '+data.turn_text;
+            this.table = 'Table pour max '+data.commensals+' personnes - '+data.turn_text;
             this.bookingSelect = data;
             this.time = null;
             if(data.divisible_table == 1){
