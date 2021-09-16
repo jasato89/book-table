@@ -64,10 +64,12 @@ export class RestaurantDetailsPage implements OnInit {
         this.id_user = window.localStorage.getItem('id_user');
         const state = this.router.getCurrentNavigation().extras.state;
         this.restaurant = state.item;
-        console.log(this.restaurant.restaurant_menu['length']);
-        if (typeof this.restaurant.restaurant_menu !== 'undefined' && this.restaurant.restaurant_menu  > 0){
+        console.log(this.restaurant);
+        console.log(this.restaurant.restaurant_menu);
+        if (this.restaurant.restaurant_menu.length  > 2){
           this.restaurant.restaurant_menu = JSON.parse(this.restaurant.restaurant_menu);
           this.haveMenu = true;
+          console.log("enter");
         }else{
           this.haveMenu = false;
         }
