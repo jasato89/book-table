@@ -1,21 +1,21 @@
 {
-  "appId": "com.lchawkins.booktable",
-  "appName": "BookTable",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 2000,
-      "backgroundColor": "#ffffffff",
-      "androidSplashResourceName": "splash",
-      "androidScaleType": "CENTER_CROP"
-    }
-  },
-  "cordova": {
-    "preferences": {
-      "FACEBOOK_APP_ID": "1737409156441794",
-      "FACEBOOK_APP_NAME": "BkTableapp"
-    }
-  }
+	"appId": "com.lchawkins.booktable",
+	"appName": "BookTable",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 2000,
+			"backgroundColor": "#ffffffff",
+			"androidSplashResourceName": "splash",
+			"androidScaleType": "CENTER_CROP"
+		}
+	},
+	"cordova": {
+		"preferences": {
+			"FACEBOOK_APP_ID": "1737409156441794",
+			"FACEBOOK_APP_NAME": "BkTableapp"
+		}
+	}
 }
