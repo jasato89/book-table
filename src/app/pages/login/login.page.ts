@@ -6,6 +6,7 @@ import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
+import { decimalDigest } from '@angular/compiler/src/i18n/digest';
 
 @Component({
   selector: 'app-login',
