@@ -69,6 +69,7 @@ export class RestaurantDetailsPage implements OnInit {
         if (this.restaurant.restaurant_menu.length  > 2){
           this.restaurant.restaurant_menu = JSON.parse(this.restaurant.restaurant_menu);
           this.haveMenu = true;
+          console.log("enter");
         }else{
           this.haveMenu = false;
         }
