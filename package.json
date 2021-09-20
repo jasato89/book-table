@@ -21,8 +21,8 @@
     "@angular/platform-browser": "~10.0.0",
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
-    "@capacitor/android": "^2.5.0",
-    "@capacitor/core": "^2.5.0",
+    "@capacitor/android": "^3.0.0-beta.3",
+    "@capacitor/core": "^2.0.2",
     "@capacitor/ios": "^2.5.0",
     "@ionic-native/android-permissions": "^5.36.0",
     "@ionic-native/badge": "^5.36.0",
@@ -94,4 +94,3 @@
   "description": "An Ionic project",
   "resources": "capacitor-resources -p android,ios && node resources.js"
 }
-*/
