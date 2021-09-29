@@ -68,6 +68,7 @@ export class Tab1Page implements OnInit {
       this.getBookingsAll();
       this.getBookingsTotal();
       this.getLastRestaurants();
+      this.getRestaurantsTops();
       event.target.complete();
   }
 
