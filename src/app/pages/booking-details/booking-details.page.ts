@@ -35,6 +35,7 @@ export class BookingDetailsPage implements OnInit {
         if (this.router.getCurrentNavigation().extras.state) {
           this.booking = this.router.getCurrentNavigation().extras.state.item;
           if(this.booking.user_name){
+            console.log(this.booking);
             this.hasArrived = true;
             this.hasPending = false;
           }else{

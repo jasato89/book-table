@@ -41,8 +41,18 @@
 
         <ng-container *ngIf="booking.id_user">
         <ion-item>
-          <ion-label position="floating">Client</ion-label>
+          <ion-label position="floating">Client Nom</ion-label>
           <ion-input value="{{ booking.user_name }}" readonly> </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="booking.user['last_name'] != 'null' && booking.user['last_name']">
+          <ion-label position="floating">Client Nom de famille</ion-label>
+          <ion-input value="{{ booking.user['last_name'] }}" readonly> </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="booking.user['phone_number']">
+          <ion-label position="floating">Téléphone</ion-label>
+          <ion-input value="{{ booking.user['phone_number'] }}" readonly> </ion-input>
         </ion-item>
       </ng-container>
 

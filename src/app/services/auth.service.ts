@@ -90,6 +90,11 @@ providedIn: 'root'
     let token = window.localStorage.getItem('access_token');
     return this.httpService.get('getRestaurantsTops', token);
   }
+
+  getRestaurantsTopsList(data: any): Observable<any>{
+    let token = window.localStorage.getItem('access_token');
+    return this.httpService.post('getRestaurantsTopsList', data, token);
+  }
   
   /** Common API Calls POST **/
 

@@ -107,15 +107,21 @@ export class RestaurantBookingPage implements OnInit {
       }
       arrayInputs.push(object);
     });
+
+    this.bookingSelect = arrayInputs[0].value;
+
     // Si tiene mas de una mesa para reservar, mostramos el listado.
     // Si no, solo mostramos el Pop-up de para cuantos clientes queremos reservar. 
-    if (this.listBookings.length > 1) {
-      this.showPrompt(arrayInputs);
-    } else {
-      // Solo nos quedamos con la unica mesa disponible.
-      this.bookingSelect = arrayInputs[0].value;
-      // Mostramo el Pop-up para reservar.
+    if (arrayInputs[0].value['commensals'] > 1) {
+      //this.showPrompt(arrayInputs);
       this.showAlertDivisible();
+    } else {
+
+      console.log(arrayInputs);
+      // Solo nos quedamos con la unica mesa disponible.
+      this.commensals = 1;
+      // Mostramo el Pop-up para reservar.
+      //this.showAlertDivisible();
     }
     
   }

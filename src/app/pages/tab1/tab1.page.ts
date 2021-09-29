@@ -237,6 +237,9 @@ export class Tab1Page implements OnInit {
   }
 
   async getRestaurantsTops(){
+    this.id_user = window.localStorage.getItem('id_user');
+    this.postData.id_user = this.id_user;
+
     const loading = await this.loadingController.create({
       message: 'Chargement...',
       mode: 'ios',
@@ -245,7 +248,7 @@ export class Tab1Page implements OnInit {
     await loading.present();
     this.id_user = window.localStorage.getItem('id_user');
     this.postData.id_user = this.id_user;
-    this.authService.getRestaurantsTops().subscribe(
+    this.authService.getRestaurantsTopsList(this.postData).subscribe(
       (res: any) => {
         this.topRestaurants = res;
         this.topRestaurants.forEach(element => {
