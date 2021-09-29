@@ -110,20 +110,7 @@ export class RestaurantBookingPage implements OnInit {
 
     this.bookingSelect = arrayInputs[0].value;
 
-    // Si tiene mas de una mesa para reservar, mostramos el listado.
-    // Si no, solo mostramos el Pop-up de para cuantos clientes queremos reservar. 
-    if (arrayInputs[0].value['commensals'] > 1) {
-      //this.showPrompt(arrayInputs);
-      this.showAlertDivisible();
-    } else {
-
-      console.log(arrayInputs);
-      // Solo nos quedamos con la unica mesa disponible.
-      this.commensals = 1;
-      // Mostramo el Pop-up para reservar.
-      //this.showAlertDivisible();
-    }
-    
+    this.showPrompt(arrayInputs)
   }
 
   showPrompt(arrayInputs) {
@@ -154,7 +141,12 @@ export class RestaurantBookingPage implements OnInit {
             if(data.divisible_table == 1){
               this.divisible = 1;
               this.commensals = 0;
-              this.showAlertDivisible();
+              if (data.commensals > 1) {
+                this.showAlertDivisible();
+              }
+              else{
+                this.commensals = data.commensals;
+              }
             }else{
               this.commensals = data.commensals;
               this.divisible = 0;
@@ -229,7 +221,8 @@ export class RestaurantBookingPage implements OnInit {
     this.alertController.create({
       mode: 'ios',
       header: 'Demande de réservation',
-      subHeader: 'Nous vous enverrons une notification lorsque votre réservation sera acceptée par le restaurant.',
+      //subHeader: 'Nous vous enverrons une notification lorsque votre réservation sera acceptée par le restaurant.',
+      subHeader: 'Votre réservation a été effectuée',
       buttons: [
         {
           text: 'Ok',

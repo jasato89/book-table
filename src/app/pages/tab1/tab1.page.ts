@@ -16,7 +16,7 @@ export class Tab1Page implements OnInit {
   public restaurants_featured: any;
   private like: any;
   public id_user: any;
-  public listEmpty: boolean;
+  public listEmpty: boolean = true;
 
   public postData = {
     id_user: ''
@@ -170,6 +170,7 @@ export class Tab1Page implements OnInit {
       (res: any) => {
         this.bookingAll = res;
         this.listEmpty = this.checkEmptyList(this.bookingAll);
+        console.log(this.listEmpty);
         if(this.listEmpty){
           this.bookingAll.forEach(element => {
             element.images = JSON.parse(element.images);

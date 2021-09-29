@@ -24,7 +24,7 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-      <ion-col size="12" *ngIf="havePaymentMethod == 3 || havePaymentMethod == 2">
+      <ion-col size="12" *ngIf="havePaymentMethod == 3">
         <ion-list>
           <ion-list-header>
             <ion-label>Id</ion-label>
@@ -52,7 +52,7 @@
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="11">
-        <ion-button expand="block" *ngIf="havePaymentMethod == 3 || havePaymentMethod == 2" (click)="createBooking()">AJOUTER UNE TABLE</ion-button>
+        <ion-button expand="block" *ngIf="havePaymentMethod == 3" (click)="createBooking()">AJOUTER UNE TABLE</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
