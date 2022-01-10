@@ -162,7 +162,7 @@
                       <ion-label floating>
                         Nombre de couverts
                       </ion-label>
-                      <ion-select mode="ios" [(ngModel)]="commensals" (ionChange)="optionsCommensals(commensals)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Annuler">
+                      <ion-select value="any" mode="ios" [(ngModel)]="commensals" (ionChange)="optionsCommensals(commensals)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Annuler" >
                         <ion-select-option value="any">Peu importe</ion-select-option>
                         <ion-select-option value="1">1</ion-select-option>
                         <ion-select-option value="2">2</ion-select-option>
@@ -177,7 +177,7 @@
                       <ion-label class="label-wishlist" floating>
                         Ville
                       </ion-label>
-                      <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customAlertOptions" interface="alert" cancelText="Annuler">
+                      <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customAlertOptions" interface="action-sheet" cancelText="Annuler">
                         <ng-container *ngFor="let item of cities">
                           <ion-select-option value="{{item.city}}">{{ item.city }}</ion-select-option>
                         </ng-container>
@@ -251,9 +251,24 @@
                       <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 1"></ion-icon>
                       <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 2"></ion-icon>
                       <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 3"></ion-icon>
+                      
                     </div>
-    
+                    <!-- <div class="button-card" *NgIf="m.booking">
+                      <ion-row>
+                        <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6">
+                          <ion-button expand="block" class="btn-reserve" (click)="goToBooking(m)">
+                            Réserver
+                          </ion-button>
+                        </ion-col>
+                        <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6">
+                          <ion-button expand="block" class="btn-info" (click)="viewRestaurant(m)">
+                            Info & Menu
+                          </ion-button>
+                        </ion-col>
+                      </ion-row>
+                    </div>                     -->
                 </ion-card-content>
+                
               </ion-card>
 
               </ng-container>

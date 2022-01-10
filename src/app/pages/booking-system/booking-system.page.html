@@ -27,24 +27,30 @@
       <ion-col size="12" *ngIf="havePaymentMethod == 3">
         <ion-list>
           <ion-list-header>
-            <ion-label>Id</ion-label>
+            <ion-label>Date</ion-label>
             <ion-label>Couverts</ion-label>
             <ion-label>Services</ion-label>
             <ion-label>Statut</ion-label>
           </ion-list-header>
           <ng-container *ngFor="let item of myActiveBookings">
+            <ion-item *ngIf="item.fechaFormat == 1 && item.pending == 0" (click)="modifyBooking(item)" class="item-booking-disabled">
+              <ion-label> {{item.created_at | date:'dd/MM/yyyy'}} </ion-label>
+              <ion-label> {{item.commensals}} </ion-label>
+              <ion-label> {{item.turn_text}} </ion-label>
+              <ion-label class="ion-text-wrap"> {{item.pending_text}} </ion-label>
+            </ion-item>
             <ion-item *ngIf="item.pending == 1" (click)="modifyBooking(item)" class="item-booking-inactive">
-                <ion-label> {{item.id}} </ion-label>
+                <ion-label> {{item.created_at | date:'dd/MM/yyyy'}} </ion-label>
                 <ion-label> {{item.commensals}} </ion-label>
                 <ion-label> {{item.turn_text}} </ion-label>
                 <ion-label class="ion-text-wrap"> {{item.pending_text}} </ion-label>
             </ion-item>
-            <ion-item *ngIf="item.pending == 0" (click)="modifyBooking(item)" class="item-booking-active">
-              <ion-label> {{item.id}} </ion-label>
+            <ion-item *ngIf="item.pending == 0 && item.fechaFormat == 0" (click)="modifyBooking(item)" class="item-booking-active">
+              <ion-label> {{item.created_at | date:'dd/MM/yyyy'}} </ion-label>
               <ion-label> {{item.commensals}} </ion-label>
               <ion-label> {{item.turn_text}} </ion-label>
               <ion-label class="ion-text-wrap"> {{item.pending_text}} </ion-label>
-          </ion-item>
+            </ion-item>
           </ng-container>
         </ion-list>
 

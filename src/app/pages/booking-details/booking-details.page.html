@@ -54,15 +54,25 @@
           <ion-label position="floating">Téléphone</ion-label>
           <ion-input value="{{ booking.user['phone_number'] }}" readonly> </ion-input>
         </ion-item>
+
+        <ion-item *ngIf="booking.time">
+          <ion-label position="floating">Date</ion-label>
+          <ion-input value="{{ booking.time | date:'dd/MM/yyyy' }}" readonly> </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="booking.time">
+          <ion-label position="floating">heure</ion-label>
+          <ion-input value="{{ booking.time | date:'shortTime' }}" readonly> </ion-input>
+        </ion-item>
       </ng-container>
 
       </ion-col>
     </ion-row>
-    <ion-row class="ion-justify-content-center" *ngIf="hasArrived">
+    <!-- <ion-row class="ion-justify-content-center" *ngIf="hasArrived">
       <ion-col size="11">
         <ion-button expand="block" (click)="_hasArrived()">EST ARRIVÉ</ion-button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     <ion-row class="ion-justify-content-center" *ngIf="hasPending">
       <ion-col size="11">
         <ion-button expand="block" (click)="deleteBooking()">SUPPRIMER</ion-button>

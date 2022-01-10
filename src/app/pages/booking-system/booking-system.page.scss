@@ -48,10 +48,16 @@ ion-list-header ion-label{
 
 .item-booking-inactive{
   --background: blanchedalmond;
+  font-size: 0.7rem;
 }
 
 .item-booking-active{
   --background: lightgreen;
+  font-size: 0.7rem;
+}
+.item-booking-disabled{
+  --background: gray;
+  font-size: 0.7rem;
 }
 
 .bold-text{

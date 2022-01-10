@@ -69,6 +69,7 @@ export class Tab2Page {
   ) {}
 
   ngOnInit() {
+    this.commensals = 'any';
   }
 
 
@@ -290,6 +291,18 @@ export class Tab2Page {
       }
     );
   }
+  goToBooking(m){
+    if(m.restaurant){
+      m = m.restaurant;
+    }
+
+    let navigationExtras: NavigationExtras = {
+      state: {
+        item: m
+      }
+    };
+    this.router.navigate(['home/tabs/tabs2/restaurant-details/booking'], navigationExtras);
+  }
 
   async searchAction(){
 
@@ -315,6 +328,7 @@ export class Tab2Page {
             this.restaurantsFilter.forEach(element => {
               element.images = JSON.parse(element.images);
               element.description_short = element.description.substring(0, maxLength) + '...';
+              console.log(element)
             });
           }else{
             this.toastService.presentToast("Il n'y a aucum restaurant correspondant à vos critères ");

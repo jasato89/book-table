@@ -119,6 +119,23 @@ export class BookingSystemPage implements OnInit {
         this.myActiveBookings = res;
         console.log("Antes de recorrer una reserva"); 
         this.myActiveBookings.forEach(element => {
+
+          var hoy = new Date();//Fecha actual del sistema
+          var fechaFormateada = element.created_at;
+          var fechaHoy = hoy.toLocaleDateString("en-CA");
+          var fechaFinal = fechaFormateada.slice(0, 10);
+        
+          console.log(fechaFinal !== fechaHoy)
+          console.log(fechaFinal)
+          console.log(fechaHoy)
+
+
+          if (fechaFinal == fechaHoy) {
+            element.fechaFormat = 0;
+          }else {
+            element.fechaFormat = 1;
+          }
+          
           if(element.pending == 1){
             element.pending_text = "En attente";
           }else{
@@ -132,6 +149,8 @@ export class BookingSystemPage implements OnInit {
           }
 
         });
+    console.log(this.myActiveBookings);
+        
         console.log("Despues de recorrer una reserva"); 
         if(this.myActiveBookings.length == 0){
           this.haveActiveBookings = false;
