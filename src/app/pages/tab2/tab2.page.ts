@@ -324,6 +324,7 @@ export class Tab2Page {
         (res: any) => {
           var maxLength = 140;
           this.restaurantsFilter = res;
+          console.log(this.restaurantsFilter);
           if(this.restaurantsFilter){
             this.restaurantsFilter.forEach(element => {
               element.images = JSON.parse(element.images);
