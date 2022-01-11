@@ -20,8 +20,11 @@ export class ModalSearchBarComponent implements OnInit, AfterViewInit {
 
   public restaurants: any;
   public restaurantsAux: any;
-  public searchTerm: any
-
+  public searchTerm: any;
+  public id_user: any;
+  public postData = {
+    id_user: ''
+  };
   constructor(
     private nav:NavController,
     private modalCtrl:ModalController,
@@ -54,7 +57,9 @@ export class ModalSearchBarComponent implements OnInit, AfterViewInit {
 }
 
   getRestaurants(){
-    this.authService.getAllRestaurants().subscribe(
+    this.id_user = window.localStorage.getItem('id_user');
+    this.postData.id_user = this.id_user;
+    this.authService.getAllRestaurants(this.postData).subscribe(
       (res: any) => {
         this.restaurants = res;
         this.restaurants.forEach(element => {

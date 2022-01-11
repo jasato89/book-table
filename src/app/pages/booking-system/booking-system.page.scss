@@ -57,7 +57,13 @@ ion-list-header ion-label{
 }
 .item-booking-disabled{
   --background: gray;
+  color:white;
   font-size: 0.7rem;
+}
+.item-booking-pasada{
+  --background: #fc5a5a;
+  font-size: 0.7rem;
+  
 }
 
 .bold-text{

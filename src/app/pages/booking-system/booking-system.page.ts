@@ -124,22 +124,44 @@ export class BookingSystemPage implements OnInit {
           var fechaFormateada = element.created_at;
           var fechaHoy = hoy.toLocaleDateString("en-CA");
           var fechaFinal = fechaFormateada.slice(0, 10);
-        
+          
           console.log(fechaFinal !== fechaHoy)
           console.log(fechaFinal)
           console.log(fechaHoy)
-
-
-          if (fechaFinal == fechaHoy) {
-            element.fechaFormat = 0;
-          }else {
-            element.fechaFormat = 1;
-          }
           
-          if(element.pending == 1){
+          
+          // if (fechaFinal == fechaHoy) {
+          //   element.fechaFormat = 0;
+          // }else {
+            //   element.fechaFormat = 1;
+            //   if(element.pending == 1){
+              //     element.pending_text = "En attente";
+              //   }
+              // }
+              
+          
+
+          if(element.pending == 1 && fechaFinal == fechaHoy){
+
+            element.fechaFormat = 3;
             element.pending_text = "En attente";
-          }else{
+            
+          }else if(element.pending == 1 && fechaFinal < fechaHoy){
+            
+            element.pending_text = "No Réservée";
+            element.fechaFormat = 0;
+
+          }
+          else if(element.pending == 0 && fechaFinal == fechaHoy){
+
             element.pending_text = "Réservée";
+            element.fechaFormat = 0;
+
+          }else{
+
+            element.pending_text = "Finalisé";
+            element.fechaFormat = 1;
+
           }
 
           if(element.turns == 1){
