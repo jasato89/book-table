@@ -138,10 +138,10 @@
                       <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 2"></ion-icon>
                       <ion-icon src="assets/icon/1_star.svg" class="icons-green-item" *ngIf="m.michelin_starts > 3"></ion-icon>
                     </div>
-                    <div class="button-card" >
+                    <div class="button-card">
                       <ion-row>
                         <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6">
-                          <ion-button expand="block" class="btn-reserve" (click)="goToBooking(m)">
+                          <ion-button *ngIf="m.disponible" expand="block" class="btn-reserve" (click)="goToBooking(m)">
                             Réserver
                           </ion-button>
                         </ion-col>
@@ -270,7 +270,7 @@
                     <div class="button-card" >
                       <ion-row>
                         <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6">
-                          <ion-button *ngIf="m.commensals" expand="block" class="btn-reserve" (click)="goToBooking(m)">
+                          <ion-button *ngIf="m.disponible" expand="block" class="btn-reserve" (click)="goToBooking(m)">
                             Réserver
                           </ion-button>
                         </ion-col>
