@@ -61,6 +61,7 @@
     "es6-promise-plugin": "^4.2.2",
     "ionic": "^5.4.16",
     "moment": "^2.29.1",
+    "ngx-pagination": "^5.1.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.3.1",
     "zone.js": "~0.10.3"

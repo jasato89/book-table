@@ -38,6 +38,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,6 +51,7 @@ import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxPaginationModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDc7HjT92K2wZr6aeLqbuCOSaPUz3Mky-8',
     }),

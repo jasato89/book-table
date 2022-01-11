@@ -157,6 +157,10 @@ export class BookingSystemPage implements OnInit {
         }else{
           this.haveActiveBookings = true;
         }
+
+        this.myActiveBookings = this.myActiveBookings.sort(function (a, b) {
+          return b.id - a.id });
+          
       },
       (error: any) => {
         this.toastService.presentToast('Problème de réseau.');
