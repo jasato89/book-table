@@ -76,9 +76,9 @@ providedIn: 'root'
     return this.httpService.post('getAllRestaurantsFeatures', data, token);
   }
 
-  getAllRestaurants(): Observable<any>{
+  getAllRestaurants(data: any): Observable<any>{
     let token = window.localStorage.getItem('access_token');
-    return this.httpService.get('getAllRestaurants', token);
+    return this.httpService.post('getAllRestaurants', data, token);
   }
 
   getCitysFromRestaurants(): Observable<any>{

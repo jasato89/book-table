@@ -140,7 +140,7 @@ export class Tab3Page {
   }
 
   getRestaurants(){
-    this.authService.getAllRestaurants().subscribe(
+    this.authService.getAllRestaurants(this.postData).subscribe(
       (res: any) => {
         this.restaurants = res;
         this.restaurants.forEach(element => {

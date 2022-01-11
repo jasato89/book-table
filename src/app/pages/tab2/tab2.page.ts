@@ -181,7 +181,8 @@ export class Tab2Page {
 
   async getRestaurants(){
     this.id_user = window.localStorage.getItem('id_user');
-    this.authService.getAllRestaurants().subscribe(
+    this.postData.id_user = this.id_user;
+    this.authService.getAllRestaurants(this.postData).subscribe(
       (res: any) => {
         var maxLength = 100;
         this.restaurants = res;
@@ -190,10 +191,12 @@ export class Tab2Page {
           element.isShown = false;
           element.description_short = element.description.substring(0, maxLength) + '...';
           element.restaurant_menu = JSON.parse(element.restaurant_menu);
+          console.log(element)
           if(element.restaurant_menu[0]){
             element.restaurant_menu = element.restaurant_menu[0].download_link;
           }
         });
+        
         this.showHideMarkers();
       },
       (error: any) => {
@@ -313,7 +316,7 @@ export class Tab2Page {
         mode: 'ios',
       });
       await loading.present();
-      this.postData.commensals = this.commensals;
+      // this.postData.commensals = this.commensals;
       this.postData.topic = this.topics;
       this.postData.city = this.city;
       this.postData.id_user = window.localStorage.getItem('id_user');
