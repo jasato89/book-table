@@ -53,7 +53,7 @@ export class BookingSystemPage implements OnInit {
     this.getLastBookingsUserBusiness();
   }
 
-  createBooking(){
+  createBooking(){ 
     this.router.navigate(['home/tabs/booking-system/booking-create']);
   }
 
@@ -148,8 +148,8 @@ export class BookingSystemPage implements OnInit {
             
           }else if(element.pending == 1 && fechaFinal < fechaHoy){
             
-            element.pending_text = "No Réservée";
-            element.fechaFormat = 0;
+            element.pending_text = "Non Réservée";
+            element.fechaFormat = 1;
 
           }
           else if(element.pending == 0 && fechaFinal == fechaHoy){
@@ -159,7 +159,7 @@ export class BookingSystemPage implements OnInit {
 
           }else{
 
-            element.pending_text = "Finalisé";
+            element.pending_text = "Réservée";
             element.fechaFormat = 1;
 
           }

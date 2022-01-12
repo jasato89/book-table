@@ -88,6 +88,7 @@ export class BookingCreatePage implements OnInit {
       await loading.present();
       this.authService.createBooking(this.postData).subscribe(
         (res: any) => {
+          console.log(this.postData);
           loading.dismiss();
           this.location.back();
         },

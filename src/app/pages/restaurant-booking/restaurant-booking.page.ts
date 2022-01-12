@@ -28,6 +28,13 @@ export class RestaurantBookingPage implements OnInit {
     id_rest: ''
   };
 
+  public postData2 = {
+    email: '',
+    name: '',
+    id: '',
+    phone_number: ''
+  };
+
   public id_user: any;
   public restaurant: any;
 
@@ -39,6 +46,7 @@ export class RestaurantBookingPage implements OnInit {
   public divisible: any;
   public commensals: any;
   public time: any;
+  public phone: any;
 
 
   constructor(
@@ -196,14 +204,27 @@ export class RestaurantBookingPage implements OnInit {
   }
 
   async createBooking(){
-    this.postCreateBooking.id = this.bookingSelect.id;
-    this.postCreateBooking.id_user = this.id_user;
-    this.postCreateBooking.commensals = this.commensals;
-    this.postCreateBooking.time = this.time;
     const loading = await this.loadingController.create({
       message: 'Chargement...',
       mode: 'ios',
     });
+    const usuario = this.authService.getUser().subscribe(
+      async (res: any) => {
+
+        if (res.phone_number == null) {
+          const phone = this.showAlertPhone(res);
+        }
+
+      },(error: any) => {
+        this.toastService.presentToast('Error');
+        loading.dismiss();
+      }
+    );
+    this.postCreateBooking.id = this.bookingSelect.id;
+    this.postCreateBooking.id_user = this.id_user;
+    this.postCreateBooking.commensals = this.commensals;
+    this.postCreateBooking.time = this.time;
+    
     await loading.present();
     this.authService.createBookingPetition(this.postCreateBooking).subscribe(
       (res: any) => {
@@ -236,6 +257,65 @@ export class RestaurantBookingPage implements OnInit {
     });
   }
 
+  async showAlertPhone(user){
+
+    let prompt = this.alertController.create({
+      mode: 'ios',
+      header: 'Téléphone',
+      message: "Vous devez avoir un numéro de téléphone de contact dans votre nom d'utilisateur",
+      inputs: [
+        {
+          name: 'Phone',
+          placeholder: 'Numéro de téléphone...',
+          type: 'tel',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: (data: any) => {
+            console.log('Canceled', data);
+          }
+        },
+        {
+          text: 'Confirmer',
+          handler: (data: any) => {
+            this.phonenumber(data)
+            // if (data == false) {
+            //   this.alertController.create(
+            //     { message: 'Your input is invalid. Description is missing.', buttons: [{ text: 'OK' }] }
+            //   );
+            //   return;
+            // }
+
+            this.postData2.phone_number = data.Phone; 
+            this.postData2.id = user.id;
+            this.postData2.email = user.email;
+            this.postData2.name = user.name;
+            console.log(this.postData2)
+
+            this.authService.update(this.postData2).subscribe(
+              (res: any) => {
+
+                console.log('Correcto');
+
+              }
+            );
+          }
+        }
+      ]
+    }).then(res => {
+      res.present();
+    });
+  }
+  async phonenumber(inputtxt) {
+    var phoneno = '/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/';
+    if((inputtxt.value.match(phoneno))){
+        return true;
+    }else {
+        return false;
+    }
+  }
     viewRestaurant(m){
     if(m.restaurant){
       m = m.restaurant;

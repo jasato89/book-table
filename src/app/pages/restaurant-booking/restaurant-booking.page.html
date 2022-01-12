@@ -52,14 +52,14 @@
         <ng-container *ngIf="bookingSelect.turns == 1">
           <ion-item>
             <ion-label position="floating">Heure d'arrivée</ion-label>
-            <ion-datetime [(ngModel)]="time" displayFormat="HH:mm" pickerFormat="HH:mm" minuteValues="0,15,30,45" hourValues="12,13,14" placeholder="Choisir" cancelText="Annuler" doneText="Ok"></ion-datetime>
+            <ion-datetime [(ngModel)]="time" displayFormat="HH:mm" pickerFormat="HH:mm" minuteValues="0,15,30,45" hourValues="12,13" placeholder="Choisir" cancelText="Annuler" doneText="Ok"></ion-datetime>
           </ion-item>
         </ng-container>
 
         <ng-container *ngIf="bookingSelect.turns == 2">
           <ion-item>
             <ion-label position="floating">Heure d'arrivée</ion-label>
-            <ion-datetime mode="ios" [(ngModel)]="time" displayFormat="HH:mm" pickerFormat="HH:mm" minuteValues="0,15,30,45" hourValues="17,18,19,20,21,22,23" placeholder="Choisir" cancelText="Annuler" doneText="Ok"></ion-datetime>
+            <ion-datetime mode="ios" [(ngModel)]="time" displayFormat="HH:mm" pickerFormat="HH:mm" minuteValues="0,15,30,45" hourValues="17,18,19,20" placeholder="Choisir" cancelText="Annuler" doneText="Ok"></ion-datetime>
           </ion-item>
         </ng-container>
 

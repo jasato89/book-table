@@ -39,7 +39,7 @@
               <ion-label> {{item.turn_text}} </ion-label>
               <ion-label class="ion-text-wrap"> {{item.pending_text}} </ion-label>
             </ion-item>
-            <ion-item *ngIf="item.fechaFormat == 0 && item.pending == 1" (click)="modifyBooking(item)" class="item-booking-pasada">
+            <ion-item *ngIf="item.fechaFormat == 1 && item.pending == 1" (click)="modifyBooking(item)" class="item-booking-pasada">
               <ion-label> {{item.created_at | date:'dd/MM/yyyy'}} </ion-label>
               <ion-label> {{item.commensals}} </ion-label>
               <ion-label> {{item.turn_text}} </ion-label>
