@@ -146,13 +146,12 @@ export class BookingSystemPage implements OnInit {
             element.fechaFormat = 3;
             element.pending_text = "En attente";
             
-          }else if(element.pending == 1 && fechaFinal < fechaHoy){
+          }else if(element.pending == 1 && fechaFinal > fechaHoy){
             
             element.pending_text = "Non Réservée";
             element.fechaFormat = 1;
 
-          }
-          else if(element.pending == 0 && fechaFinal == fechaHoy){
+          }else if(element.pending == 0 && fechaFinal == fechaHoy){
 
             element.pending_text = "Réservée";
             element.fechaFormat = 0;

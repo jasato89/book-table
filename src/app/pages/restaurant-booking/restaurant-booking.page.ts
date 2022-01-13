@@ -112,7 +112,7 @@ export class RestaurantBookingPage implements OnInit {
     this.listBookings.forEach(element => {
       var object = {
         type: 'radio',
-        label: 'Table pour max'+element.commensals+' personnes - '+element.turn_text,
+        label: 'Table pour max '+element.commensals+' personnes - '+element.turn_text,
         value: element
       }
       arrayInputs.push(object);
@@ -174,7 +174,7 @@ export class RestaurantBookingPage implements OnInit {
     for (let i = 1; i <= this.bookingSelect.commensals; i++){
       var object = {
         type: 'radio',
-        label: +i+' personnes',
+        label: ' '+i+' personnes',
         value: i
       }
       arrayInputs.push(object);
