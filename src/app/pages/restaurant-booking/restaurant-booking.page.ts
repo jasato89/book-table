@@ -9,7 +9,7 @@ import { Location } from "@angular/common";
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { AgmMap } from '@agm/core';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -215,17 +215,11 @@ export class RestaurantBookingPage implements OnInit {
 
         if (res.phone_number == null) {
           //const phone = this.showAlertPhone(res);
-          swal({
-            content: {
-              element: "input",
-              attributes: {
-                placeholder: "Entrez votre numéro de téléphone",
-                type: "tel",
-              },
-            },
+          Swal.fire({
+            html: '<input name="phone" type="tel" placeholder="Entrez votre numéro de téléphone">'
           }).then((value) => {
-            
-            this.postData2.phone_number = value; 
+            console.log(value);
+            // this.postData2.phone_number = value; 
             this.postData2.id = res.id;
             this.postData2.email = res.email;
             this.postData2.name = res.name;
