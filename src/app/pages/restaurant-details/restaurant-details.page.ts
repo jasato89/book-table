@@ -1,5 +1,5 @@
 import { Component, OnInit, ComponentFactory, ComponentRef, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
-import { LoadingController, AlertController, Platform } from '@ionic/angular';
+import { LoadingController, AlertController, Platform, NavParams, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AuthService } from './../../services/auth.service';
@@ -7,6 +7,7 @@ import { ToastService } from './../../services/toast.service';
 import { AgmMap } from '@agm/core';
 import { AnimatedLikeComponent } from '../../components/animated-like/animated-like.component';
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
+import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -138,7 +139,7 @@ export class RestaurantDetailsPage implements OnInit {
     this.restaurant = null;
     this.lng = null;
     this.lat = null;
-
+    this.router.navigate(['home/tabs/tab1/']);
   }
 
   profile(){

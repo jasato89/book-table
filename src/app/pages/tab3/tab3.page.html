@@ -153,7 +153,7 @@
               <ion-label class="label-wishlist" floating>
                 Ville
               </ion-label>
-              <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customAlertOptions" interface="alert" cancelText="Annuler">
+              <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Annuler">
                 <ng-container *ngFor="let item of cities">
                   <ion-select-option value="{{item.city}}">{{ item.city }}</ion-select-option>
                 </ng-container>
