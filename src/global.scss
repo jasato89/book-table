@@ -55,7 +55,5 @@ ion-tab-button.tab-selected {
 }
 
 @media (prefers-color-scheme: dark) {
-    .alert-radio-label.sc-ion-alert-md { color: white; }
-    [aria-checked=true].sc-ion-alert-ios .alert-radio-label.sc-ion-alert-ios{color: black !important; font-weight: bold !important;}
-    .picker-button.sc-ion-picker-ios{color: black !important;}
+    .sc-ion-alert-ios, .action-sheet-button-inner, .alert-radio-label.sc-ion-alert-md{color: white;}
   }
