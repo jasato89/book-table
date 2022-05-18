@@ -68,7 +68,7 @@ export class BookingCreatePage implements OnInit {
   setTurns(){
     var now = new Date();
     var nowTime = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2);
-    var limit = "17:00";
+    var limit = "18:30";
 
     if(nowTime >= limit){
       this.arrayTurns.push(this.turnNight)

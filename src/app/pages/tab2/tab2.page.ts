@@ -191,7 +191,7 @@ export class Tab2Page {
           element.isShown = false;
           element.description_short = element.description.substring(0, maxLength) + '...';
           element.restaurant_menu = JSON.parse(element.restaurant_menu);
-          console.log(element)
+          //console.log(element)
           if(element.restaurant_menu[0]){
             element.restaurant_menu = element.restaurant_menu[0].download_link;
           }
@@ -283,11 +283,16 @@ export class Tab2Page {
       return false;
     }
   }
-
+  SortArray(x, y){
+    if (x.city < y.city) {return -1;}
+    if (x.city > y.city) {return 1;}
+    return 0;
+}
   getCities(){
     this.authService.getCitysFromRestaurants().subscribe(
       (res: any) => {
         this.cities = res;
+        //console.log(this.cities.sort(this.SortArray))
       },
       (error: any) => {
         this.toastService.presentToast('Problème de réseau.');
@@ -305,6 +310,10 @@ export class Tab2Page {
       }
     };
     this.router.navigate(['home/tabs/tabs2/restaurant-details/booking'], navigationExtras);
+  }
+
+  ordenar(a, b){
+    return b.disponible - a.disponible;
   }
 
   async searchAction(){
@@ -326,7 +335,9 @@ export class Tab2Page {
       this.authService.getBookings(this.postData).subscribe(
         (res: any) => {
           var maxLength = 140;
-          this.restaurantsFilter = res;
+
+          this.restaurantsFilter = res.sort(this.ordenar);
+
           console.log(this.restaurantsFilter);
           if(this.restaurantsFilter){
             this.restaurantsFilter.forEach(element => {

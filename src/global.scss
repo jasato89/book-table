@@ -32,6 +32,7 @@
 :root {
     --ion-font-family:'Lato';
     font-family: var(--ion-font-family) !important;
+    --prefers-color-scheme: white;
 }
 
 
@@ -52,3 +53,7 @@ ion-tab-button.tab-selected {
 .action-sheet-button-inner{
     color: black;
 }
+
+@media (prefers-color-scheme: dark) {
+    .alert-radio-label.sc-ion-alert-md { color: Black; }
+  }

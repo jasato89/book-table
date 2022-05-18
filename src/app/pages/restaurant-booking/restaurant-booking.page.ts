@@ -10,6 +10,8 @@ import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
 import { AgmMap } from '@agm/core';
 import Swal from 'sweetalert2';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
+import { async } from '@angular/core/testing';
 
 
 @Component({
@@ -36,6 +38,15 @@ export class RestaurantBookingPage implements OnInit {
     id: '',
     phone_number: ''
   };
+
+  public postData3 = {
+    id_booking: ''
+  }
+
+  public booking: any;
+
+  public hasArrived: boolean;
+  public hasPending: boolean;
 
   public id_user: any;
   public restaurant: any;
@@ -71,6 +82,19 @@ export class RestaurantBookingPage implements OnInit {
         this.restaurant = this.router.getCurrentNavigation().extras.state.item;
         this.postData.id_rest = this.restaurant.id;
         this.getBookingsByRestaurant();
+      }
+    });
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.booking = this.router.getCurrentNavigation().extras.state.item;
+        if(this.booking.user_name){
+          console.log(this.booking);
+          this.hasArrived = true;
+          this.hasPending = false;
+        }else{
+          this.hasArrived = false;
+          this.hasPending = true;
+        }
       }
     });
   }
@@ -213,7 +237,7 @@ export class RestaurantBookingPage implements OnInit {
     const usuario = this.authService.getUser().subscribe(
       async (res: any) => {
 
-        if (res.phone_number == null) {
+        if (res.phone_number == null || res.phone_number == '') {
           //const phone = this.showAlertPhone(res);
 
           const { value: tel } = await Swal.fire({
@@ -259,13 +283,16 @@ export class RestaurantBookingPage implements OnInit {
     this.authService.createBookingPetition(this.postCreateBooking).subscribe(
       (res: any) => {
         loading.dismiss();
+
+        
         this.showAlert();
       },
       (error: any) => {
         this.toastService.presentToast('Error');
         loading.dismiss();
       }
-    )
+      )
+      await this._hasArrived(this.bookingSelect.id);
   }
 
   async showAlert(){
@@ -358,6 +385,85 @@ export class RestaurantBookingPage implements OnInit {
       }
     };
     this.router.navigate(['home/tabs/tabs2/restaurant-details'], navigationExtras);
+  }
+
+  async _hasArrived(id){
+    const loading = await this.loadingController.create({
+      message: 'Chargement...',
+      mode: 'ios',
+    });
+    await loading.present();
+    console.log('bookingID: ',this.booking.id)
+    
+    this.postData3.id_booking = id;
+    console.log('postData3: ',this.postData3.id_booking);
+    this.authService.hasArrived(this.postData3).subscribe(
+      (res: any) => {
+        loading.dismiss();
+        console.log(res);
+        this.showAlertFinish();
+      },
+      (error: any) => {
+        loading.dismiss();
+      }
+    )
+  }
+
+  async deleteBooking(){
+    const loading = await this.loadingController.create({
+      message: 'Chargement...',
+      mode: 'ios',
+    });
+    await loading.present();
+    this.postData3.id_booking = this.booking.id;
+    this.authService.deleteBooking(this.postData).subscribe(
+      (res: any) => {
+        loading.dismiss();
+        console.log(res);
+        this.showAlertDelete();
+      },
+      (error: any) => {
+        loading.dismiss();
+      }
+    )
+  }
+
+  showAlertFinish(){
+    this.alertController.create({
+      mode: 'ios',
+      header: 'BookTable',
+      subHeader: 'Booking terminée',
+      message: 'Vous avez indiqué vette réservation comme terminée.',
+      buttons: [
+        {
+          text: 'Done!',
+          handler: (data: any) => {
+            this.location.back();
+          }
+        }
+      ]
+    }).then(res => {
+      res.present();
+    });
+  }
+
+  showAlertDelete(){
+    this.alertController.create({
+      mode: 'ios',
+      header: 'BookTable',
+      subHeader: 'Réservation annulée',
+      message: 'Votre table disponible a été annulée.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data: any) => {
+            this.location.back();
+          }
+        }
+      ]
+    }).then(res => {
+      res.present();
+    });
   }
 
 }

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import * as moment from 'moment';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -53,7 +54,9 @@ export class BookingSystemPage implements OnInit {
     this.getLastBookingsUserBusiness();
   }
 
-  createBooking(){ 
+  createBooking(){
+    var prueba = window.matchMedia('(prefers-color-scheme: white)').matches;
+    console.log('Modo oscuro? : ',prueba);
     this.router.navigate(['home/tabs/booking-system/booking-create']);
   }
 

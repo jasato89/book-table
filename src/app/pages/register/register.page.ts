@@ -123,6 +123,7 @@ export class RegisterPage implements OnInit {
             (res: any) => {
               loading.dismiss();
               this.presentAlert();
+              this.location.back();
             },
             (error: any) => {
               console.log(error.errors);

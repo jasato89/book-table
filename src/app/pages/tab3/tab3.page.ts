@@ -223,7 +223,7 @@ export class Tab3Page {
   getCities(){
     this.authService.getCitysFromRestaurants().subscribe(
       (res: any) => {
-        this.cities = res;
+        this.cities = res.sort();
       },
       (error: any) => {
         this.toastService.presentToast('Problème de réseau.');

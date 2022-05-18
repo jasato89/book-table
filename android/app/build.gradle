@@ -1,13 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    buildToolsVersion '30.0.1'
+    signingConfigs {
+        release {
+            storeFile file('/Users/alex/Documentos/keystore.jks')
+            keyAlias 'uploads'
+            storePassword 'R4t4-2020'
+            keyPassword 'R4t4-2020'
+        }
+
+    }
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.lchawkins.booktable"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 34
-        versionName "4.9.3"
+        targetSdkVersion 30
+        versionCode 44
+        versionName '5.0.2'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,6 +43,7 @@ dependencies {
     /*androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"*/
     implementation project(':capacitor-cordova-android-plugins')
+    implementation 'com.facebook.android:facebook-login:8.1.0'
 }
 
 apply from: 'capacitor.build.gradle'

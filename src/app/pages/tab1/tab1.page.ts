@@ -183,14 +183,28 @@ export class Tab1Page implements OnInit {
       }
     );
   }
-
+  comparar(a, b) {
+    return b.id - a.id;
+  }
   getBookingsTotal(){
     this.id_user = window.localStorage.getItem('id_user');
     this.postData.id_user = this.id_user;
 
     this.authService.getBookingsTotal(this.postData).subscribe(
       (res: any) => {
-        this.bookingTotal = res;
+        const response = res.sort(this.comparar);
+        const bookings = [];
+
+        console.log(response);
+
+
+        for (let i=0; i <= 5; i++) {
+          bookings.push(response[i]);
+        }
+
+        this.bookingTotal = bookings;
+        console.log(bookings);
+
         this.listEmpty = this.checkEmptyList(this.bookingTotal);
         if(this.listEmpty){
           this.bookingTotal.forEach(element => {

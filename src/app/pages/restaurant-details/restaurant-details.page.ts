@@ -37,7 +37,6 @@ export class RestaurantDetailsPage implements OnInit {
 
   public avaibleMap: boolean;
   public haveMenu: boolean;
-
   public postCreateBooking = {
     id: '',
     id_user: '',
@@ -139,6 +138,7 @@ export class RestaurantDetailsPage implements OnInit {
     this.restaurant = null;
     this.lng = null;
     this.lat = null;
+
   }
 
   profile(){
