@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.lchawkins.booktable">
-
-    <meta-data
-        tools:replace="android:value"
-        android:name="firebase_analytics_collection_enabled"
-        android:value="true"/>
-
-    <meta-data
-        tools:replace="android:value"
-        android:name="google_analytics_automatic_screen_reporting_enabled"
-        android:value="false"/>
 
     <application
         android:allowBackup="true"
@@ -51,7 +40,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
-
     </application>
 
     <!-- Permissions -->
