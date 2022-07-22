@@ -51,7 +51,7 @@ export class RegisterBusinessPage implements OnInit {
   ngOnInit() {
   }
 
-  private viewPolicy(){
+  public viewPolicy(){
 
     this.safariViewController.isAvailable().then((available: boolean) => {
       if (available) {

@@ -127,7 +127,7 @@
               <ion-label class="label-wishlist" floating>
                 Type de cuisine
               </ion-label>
-              <ion-select mode="ios" [(ngModel)]="topics" (ionChange)="optionsTopics(topics)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Annuler">
+              <ion-select mode="ios" [(ngModel)]="topics" (ionChange)="optionsTopics(topics)" interface="action-sheet" cancelText="Annuler">
                 <ion-select-option value="belge">Belge</ion-select-option>
                 <ion-select-option value="française">Française</ion-select-option>
                 <ion-select-option value="gastronomique">Gastronomique</ion-select-option>
@@ -153,7 +153,7 @@
               <ion-label class="label-wishlist" floating>
                 Ville
               </ion-label>
-              <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" cancelText="Annuler">
+              <ion-select mode="ios" [(ngModel)]="city" (ionChange)="optionsCity(city)" interface="action-sheet" cancelText="Annuler">
                 <ng-container *ngFor="let item of cities">
                   <ion-select-option value="{{item.city}}">{{ item.city }}</ion-select-option>
                 </ng-container>
@@ -174,7 +174,7 @@
                 <ion-label class="label-wishlist" floating>
                   Rayon
                 </ion-label>
-                <ion-select mode="ios" [(ngModel)]="RadiusGPS" (ionChange)="optionsFn(RadiusGPS)" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="500m - 20km" cancelText="Annuler">
+                <ion-select mode="ios" [(ngModel)]="RadiusGPS" (ionChange)="optionsFn(RadiusGPS)" interface="action-sheet" placeholder="500m - 20km" cancelText="Annuler">
                   <ion-select-option value="500">500m</ion-select-option>
                   <ion-select-option value="1000">1km</ion-select-option>
                   <ion-select-option value="5000">5km</ion-select-option>

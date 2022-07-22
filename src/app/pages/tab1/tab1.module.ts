@@ -9,13 +9,16 @@ import { Tab1PageRoutingModule } from './tab1-routing.module';
 
 import { AnimatedLikeComponent } from '../../components/animated-like/animated-like.component';
 
+import { SharedAnimationModule } from 'src/app/shared-animation/shared-animation.module';
+
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    Tab1PageRoutingModule
+    Tab1PageRoutingModule,
+    SharedAnimationModule
   ],
-  declarations: [Tab1Page, AnimatedLikeComponent]
+  declarations: [Tab1Page]
 })
 export class Tab1PageModule {}

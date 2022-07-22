@@ -5,6 +5,8 @@ import { ToastService } from './../../services/toast.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
+
+
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',

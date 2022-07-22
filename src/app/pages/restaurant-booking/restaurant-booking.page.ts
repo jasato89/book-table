@@ -1,17 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Platform, LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { Platform, LoadingController, AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Location } from "@angular/common";
 import { AuthService } from './../../services/auth.service';
 import { ToastService } from './../../services/toast.service';
-import { AgmMap } from '@agm/core';
 import Swal from 'sweetalert2';
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
-import { async } from '@angular/core/testing';
 
 
 @Component({
@@ -100,6 +97,10 @@ export class RestaurantBookingPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  profile(){
+    this.router.navigate(['home/tabs/user-profile']);
   }
 
   back(){

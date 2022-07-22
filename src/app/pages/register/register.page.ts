@@ -50,7 +50,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  private viewPolicy(){
+  protected viewPolicy(){
 
     this.safariViewController.isAvailable().then((available: boolean) => {
       if (available) {

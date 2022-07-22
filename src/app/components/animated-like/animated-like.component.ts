@@ -33,7 +33,7 @@ export class AnimatedLikeComponent implements OnInit, OnDestroy {
     id_rest: ''
   };
 
-
+  @Input() id_user: any;
   @Input() id_rest: any;
   @Input() like: any;
 

@@ -9,6 +9,8 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
 
 import { AnimatedLikeComponent } from '../../components/animated-like/animated-like.component';
 
+import { SharedAnimationModule } from 'src/app/shared-animation/shared-animation.module';
+
 @NgModule({
   imports: [
     IonicModule,
@@ -16,7 +18,8 @@ import { AnimatedLikeComponent } from '../../components/animated-like/animated-l
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }]),
     Tab3PageRoutingModule,
+    SharedAnimationModule
   ],
-  declarations: [Tab3Page, AnimatedLikeComponent]
+  declarations: [Tab3Page]
 })
 export class Tab3PageModule {}

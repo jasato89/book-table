@@ -10,13 +10,16 @@ import { ListResultPage } from './list-result.page';
 
 import { AnimatedLikeComponent } from '../../components/animated-like/animated-like.component';
 
+import { SharedAnimationModule } from 'src/app/shared-animation/shared-animation.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListResultPageRoutingModule
+    ListResultPageRoutingModule,
+    SharedAnimationModule
   ],
-  declarations: [ListResultPage, AnimatedLikeComponent]
+  declarations: [ListResultPage]
 })
 export class ListResultPageModule {}

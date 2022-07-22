@@ -7,7 +7,6 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import * as moment from 'moment';
 import { SafariViewController } from '@ionic-native/safari-view-controller/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({

@@ -11,6 +11,8 @@ import { AgmCoreModule } from '@agm/core';
 
 import { AnimatedLikeComponent } from '../../components/animated-like/animated-like.component';
 
+import { SharedAnimationModule } from 'src/app/shared-animation/shared-animation.module';
+
 @NgModule({
   imports: [
     IonicModule,
@@ -22,7 +24,8 @@ import { AnimatedLikeComponent } from '../../components/animated-like/animated-l
       apiKey: 'AIzaSyDc7HjT92K2wZr6aeLqbuCOSaPUz3Mky-8',
       libraries: ['geometry']
     }),
+    SharedAnimationModule
   ],
-  declarations: [Tab2Page, AnimatedLikeComponent]
+  declarations: [Tab2Page]
 })
 export class Tab2PageModule {}

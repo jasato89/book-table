@@ -3,15 +3,10 @@ import { AuthService } from './../../services/auth.service';
 import { NavController } from '@ionic/angular';
 import { Platform, LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import {
-  Plugins,
-  PushNotification,
-  PushNotificationToken,
-  PushNotificationActionPerformed,
-} from '@capacitor/core';
+
 import { Badge } from '@ionic-native/badge/ngx';
 
-const { PushNotifications } = Plugins;
+import { PushNotification, PushNotificationActionPerformed, PushNotifications, PushNotificationToken} from '@capacitor/push-notifications';
 
 import { Capacitor } from '@capacitor/core';
 
@@ -57,8 +52,8 @@ export class TabsPage {
     // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
-    PushNotifications.requestPermission().then(result => {
-      if (result.granted) {
+    PushNotifications.requestPermissions().then(result => {
+      if (result.receive === "granted") {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
       } else {
