@@ -16,6 +16,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 })
 export class BookingSystemPage implements OnInit {
 
+  public p2: 0;
+
   public postData = {
     id_user: '',
   }
